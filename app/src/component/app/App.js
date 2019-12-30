@@ -1,27 +1,13 @@
 import React, { Component } from 'react';
 import Header from '../header/Header';
+import Menu from '../menu/Menu';
+import Content from '../content/Content';
 
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pageName: 'New Title',
-            menu: {
-                top: [
-                    {
-                        title: 'One',
-                        link: 'www.one.com',
-                    },
-                    {
-                        title: 'Two',
-                        link: 'www.two.com',
-                    },
-                    {
-                        title: 'Three',
-                        link: 'www.three.com',
-                    }
-                ]
-            },
+
         }
     }
 
@@ -29,11 +15,17 @@ export default class App extends Component {
 
         return (
             <>
-                <h1>Hello</h1>
-                <Header
-                    titlePage={this.state.pageName}
-                    elems={this.state.menu.top}
-                />
+                <Header />
+
+                <aside className="sidebar">
+                    <Menu
+                        position='left'
+                    />
+                </aside>
+
+                <section class="content">
+                    <Content />
+                </section>
             </>
         );
     }
