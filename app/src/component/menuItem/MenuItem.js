@@ -1,12 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const MenuItem = ({link, title}) => {
+const MenuItem = ({ title, onClickElem, link }) => {
+
 
     return (
-        <a href={link} className="menu__link">
+        <Link to={`/${link}`} className="menu__link" onClick={onClickElem}>
             {title}
-		</a>
+        </Link>
     );
 }
+
+
 
 export default MenuItem;
