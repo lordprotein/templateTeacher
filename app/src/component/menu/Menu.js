@@ -1,24 +1,41 @@
 import React, { Component } from 'react';
 import MenuItem from '../menuItem/MenuItem';
 import dbService from '../dbService/dbService';
+import toNormalizeLink from '../normalizeLink/normalizeLink';
 
 
 export default class Menu extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            menuList: [],
-        }
+    state = {
+        menuList: [],
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         const { position } = this.props;
         const service = new dbService();
+
         service.getMenuPositionList(position)
             .then(result => {
-                this.setState(() => { return { menuList: result } })
+                this.setState(() => {
+                    return { menuList: result }
+                })
             });
     }
+
+    renderElems = (menuList = []) => {
+        return menuList.map((item, key) => {
+            const link = toNormalizeLink(item.title);
+            
+            return (
+                <MenuItem
+                    title={item.title}
+                    link={link}
+                    key={key}
+                />
+            )
+        });
+    }
+
+
 
     render() {
         const { menuList } = this.state;
@@ -30,7 +47,7 @@ export default class Menu extends Component {
         return (
             <nav className={stylePos}>
                 {
-                    renderElems(menuList)
+                    this.renderElems(menuList)
                 }
             </nav>
         );
@@ -38,15 +55,6 @@ export default class Menu extends Component {
 
 }
 
-const renderElems = (elems) => {
-    console.log(elems);
-    return elems.map((item, key) => {
-        return (
-            <MenuItem
-                title={item.title}
-                link='#'
-                key={key}
-            />
-        )
-    });
-}
+
+
+
