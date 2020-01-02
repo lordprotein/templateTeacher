@@ -13,6 +13,10 @@ export default class dbService {
         return await res.json();
     }
 
+    getMenuList() {
+        return this.getResource(`/menu`);
+    }
+    
     getMenuPositionList(pos) {
         return this.getResource(`/menu/position/${pos}`);
     }
@@ -20,5 +24,10 @@ export default class dbService {
     getMenuItem(id = '') {
         return this.getResource(`/menu/${id}`);
     }
+
+    getContent(id = '') {
+        return this.getResource(`/menu/${id}/content`);
+    }
+
 
 }
