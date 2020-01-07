@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MenuItem from '../menuItem/MenuItem';
-import dbService from '../dbService/dbService';
+import dbService from '../../dbService/dbService';
+
 import toNormalizeLink from '../normalizeLink/normalizeLink';
 
 

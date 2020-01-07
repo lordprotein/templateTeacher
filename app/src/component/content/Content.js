@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ContentItem from '../contentItem/ContentItem';
 import { Switch, Route } from 'react-router-dom';
-import dbService from '../dbService/dbService';
+import dbService from '../../dbService/dbService';
 import toNormalizeLink from '../normalizeLink/normalizeLink';
 
 
