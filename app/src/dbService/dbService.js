@@ -25,7 +25,7 @@ export default class dbService {
         return this.getResource(`/menu/${id}`);
     }
 
-    getContent(id = '') {
+    getContentList(id = '') {
         return this.getResource(`/menu/${id}/content`);
     }
 
