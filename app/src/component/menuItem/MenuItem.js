@@ -5,7 +5,7 @@ const MenuItem = ({ title, onClickElem, link }) => {
 
 
     return (
-        <Link to={`/${link}`} className="menu__link" onClick={onClickElem}>
+        <Link to={link} className="menu__link" onClick={onClickElem}>
             {title}
         </Link>
     );
