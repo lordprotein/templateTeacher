@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Header from '../../component/header/Header';
-import Content from '../../component/content/Content';
+import Content from '../content/Content';
 import Sidebar from '../../component/sidebar/Sidebar';
 import dbService from '../../dbService/dbService';
 import * as actions from '../../redux/actions';
