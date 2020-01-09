@@ -7,7 +7,7 @@ import Sidebar from '../../component/sidebar/Sidebar';
 import dbService from '../../dbService/dbService';
 import * as actions from '../../redux/actions';
 import { selectors } from '../../redux/reducer';
-import toNormalizeLink from '../../component/normalizeLink/normalizeLink';
+import toNormalizeLink from '../../normalizeLink/normalizeLink';
 
 
 
