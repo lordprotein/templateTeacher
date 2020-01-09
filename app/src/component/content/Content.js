@@ -17,7 +17,7 @@ export default class Content extends Component {
         const menuList = await db.getMenuList();
 
         const menus = menuList.map(async ({ ID, title }) => {
-            const postList = await db.getContent(ID)
+            const postList = await db.getContentList(ID)
             return {
                 title: title,
                 link: `/${toNormalizeLink(title)}`,
@@ -26,7 +26,7 @@ export default class Content extends Component {
         })
 
         const resMenu = await Promise.all(menus);
-
+        // console.log(resMenu)
         this.setState(() => {
             return { menus: resMenu }
         })
