@@ -1,0 +1,1 @@
+export const getAllMenuData = (value) => ({type: 'GET_ALL_MENU_DATA', value});
