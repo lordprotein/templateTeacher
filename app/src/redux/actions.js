@@ -1,1 +1,1 @@
-export const getAllMenuData = (value) => ({type: 'GET_ALL_MENU_DATA', value});
+export const setFetchMenu = (value) => ({type: 'SET_FETCH_MENU', value});

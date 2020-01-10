@@ -2,7 +2,7 @@ import initState from './initState';
 
 const reducer = (state = initState, action = {}) => {
     switch (action.type) {
-        case 'GET_ALL_MENU_DATA': {
+        case 'SET_FETCH_MENU': {
             //if
             const { api } = state;
             return { ...state, api: { ...api, menu: action.value } }
