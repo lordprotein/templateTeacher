@@ -31,7 +31,7 @@ class App extends Component {
 
         const api = await Promise.all(menuList);
 
-        this.props.getAllMenuData(api);
+        this.props.setFetchMenu(api);
     }
 
     render() {
@@ -46,14 +46,13 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state)
     return { menuList: selectors.menuList(state) };
 }
 
 const mapDispatchToProps = (dispatch) => {
-    const { getAllMenuData } = bindActionCreators(actions, dispatch);
+    const { setFetchMenu } = bindActionCreators(actions, dispatch);
 
-    return { getAllMenuData };
+    return { setFetchMenu };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
