@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectors } from '../../redux/reducer'
 import ContentItem from '../../component/contentItem/ContentItem';
+import Authorization from '../authorization/Authorization';
 
 
 
@@ -41,6 +42,7 @@ class Content extends Component {
             <section className="content">
                 <Switch>
                     <Route exact path='/' render={() => <Te />} />
+                    <Route path='/authorization' render={() => <Authorization />} />
                     {this.createRoute}
                 </Switch>
             </section>
