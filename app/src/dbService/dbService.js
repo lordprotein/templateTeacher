@@ -4,19 +4,36 @@ export default class dbService {
     }
 
     async getResource(url = '') {
-        const res = await fetch(`${this._link}${url}`);
+        const getData = await fetch(`${this._link}${url}`);
 
-        if (!res.ok) {
-            throw new Error('Errorrrrr');
+        if (!getData.ok) {
+            throw new Error('Error: data is dont get');
         }
 
-        return await res.json();
+        return await getData.json();
+    }
+
+    async postResourse(url = '', data) {
+        const postData = await fetch(`${this._link}${url}`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            // mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!postData.ok) {
+            throw new Error('Error: data is dont send');
+        }
+
+        return await postData.json();
     }
 
     getMenuList() {
         return this.getResource(`/menu`);
     }
-    
+
     getMenuPositionList(pos) {
         return this.getResource(`/menu/position/${pos}`);
     }
@@ -29,5 +46,8 @@ export default class dbService {
         return this.getResource(`/menu/${id}/content`);
     }
 
+    postLogin(data) {
+        return this.postResourse('/login', data);
+    }
 
 }
