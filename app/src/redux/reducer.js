@@ -5,9 +5,18 @@ const reducer = (state = initState, action = {}) => {
         case 'SET_FETCH_MENU': {
             //if
             const { api } = state;
-            return { ...state, api: { ...api, menu: action.value } }
-
+            return { ...state, api: { ...api, menu: action.value } };
         }
+        case 'SET_LOGIN': {
+            let { logIn: { status, login, password } } = state;
+
+            status = true;
+            login = action.value.login;
+            password = action.value.password;
+            
+            return { ...state, logIn: {status, login, password} };
+        }
+
         default: return state;
     }
 }
