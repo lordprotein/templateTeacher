@@ -13,17 +13,46 @@ const reducer = (state = initState, action = {}) => {
             status = true;
             login = action.value.login;
             password = action.value.password;
-            
-            return { ...state, logIn: {status, login, password} };
+
+            return { ...state, logIn: { status, login, password } };
         }
+        case 'TOGGLE_EDIT_CONTENT': {
+            let { components, components: { Content, Content: { modeAddPost } } } = state;
+            
+            modeAddPost = !modeAddPost;
+
+            return { ...state, components: { ...components, Content: { ...Content, modeAddPost } } };
+        }
+        // case 'ADD_POST': {
+        //     const newContent = action.value;
+        //     const { ID_MENU } = newContent;
+        //     const menu = state.api.menu;
+
+        //     for (let menuItem in menu) {
+        //         if (menu.ID === ID_MENU) {
+        //             menuItem.postList = { ...menuItem.postList, }
+        //         }
+        //     }
+
+        //     return {}
+        // }
 
         default: return state;
     }
 }
 
 class Selectors {
-    menuList = (state) => {
-        return state.api.menu;
+    menuList = ({ api }) => {
+        return api.menu;
+    }
+    statusAuthoriz = ({ logIn }) => {
+        return logIn.status;
+    }
+    loginData = ({ logIn }) => {
+        return { login: logIn.login, password: logIn.password }
+    }
+    toggleEditContent = ({ components }) => {
+        return components.Content.modeAddPost;
     }
 }
 
