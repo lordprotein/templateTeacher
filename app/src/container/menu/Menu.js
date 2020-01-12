@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import MenuItem from '../../component/menuItem/MenuItem';
 import { connect } from 'react-redux';
 import { selectors } from '../../redux/reducer';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../redux/actions';
 
 
 
@@ -20,7 +22,7 @@ class Menu extends Component {
     }
 
     render() {
-        const { position, menuList } = this.props;
+        const { position, menuList, statusAuthoriz } = this.props;
         const menuPosList = menuList.filter(menuItem => position === menuItem.position);
         
         let stylePos = 'menu ';
@@ -28,6 +30,8 @@ class Menu extends Component {
 
         return (
             <nav className={stylePos}>
+                
+                {statusAuthoriz && <button>Добавить новое меню</button>}
                 {
                     this.renderMenuList(menuPosList)
                 }
@@ -38,7 +42,10 @@ class Menu extends Component {
 }
 
 const mapStateToProps = state => {
-    return { menuList: selectors.menuList(state) };
+    return { 
+        menuList: selectors.menuList(state),
+        statusAuthoriz: selectors.statusAuthoriz(state),
+     };
 }
 
 export default connect(mapStateToProps)(Menu);
