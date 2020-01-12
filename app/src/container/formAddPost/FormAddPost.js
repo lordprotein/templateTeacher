@@ -9,7 +9,6 @@ import * as actions from '../../redux/actions';
 class FormAddPost extends Component {
     onSaveTitle = e => {
         this.title = e.target.value;
-
     }
 
     onSaveContent = e => {
@@ -19,7 +18,7 @@ class FormAddPost extends Component {
     handleSubmit = (e) => {
         // e.preventDefault();
         const { title, content } = this,
-            { loginData, ID_MENU, toggleEditContent, menuItem } = this.props,
+            { loginData, ID_MENU, toggleEditContent, menuItem, updateContent } = this.props,
             contentData = { title, content, ID_MENU };
 
         console.log(menuItem);
@@ -29,7 +28,12 @@ class FormAddPost extends Component {
 
         db.addPost({ ...loginData, ...contentData })
             .then(res => {
-                toggleEditContent();
+                db.updatePostList(ID_MENU, (contentList) => {
+                    // console.log(contentList)
+                    updateContent({ ID_MENU, contentList });
+                    toggleEditContent();
+                })
+
             });
     }
 
@@ -65,12 +69,13 @@ const mapStateToProps = state => {
     return ({
         loginData: selectors.loginData(state),
         statusEdit: selectors.toggleEditContent(state),
+        // updateContent: selectors.updateContent(state),
     });
 }
 
 const mapDispatchToProps = dispatch => {
-    const { toggleEditContent } = bindActionCreators(actions, dispatch);
-    return { toggleEditContent };
+    const { toggleEditContent, addPost, updateContent } = bindActionCreators(actions, dispatch);
+    return { toggleEditContent, addPost, updateContent };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormAddPost);
