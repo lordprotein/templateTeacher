@@ -35,18 +35,23 @@ class App extends Component {
     }
 
     render() {
+        const { statusAuthoriz } = this.props;
+
         return (
             <>
-                <Header />
-                <Sidebar />
-                <Content />
+                <Header statusAuthoriz={statusAuthoriz} />
+                <Sidebar statusAuthoriz={statusAuthoriz} />
+                <Content statusAuthoriz={statusAuthoriz} />
             </>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return { menuList: selectors.menuList(state) };
+    return {
+        menuList: selectors.menuList(state),
+        statusAuthoriz: selectors.statusAuthoriz(state)
+    };
 }
 
 const mapDispatchToProps = (dispatch) => {
