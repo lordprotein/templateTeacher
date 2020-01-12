@@ -9,34 +9,45 @@ import dbService from '../../dbService/dbService';
 
 class Authorization extends Component {
 
+    onSaveLogin = e => {
+        return this.login = e.target.value;
+    }
+
+    onSavePassword = e => {
+        return this.password = e.target.value;
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
 
-        const data = {
-            login: document.getElementsByName('auth-login')[0].value,
-            password: document.getElementsByName('auth-password')[0].value,
-        }
-        
-        const db = new dbService();
-        db.checksLogin(data)
-            .then(({access}) => {
-                if (access) this.props.a_setLogIn(data);
-            })
-        // console.log(log, pass)
+        const { login, password } = this,
+            data = { login, password },
+            db = new dbService();
+
+        db.checkLogin(data)
+            .then(({ access }) => { if (access) return this.props.a_setLogIn(data); });
     }
 
     render() {
-
-
         return (
             <form>
                 <label>
                     Логин
-                    <input type="text" name="auth-login" defaultValue="admin" />
+                    <input
+                        type="text"
+                        name="auth-login"
+                        defaultValue="admin"
+                        onChange={this.onSaveLogin}
+                    />
                 </label>
                 <label>
                     Пароль
-                    <input type="text" name="auth-password" defaultValue="1234" />
+                    <input
+                        type="text"
+                        name="auth-password"
+                        defaultValue="1234"
+                        onChange={this.onSavePassword}
+                    />
                 </label>
                 <input type="submit" value="Submit" onClick={this.handleSubmit} />
             </form >
