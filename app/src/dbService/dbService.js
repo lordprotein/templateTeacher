@@ -17,7 +17,6 @@ export default class dbService {
         const postData = await fetch(`${this._link}${url}`, {
             method: 'POST',
             body: JSON.stringify(data),
-            // mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -46,8 +45,16 @@ export default class dbService {
         return this.getResource(`/menu/${id}/content`);
     }
 
-    postLogin(data) {
+    checkLogin(data) {
         return this.postResourse('/login', data);
+    }
+
+    addPost(data) {
+        return this.postResourse('/post-add', data);
+    }
+
+    deletePost(data) {
+        return this.postResourse('/post-delete', data);
     }
 
 }
