@@ -18,28 +18,37 @@ const reducer = (state = initState, action = {}) => {
         }
         case 'TOGGLE_EDIT_CONTENT': {
             let { components, components: { Content, Content: { modeAddPost } } } = state;
-            
+
             modeAddPost = !modeAddPost;
 
             return { ...state, components: { ...components, Content: { ...Content, modeAddPost } } };
         }
-        // case 'ADD_POST': {
-        //     const newContent = action.value;
-        //     const { ID_MENU } = newContent;
-        //     const menu = state.api.menu;
+        case 'UPDATE_CONTENT': {
+            const { api, api: { menu } } = state
+            const { ID_MENU, contentList } = action.value;
 
-        //     for (let menuItem in menu) {
-        //         if (menu.ID === ID_MENU) {
-        //             menuItem.postList = { ...menuItem.postList, }
-        //         }
-        //     }
+            const num = menu.findIndex(({ ID }) => ID === ID_MENU);
 
-        //     return {}
-        // }
+            menu[num].postList = contentList;
+
+            return { ...state, api: { ...api, menu } }
+
+        }
+        case 'DELETE_CONTENT': {
+            const { api, api: { menu } } = state
+            const {ID_MENU, contentList } = action.value;
+
+            const num = menu.findIndex(item => item.ID === ID_MENU);
+
+            menu[num].postList = contentList;
+
+            return { ...state, api: { ...api, menu } }
+        }
 
         default: return state;
     }
 }
+
 
 class Selectors {
     menuList = ({ api }) => {
