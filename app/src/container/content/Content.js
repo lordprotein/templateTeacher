@@ -16,19 +16,24 @@ class Content extends Component {
         this.db = new dbService();
     }
 
-    deletePost = (ID) => {
-        const { loginData } = this.props;
-        const data = { ...loginData, ID };
-        console.log(data)
+    deletePost = (ID, ID_MENU) => {
+        const { loginData, deleteContent } = this.props,
+            data = { ...loginData, ID };
+
+
         this.db.deletePost(data)
-            .then(res => console.log(res))
+            .then(res => {
+                this.db.updatePostList(ID_MENU, contentList => {
+                    deleteContent({ ID_MENU, contentList });
+                })
+            })
     }
 
     get createRoute() {
         const { menuList } = this.props;
 
         if (!menuList.length) return false;
-        // console.log(menuList)
+
         return menuList.map(({ link, postList, ID }, key) => {
             return (
                 <Route
@@ -41,37 +46,47 @@ class Content extends Component {
     }
 
     generatePosts = (menuItem, idMenu) => {
-        const { statusAuthoriz, statusEdit } = this.props;
+        const
+            { statusAuthoriz, statusEdit } = this.props,
+            btnText = statusEdit ? 'Назад' : 'Добавить пост';
 
         const content = menuItem.map((post, key) => {
-            // console.log(post)
-            // const { title, content, ID } = post
             return (
                 <ContentItem
-                    {...post}
-                    {...statusAuthoriz}
+                    postData={post}
+                    statusAuthoriz={statusAuthoriz}
+                    deletePost={(idPost, ID_MENU) => this.deletePost(idPost, ID_MENU)}
+                    ID_MENU={idMenu}
                     key={key}
-                    deletePost={(idPost) => this.deletePost(idPost)}
                 />
             )
-        })
+        });
 
-
-        const btnText = statusEdit ? 'Назад' : 'Добавить пост';
 
         return (
             <>
-                {statusAuthoriz && <button onClick={() => this.clickAddPost(idMenu)}>{btnText}</button>}
+                {
+                    statusAuthoriz &&
+                    <button onClick={() => this.clickAddPost(idMenu)}>
+                        {btnText}
+                    </button>
+                }
 
-                {statusEdit ? <FormAddPost menuItem={menuItem} ID_MENU={idMenu} /> : content}
+                {
+                    statusEdit
+                        ? <FormAddPost
+                            menuItem={menuItem}
+                            ID_MENU={idMenu}
+                        />
+                        : content
+                }
             </>
         );
 
     }
 
-    clickAddPost = (idMenu) => {
-        const { toggleEditContent } = this.props;
-        toggleEditContent();
+    clickAddPost = () => {
+        this.props.toggleEditContent();
     }
 
 
@@ -92,8 +107,6 @@ class Content extends Component {
 
 
 const mapStateToProps = state => {
-    // console.log(selectors.toggleEditContent(state));
-
     return {
         menuList: selectors.menuList(state),
         statusAuthoriz: selectors.statusAuthoriz(state),
@@ -103,8 +116,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    const { toggleEditContent } = bindActionCreators(actions, dispatch);
-    return { toggleEditContent };
+    const { toggleEditContent, deleteContent } = bindActionCreators(actions, dispatch);
+    return { toggleEditContent, deleteContent };
 }
 
 const Te = () => {
