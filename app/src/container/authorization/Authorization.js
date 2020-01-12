@@ -18,7 +18,7 @@ class Authorization extends Component {
         }
         
         const db = new dbService();
-        db.postLogin(data)
+        db.checksLogin(data)
             .then(({access}) => {
                 if (access) this.props.setLogIn(data);
             })
@@ -32,11 +32,11 @@ class Authorization extends Component {
             <form>
                 <label>
                     Логин
-                    <input type="text" name="auth-login" />
+                    <input type="text" name="auth-login" defaultValue="admin" />
                 </label>
                 <label>
                     Пароль
-                    <input type="text" name="auth-password" />
+                    <input type="text" name="auth-password" defaultValue="1234" />
                 </label>
                 <input type="submit" value="Submit" onClick={this.handleSubmit} />
             </form >
@@ -45,7 +45,7 @@ class Authorization extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state);
+    console.log(state.logIn);
 }
 
 const mapDispatchToProps = dispatch => {
