@@ -3,9 +3,14 @@ const initState = {
         menu: [],
     },
     logIn: {
-        status: false,
-        login: 'none',
-        password: 'none',
+        status: true,
+        login: 'admin',
+        password: '1234',
+    },
+    components: {
+        Content: {
+            modeAddPost: false,
+        },
     }
 }
 
