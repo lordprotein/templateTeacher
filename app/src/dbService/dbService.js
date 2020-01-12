@@ -49,12 +49,25 @@ export default class dbService {
         return this.postResourse('/login', data);
     }
 
+
+
+
     addPost(data) {
         return this.postResourse('/post-add', data);
     }
 
     deletePost(data) {
         return this.postResourse('/post-delete', data);
+    }
+
+
+    updatePostList = (id, callback) => {
+        this.getContentList(id)
+            .then(contentList => {
+                console.log('contentList')
+                console.log(contentList);
+                callback(contentList);
+            });
     }
 
 }
