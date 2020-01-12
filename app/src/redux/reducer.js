@@ -60,7 +60,7 @@ class Selectors {
     loginData = ({ logIn }) => {
         return { login: logIn.login, password: logIn.password }
     }
-    toggleEditContent = ({ components }) => {
+    a_toggleEditContent = ({ components }) => {
         return components.Content.modeAddPost;
     }
 }

@@ -17,14 +17,14 @@ class Content extends Component {
     }
 
     deletePost = (ID, ID_MENU) => {
-        const { loginData, deleteContent } = this.props,
+        const { loginData, a_deleteContent } = this.props,
             data = { ...loginData, ID };
 
 
         this.db.deletePost(data)
             .then(res => {
                 this.db.updatePostList(ID_MENU, contentList => {
-                    deleteContent({ ID_MENU, contentList });
+                    a_deleteContent({ ID_MENU, contentList });
                 })
             })
     }
@@ -86,7 +86,7 @@ class Content extends Component {
     }
 
     clickAddPost = () => {
-        this.props.toggleEditContent();
+        this.props.a_toggleEditContent();
     }
 
 
@@ -110,14 +110,14 @@ const mapStateToProps = state => {
     return {
         menuList: selectors.menuList(state),
         statusAuthoriz: selectors.statusAuthoriz(state),
-        statusEdit: selectors.toggleEditContent(state),
+        statusEdit: selectors.a_toggleEditContent(state),
         loginData: selectors.loginData(state),
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    const { toggleEditContent, deleteContent } = bindActionCreators(actions, dispatch);
-    return { toggleEditContent, deleteContent };
+    const { a_toggleEditContent, a_deleteContent } = bindActionCreators(actions, dispatch);
+    return { a_toggleEditContent, a_deleteContent };
 }
 
 const Te = () => {

@@ -18,7 +18,7 @@ class FormAddPost extends Component {
     handleSubmit = (e) => {
         // e.preventDefault();
         const { title, content } = this,
-            { loginData, ID_MENU, toggleEditContent, menuItem, updateContent } = this.props,
+            { loginData, ID_MENU, a_toggleEditContent, menuItem, a_updateContent } = this.props,
             contentData = { title, content, ID_MENU };
 
         console.log(menuItem);
@@ -30,8 +30,8 @@ class FormAddPost extends Component {
             .then(res => {
                 db.updatePostList(ID_MENU, (contentList) => {
                     // console.log(contentList)
-                    updateContent({ ID_MENU, contentList });
-                    toggleEditContent();
+                    a_updateContent({ ID_MENU, contentList });
+                    a_toggleEditContent();
                 })
 
             });
@@ -68,14 +68,13 @@ const mapStateToProps = state => {
     console.log(state);
     return ({
         loginData: selectors.loginData(state),
-        statusEdit: selectors.toggleEditContent(state),
-        // updateContent: selectors.updateContent(state),
+        statusEdit: selectors.a_toggleEditContent(state),
     });
 }
 
 const mapDispatchToProps = dispatch => {
-    const { toggleEditContent, addPost, updateContent } = bindActionCreators(actions, dispatch);
-    return { toggleEditContent, addPost, updateContent };
+    const { a_toggleEditContent, a_updateContent } = bindActionCreators(actions, dispatch);
+    return { a_toggleEditContent, a_updateContent };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormAddPost);

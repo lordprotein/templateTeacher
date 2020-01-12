@@ -20,7 +20,7 @@ class Authorization extends Component {
         const db = new dbService();
         db.checksLogin(data)
             .then(({access}) => {
-                if (access) this.props.setLogIn(data);
+                if (access) this.props.a_setLogIn(data);
             })
         // console.log(log, pass)
     }
@@ -49,8 +49,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    const { setLogIn } = bindActionCreators(actions, dispatch);
-    return { setLogIn };
+    const { a_setLogIn } = bindActionCreators(actions, dispatch);
+    return { a_setLogIn };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authorization);
