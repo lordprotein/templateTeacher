@@ -4,34 +4,17 @@ import { bindActionCreators } from 'redux';
 import Header from '../../component/header/Header';
 import Content from '../content/Content';
 import Sidebar from '../../component/sidebar/Sidebar';
-import dbService from '../../dbService/dbService';
 import * as actions from '../../redux/actions';
 import { selectors } from '../../redux/reducer';
-import toNormalizeLink from '../../normalizeLink/normalizeLink';
-
+import dbService from '../../dbService/dbService';
 
 
 class App extends Component {
 
     async componentDidMount() {
         const db = new dbService();
-        let menuList = await db.getMenuList()
-            .then(res => res);
-
-        menuList = menuList.map(async ({ ID, title, position }) => {
-            const postList = await db.getContentList(ID);
-            return {
-                ID,
-                title,
-                link: `/${toNormalizeLink(title)}`,
-                position,
-                postList
-            }
-        })
-
-        const api = await Promise.all(menuList);
-
-        this.props.a_setFetchMenu(api);
+        const menuList = await db.generateMenuList();
+        this.props.a_setFetchMenu(menuList);
     }
 
     render() {

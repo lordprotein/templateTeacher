@@ -1,6 +1,10 @@
+// import generateMenuList from '../generateMenuList/generateMenuList';
+import toNormalizeLink from '../normalizeLink/normalizeLink';
+
 export default class dbService {
     constructor() {
-        this._link = 'http://77.222.63.195:3333';
+        this._link = 'http://localhost:3333';
+        // this._link = 'http://77.222.63.195:3333';
     }
 
     async getResource(url = '') {
@@ -13,9 +17,9 @@ export default class dbService {
         return await getData.json();
     }
 
-    async postResourse(url = '', data) {
+    async methodDoResourse(url = '', data, method) {
         const postData = await fetch(`${this._link}${url}`, {
-            method: 'POST',
+            method: method,
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
@@ -27,6 +31,24 @@ export default class dbService {
         }
 
         return await postData.json();
+    }
+
+    async generateMenuList() {
+        let menuList = await this.getMenuList()
+            .then(res => res);
+
+        menuList = menuList.map(async ({ ID, title, position }) => {
+            const postList = await this.getContentList(ID);
+            return {
+                ID,
+                title,
+                link: `/${toNormalizeLink(title)}`,
+                position,
+                postList
+            }
+        })
+
+        return await Promise.all(menuList);
     }
 
     getMenuList() {
@@ -46,27 +68,45 @@ export default class dbService {
     }
 
     checkLogin(data) {
-        return this.postResourse('/login', data);
+        return this.methodDoResourse('/login', data, 'POST');
     }
 
 
 
 
     addPost(data) {
-        return this.postResourse('/post-add', data);
+        return this.methodDoResourse('/post-add', data, 'POST');
+    }
+
+    editPost(data) {
+        console.log(data)
+
+        return this.methodDoResourse('/post-edit', data, 'POST');
     }
 
     deletePost(data) {
-        return this.postResourse('/post-delete', data);
+        return this.methodDoResourse('/post-delete', data, 'POST');
     }
+
+    addMenu(data) {
+        return this.methodDoResourse('/menu-add', data, 'POST');
+    }
+
+
 
 
     updatePostList = (id, callback) => {
         this.getContentList(id)
             .then(contentList => {
-                console.log('contentList')
-                console.log(contentList);
                 callback(contentList);
+            });
+    }
+
+    updateMenuList = (position, callback) => {
+        this.getMenuPositionList(position)
+            .then(async () => {
+                const res = await this.generateMenuList()
+                callback(res);
             });
     }
 
