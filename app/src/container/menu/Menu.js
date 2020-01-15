@@ -29,8 +29,8 @@ class Menu extends Component {
     
     clickAddMenu = () => {
         const { a_toToggleAddMenu, position } = this.props;
-        console.log(position)
         this.typeMenu = position;
+
         a_toToggleAddMenu(true);
     }
 
@@ -58,10 +58,11 @@ class Menu extends Component {
     modeEdit = () => {
         const { statusAuthoriz, statusEdit, position } = this.props;
         if (!statusAuthoriz) return;
-        // console.log(position)
+
 
         if (statusEdit && (this.typeMenu === position)) {
             delete this.typeMenu;
+
             return (
                 <>
                     <button onClick={this.clickAddMenu}>
@@ -74,7 +75,7 @@ class Menu extends Component {
         }
         else {
             delete this.typeMenu;
-
+            
             return (
                 <button onClick={() => this.clickAddMenu()}>
                     Добавить новое меню
