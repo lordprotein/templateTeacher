@@ -2,11 +2,6 @@ import initState from './initState';
 
 const reducer = (state = initState, action = {}) => {
     switch (action.type) {
-        case 'SET_FETCH_MENU': {
-            //if
-            const { api } = state;
-            return { ...state, api: { ...api, menu: action.value } };
-        }
         case 'SET_LOGIN': {
             let { logIn: { status, login, password } } = state;
 
@@ -16,14 +11,48 @@ const reducer = (state = initState, action = {}) => {
 
             return { ...state, logIn: { status, login, password } };
         }
-        case 'TOGGLE_EDIT_CONTENT': {
+
+//TOGGLE
+        
+        case 'TOGGLE_ADD_POST': { //ADD POST
             let { components, components: { Content, Content: { modeAddPost } } } = state;
+            let status = action.value;
 
-            modeAddPost = !modeAddPost;
+            if (status === undefined) status = !modeAddPost;
 
-            return { ...state, components: { ...components, Content: { ...Content, modeAddPost } } };
+            return { ...state, components: { ...components, Content: { ...Content, modeAddPost: status } } };
         }
-        case 'UPDATE_CONTENT': {
+
+        case 'TOGGLE_EDIT_POST': { //EDIT POST
+            const { components, components: { Content, Content: { modeEditPost } } } = state;
+            let status = action.value;
+
+            if (status === undefined) status = !modeEditPost;
+
+            return { ...state, components: { ...components, Content: { ...Content, modeEditPost: status } } };
+        }
+
+        case 'TOGGLE_ADD_MENU': { //ADD MENU
+            const { components, components: { Menu, Menu: { modeAddMenu } } } = state;
+            let status = action.value;
+
+            if (status === undefined) status = !modeAddMenu
+
+            return { ...state, components: { ...components, Menu: { ...Menu, modeAddMenu: status } } };
+        }
+
+//END TOGGLE
+
+
+//UPDATES
+        case 'UPDATE_MENU': {
+            const { api } = state;
+            const menuList = action.value;
+
+            return { ...state, api: { ...api, menu: menuList } }
+        }
+
+        case 'UPDATE_POSTS': {
             const { api, api: { menu } } = state
             const { ID_MENU, contentList } = action.value;
 
@@ -32,18 +61,8 @@ const reducer = (state = initState, action = {}) => {
             menu[num].postList = contentList;
 
             return { ...state, api: { ...api, menu } }
-
         }
-        case 'DELETE_CONTENT': {
-            const { api, api: { menu } } = state
-            const {ID_MENU, contentList } = action.value;
-
-            const num = menu.findIndex(item => item.ID === ID_MENU);
-
-            menu[num].postList = contentList;
-
-            return { ...state, api: { ...api, menu } }
-        }
+//END UPDATES
 
         default: return state;
     }
@@ -60,9 +79,16 @@ class Selectors {
     loginData = ({ logIn }) => {
         return { login: logIn.login, password: logIn.password }
     }
-    a_toggleEditContent = ({ components }) => {
+    s_toggleAddPost = ({ components }) => {
         return components.Content.modeAddPost;
     }
+    s_statusEditPost = ({ components }) => {
+        return components.Content.modeEditPost;
+    }
+    s_toggleAddMenu = ({ components }) => {
+        return components.Menu.modeAddMenu;
+    }
+    
 }
 
 export const selectors = new Selectors();
