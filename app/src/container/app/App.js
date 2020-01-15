@@ -14,7 +14,7 @@ class App extends Component {
     async componentDidMount() {
         const db = new dbService();
         const menuList = await db.generateMenuList();
-        this.props.a_setFetchMenu(menuList);
+        this.props.a_updateMenu(menuList);
     }
 
     render() {
@@ -38,9 +38,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    const { a_setFetchMenu } = bindActionCreators(actions, dispatch);
+    const { a_updateMenu } = bindActionCreators(actions, dispatch);
 
-    return { a_setFetchMenu };
+    return { a_updateMenu };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
