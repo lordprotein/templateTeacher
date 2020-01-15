@@ -18,17 +18,26 @@ class FormEditer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { title, content } = this;
-        const { s_loginData, a_updateContent, action, postData } = this.props;
+        const {
+            s_loginData, a_removeAllModes, a_updateContent,
+            action, postData,
+        } = this.props;
+
+
+        let { title, content } = this;
+
+        if (!title) title = postData.title;
+        if (!content) content = postData.content;
+
+        let data = { ...s_loginData, title, content }
+
 
         const db = new dbService();
 
-        const { ID_MENU, a_removeAllModes } = this.props;
-
         switch (action) {
             case 'add': {
-                const data = { ...s_loginData, title, content, ID_MENU }
-
+                const { ID_MENU } = this.props;
+                data = { ...data, ID_MENU };
                 db.addPost(data)
                     .then(() => {
                         db.updatePostList(ID_MENU, (contentList) => {
@@ -38,19 +47,16 @@ class FormEditer extends Component {
                 break;
             }
             case 'edit': {
-                const { ID } = postData;
-                const data = { ...s_loginData, title, content, ID }
-
+                const { ID_MENU, ID } = postData;
+                data = { ...data, ID };
                 db.editPost(data)
                     .then(() => {
                         db.updatePostList(ID_MENU, contentList => {
                             a_updateContent({ ID_MENU, contentList });
-                            // toBack();
                         })
                     })
                 break;
             }
-            
             default: break;
         }
 
