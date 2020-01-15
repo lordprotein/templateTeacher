@@ -57,7 +57,7 @@ class FormEditer extends Component {
 
 
     render() {
-        const { postData, toBack } = this.props;
+        const { postData, toBack, a_removeAllModes } = this.props;
         let title = '', content = '';
 
         if (postData !== undefined) {
@@ -88,7 +88,8 @@ class FormEditer extends Component {
                     onClick={this.handleSubmit}
                 />
                 <button
-                    onClick={toBack}
+                    onClick={a_removeAllModes}
+                // onClick={toBack}
                 >
                     Назад
                 </button>
@@ -100,7 +101,7 @@ class FormEditer extends Component {
 
 
 const mapStateToProps = state => {
-    console.log(state);
+    console.log(state.components.Content.modeAddPost, state.components.Content.modeEditPost);
     return ({
         s_loginData: selectors.loginData(state),
         s_statusEdit: selectors.s_toggleAddPost(state),
@@ -108,8 +109,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_updateContent } = bindActionCreators(actions, dispatch);
-    return { a_updateContent };
+    const { a_updateContent, a_removeAllModes } = bindActionCreators(actions, dispatch);
+    return { a_updateContent, a_removeAllModes };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormEditer);

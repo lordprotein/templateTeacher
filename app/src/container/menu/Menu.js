@@ -16,12 +16,17 @@ class Menu extends Component {
                 <MenuItem
                     title={title}
                     link={link}
+                    removeAllModes={this.removeAllModes}
                     key={key}
                 />
             )
         });
     }
 
+    removeAllModes = () => {
+        this.props.a_removeAllModes();
+    }
+    
     clickAddMenu = () => {
         const { a_toToggleAddMenu, position } = this.props;
         console.log(position)
@@ -113,11 +118,12 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_toToggleAddMenu, a_updateMenu } = bindActionCreators(actions, dispatch);
+    const { a_toToggleAddMenu, a_updateMenu, a_removeAllModes } = bindActionCreators(actions, dispatch);
 
     return {
         a_toToggleAddMenu,
-        a_updateMenu
+        a_updateMenu,
+        a_removeAllModes
     }
 }
 
