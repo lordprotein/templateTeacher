@@ -10,7 +10,13 @@ const initState = {
     components: {
         Content: {
             modeAddPost: false,
+            modeEditPost: false,
         },
+        Menu: {
+            modeAddMenu: false,
+            // title: '',
+            // content: '',
+        }
     }
 }
 
