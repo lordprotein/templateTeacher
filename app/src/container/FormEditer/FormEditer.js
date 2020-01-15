@@ -24,7 +24,7 @@ class FormEditer extends Component {
 
         const db = new dbService();
 
-        const { ID_MENU } = this.props;
+        const { ID_MENU, a_removeAllModes } = this.props;
 
         switch (action) {
             case 'add': {
@@ -36,7 +36,7 @@ class FormEditer extends Component {
                             a_updateContent({ ID_MENU, contentList });
                         })
                     });
-                return;
+                break;
             }
             case 'edit': {
                 const { ID } = postData;
@@ -46,13 +46,15 @@ class FormEditer extends Component {
                     .then(() => {
                         db.updatePostList(ID_MENU, contentList => {
                             a_updateContent({ ID_MENU, contentList });
-                            toBack();
+                            // toBack();
                         })
                     })
-                return;
+                break;
             }
             default: break;
         }
+
+        a_removeAllModes();
     }
 
 
@@ -79,7 +81,6 @@ class FormEditer extends Component {
                     onChange={this.onSaveContent}
                     defaultValue={content}
                 >
-
                 </textarea>
 
                 <input
@@ -87,10 +88,8 @@ class FormEditer extends Component {
                     value="Send"
                     onClick={this.handleSubmit}
                 />
-                <button
-                    onClick={a_removeAllModes}
-                // onClick={toBack}
-                >
+
+                <button onClick={a_removeAllModes}>
                     Назад
                 </button>
             </div>
