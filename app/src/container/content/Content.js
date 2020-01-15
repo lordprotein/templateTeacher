@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { selectors } from '../../redux/reducer'
 import ContentItem from '../../component/contentItem/ContentItem';
 import Authorization from '../authorization/Authorization';
-import FormAddPost from '../formAddPost/FormAddPost';
+import FormEditer from '../FormEditer/FormEditer';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../dbService/dbService';
@@ -14,19 +14,6 @@ class Content extends Component {
     constructor(props) {
         super(props);
         this.db = new dbService();
-    }
-
-    deletePost = (ID, ID_MENU) => {
-        const { loginData, a_deleteContent } = this.props,
-            data = { ...loginData, ID };
-
-
-        this.db.deletePost(data)
-            .then(res => {
-                this.db.updatePostList(ID_MENU, contentList => {
-                    a_deleteContent({ ID_MENU, contentList });
-                })
-            })
     }
 
     get createRoute() {
@@ -44,10 +31,10 @@ class Content extends Component {
             );
         });
     }
-
+    
     generatePosts = (menuItem, idMenu) => {
         const
-            { statusAuthoriz, statusEdit } = this.props,
+            { statusAuthoriz, statusEdit, a_toToggleAddPost } = this.props,
             btnText = statusEdit ? 'Назад' : 'Добавить пост';
 
         const content = menuItem.map((post, key) => {
@@ -55,14 +42,12 @@ class Content extends Component {
                 <ContentItem
                     postData={post}
                     statusAuthoriz={statusAuthoriz}
-                    deletePost={(idPost, ID_MENU) => this.deletePost(idPost, ID_MENU)}
                     ID_MENU={idMenu}
                     key={key}
                 />
             )
         });
-
-
+        // console.log(menuItem)
         return (
             <>
                 {
@@ -71,12 +56,13 @@ class Content extends Component {
                         {btnText}
                     </button>
                 }
-
                 {
                     statusEdit
-                        ? <FormAddPost
+                        ? <FormEditer
                             menuItem={menuItem}
                             ID_MENU={idMenu}
+                            action="add"
+                            toBack={() => a_toToggleAddPost(false)}
                         />
                         : content
                 }
@@ -86,7 +72,7 @@ class Content extends Component {
     }
 
     clickAddPost = () => {
-        this.props.a_toggleEditContent();
+        this.props.a_toToggleAddPost(true);
     }
 
 
@@ -109,15 +95,15 @@ class Content extends Component {
 const mapStateToProps = state => {
     return {
         menuList: selectors.menuList(state),
-        statusAuthoriz: selectors.statusAuthoriz(state),
-        statusEdit: selectors.a_toggleEditContent(state),
         loginData: selectors.loginData(state),
+        statusAuthoriz: selectors.statusAuthoriz(state),
+        statusEdit: selectors.s_toggleAddPost(state),
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_toggleEditContent, a_deleteContent } = bindActionCreators(actions, dispatch);
-    return { a_toggleEditContent, a_deleteContent };
+    const { a_toToggleAddPost, a_updateContent } = bindActionCreators(actions, dispatch);
+    return { a_toToggleAddPost, a_updateContent };
 }
 
 const Te = () => {
