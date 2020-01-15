@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
-import selectors from '../../redux/reducer';
+// import selectors from '../../redux/reducer';
 import dbService from '../../dbService/dbService';
 
 
@@ -25,7 +25,9 @@ class Authorization extends Component {
             db = new dbService();
 
         db.checkLogin(data)
-            .then(({ access }) => { if (access) return this.props.a_setLogIn(data); });
+            .then(({ access }) => {
+                if (access) return this.props.a_setLogIn(data);
+            });
     }
 
     render() {
