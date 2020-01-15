@@ -58,7 +58,7 @@ class ContentItem extends Component {
 
     render() {
         const { s_statusEditPost } = this.props;
-        const { postData, postData: { ID, title, content, ID_MENU } } = this.props;
+        const { postData, postData: { ID, title, content } } = this.props;
         const { clickPostID } = this;
 
 
@@ -67,7 +67,6 @@ class ContentItem extends Component {
             return (
                 <FormEditer
                     postData={postData}
-                    ID_MENU={ID_MENU}
                     action="edit"
                 />
             )
