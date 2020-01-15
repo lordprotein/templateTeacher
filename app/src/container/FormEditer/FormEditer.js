@@ -108,8 +108,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_toggleFormEditer, a_updateContent } = bindActionCreators(actions, dispatch);
-    return { a_toggleFormEditer, a_updateContent };
+    const { a_updateContent } = bindActionCreators(actions, dispatch);
+    return { a_updateContent };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormEditer);
