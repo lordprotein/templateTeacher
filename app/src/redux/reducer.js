@@ -12,8 +12,8 @@ const reducer = (state = initState, action = {}) => {
             return { ...state, logIn: { status, login, password } };
         }
 
-//TOGGLE
-        
+        //TOGGLE
+
         case 'TOGGLE_ADD_POST': { //ADD POST
             let { components, components: { Content, Content: { modeAddPost } } } = state;
             let status = action.value;
@@ -41,10 +41,10 @@ const reducer = (state = initState, action = {}) => {
             return { ...state, components: { ...components, Menu: { ...Menu, modeAddMenu: status } } };
         }
 
-//END TOGGLE
+        //END TOGGLE
 
 
-//UPDATES
+        //UPDATES
         case 'UPDATE_MENU': {
             const { api } = state;
             const menuList = action.value;
@@ -60,9 +60,34 @@ const reducer = (state = initState, action = {}) => {
 
             menu[num].postList = contentList;
 
-            return { ...state, api: { ...api, menu } }
+            return {
+                ...state,
+                api: {
+                    ...api, menu
+                }
+            }
         }
-//END UPDATES
+        //END UPDATES
+
+        case 'REMOVE_ALL_MODES': {
+            const { components, components: { Content, Menu } } = state;
+
+            return {
+                ...state,
+                components: {
+                    ...components,
+                    Content: {
+                        ...Content,
+                        modeAddPost: false,
+                        modeEditPost: false
+                    },
+                    Menu: {
+                        ...Menu,
+                        modeAddMenu: false,
+                    }
+                }
+            }
+        }
 
         default: return state;
     }
@@ -88,7 +113,7 @@ class Selectors {
     s_toggleAddMenu = ({ components }) => {
         return components.Menu.modeAddMenu;
     }
-    
+
 }
 
 export const selectors = new Selectors();
