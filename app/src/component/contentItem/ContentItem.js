@@ -71,7 +71,6 @@ class ContentItem extends Component {
                 <FormEditer
                     postData={postData}
                     ID_MENU={ID_MENU}
-                    toBack={() => a_toToggleEditPost(false)} //delete
                     action="edit"
                 />
             )
