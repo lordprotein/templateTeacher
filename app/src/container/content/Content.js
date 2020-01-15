@@ -31,10 +31,10 @@ class Content extends Component {
             );
         });
     }
-    
+
     generatePosts = (menuItem, idMenu) => {
         const
-            { statusAuthoriz, statusEdit, a_toToggleAddPost } = this.props,
+            { statusAuthoriz, statusEdit } = this.props,
             btnText = statusEdit ? 'Назад' : 'Добавить пост';
 
         const content = menuItem.map((post, key) => {
@@ -59,10 +59,8 @@ class Content extends Component {
                 {
                     statusEdit
                         ? <FormEditer
-                            menuItem={menuItem}
                             ID_MENU={idMenu}
                             action="add"
-                            toBack={() => a_toToggleAddPost(false)}
                         />
                         : content
                 }
