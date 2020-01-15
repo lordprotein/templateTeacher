@@ -32,10 +32,12 @@ class Content extends Component {
         });
     }
 
+    clickAddPost = () => {
+        this.props.a_toToggleAddPost(true);
+    }
+
     generatePosts = (menuItem, idMenu) => {
-        const
-            { statusAuthoriz, statusEdit } = this.props,
-            btnText = statusEdit ? 'Назад' : 'Добавить пост';
+        const { statusAuthoriz, statusEdit } = this.props;
 
         const content = menuItem.map((post, key) => {
             return (
@@ -47,31 +49,29 @@ class Content extends Component {
                 />
             )
         });
-        // console.log(menuItem)
+
+        const FormEditerContainer = (
+            <FormEditer
+                ID_MENU={idMenu}
+                action="add"
+            />
+        )
+
         return (
             <>
                 {
-                    statusAuthoriz &&
-                    <button onClick={() => this.clickAddPost(idMenu)}>
-                        {btnText}
+                    statusAuthoriz && !statusEdit &&
+                    <button onClick={this.clickAddPost}>
+                        Добавить пост
                     </button>
                 }
-                {
-                    statusEdit
-                        ? <FormEditer
-                            ID_MENU={idMenu}
-                            action="add"
-                        />
-                        : content
-                }
+                {statusEdit ? FormEditerContainer : content}
             </>
         );
 
     }
 
-    clickAddPost = () => {
-        this.props.a_toToggleAddPost(true);
-    }
+
 
 
     render() {

@@ -28,19 +28,16 @@ class ContentItem extends Component {
     }
 
     onEditPost = () => {
-        const { loginData, ID_MENU, postData, a_toToggleEditPost } = this.props;
-        const { title, content } = postData;
+        const { postData, a_toToggleEditPost } = this.props;
 
-        console.log(postData.ID)
         this.clickPostID = postData.ID;
 
-        this.FormAddPostData = { title, content, action: 'edit' }
         a_toToggleEditPost(true);
     }
 
     authorizElems = (postData) => {
         const { statusAuthoriz } = this.props;
-        
+
         if (!statusAuthoriz) return;
 
         return (
@@ -60,8 +57,8 @@ class ContentItem extends Component {
     }
 
     render() {
-        const { postData, s_statusEditPost, a_toToggleEditPost } = this.props;
-        const { ID, title, content, ID_MENU } = postData;
+        const { s_statusEditPost } = this.props;
+        const { postData, postData: { ID, title, content, ID_MENU } } = this.props;
         const { clickPostID } = this;
 
 

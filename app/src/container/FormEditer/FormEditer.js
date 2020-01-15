@@ -19,8 +19,7 @@ class FormEditer extends Component {
         e.preventDefault();
 
         const { title, content } = this;
-        const { s_loginData, a_updateContent, action, postData, toBack } = this.props;
-
+        const { s_loginData, a_updateContent, action, postData } = this.props;
 
         const db = new dbService();
 
@@ -51,6 +50,7 @@ class FormEditer extends Component {
                     })
                 break;
             }
+            
             default: break;
         }
 
@@ -59,7 +59,7 @@ class FormEditer extends Component {
 
 
     render() {
-        const { postData, toBack, a_removeAllModes } = this.props;
+        const { postData, a_removeAllModes } = this.props;
         let title = '', content = '';
 
         if (postData !== undefined) {
