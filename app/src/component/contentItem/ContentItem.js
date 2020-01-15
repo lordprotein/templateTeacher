@@ -64,14 +64,14 @@ class ContentItem extends Component {
         const { ID, title, content, ID_MENU } = postData;
         const { clickPostID } = this;
 
-        // console.log(postData)
 
         if (s_statusEditPost && clickPostID === ID) {
+            delete this.clickPostID;
             return (
                 <FormEditer
                     postData={postData}
                     ID_MENU={ID_MENU}
-                    toBack={() => a_toToggleEditPost(false)}
+                    toBack={() => a_toToggleEditPost(false)} //delete
                     action="edit"
                 />
             )
