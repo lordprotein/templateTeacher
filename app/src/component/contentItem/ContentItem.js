@@ -19,6 +19,10 @@ class ContentItem extends Component {
         const { ID } = postData;
         const data = { ...loginData, ID };
 
+        const ask = window.confirm(`Подтвердите удаление`);
+
+        if (!ask) return;
+
         this.db.deletePost(data)
             .then(() => {
                 this.db.updatePostList(ID_MENU, contentList => {
