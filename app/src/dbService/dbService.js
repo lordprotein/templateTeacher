@@ -3,8 +3,8 @@ import toNormalizeLink from '../normalizeLink/normalizeLink';
 
 export default class dbService {
     constructor() {
-        this._link = 'http://localhost:3333';
-        // this._link = 'http://77.222.63.195:3333';
+        // this._link = 'http://localhost:3333';
+        this._link = 'http://77.222.63.195:3333';
     }
 
     async getResource(url = '') {
@@ -77,19 +77,22 @@ export default class dbService {
     addPost(data) {
         return this.methodDoResourse('/post-add', data, 'POST');
     }
-
     editPost(data) {
-        console.log(data)
-
         return this.methodDoResourse('/post-edit', data, 'POST');
     }
-
     deletePost(data) {
         return this.methodDoResourse('/post-delete', data, 'POST');
     }
 
+
     addMenu(data) {
         return this.methodDoResourse('/menu-add', data, 'POST');
+    }
+    editMenu(data) {
+        return this.methodDoResourse('/menu-edit', data, 'POST');
+    }
+    deleteMenu(data) {
+        return this.methodDoResourse('/menu-delete', data, 'POST');
     }
 
 
