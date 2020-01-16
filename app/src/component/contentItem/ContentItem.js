@@ -30,7 +30,7 @@ class ContentItem extends Component {
     onEditPost = () => {
         const { postData, a_toToggleEditPost } = this.props;
 
-        this.clickPostID = postData.ID;
+        this.currentPostID = postData.ID;
 
         a_toToggleEditPost(true);
     }
@@ -59,11 +59,11 @@ class ContentItem extends Component {
     render() {
         const { s_statusEditPost } = this.props;
         const { postData, postData: { ID, title, content } } = this.props;
-        const { clickPostID } = this;
+        const { currentPostID } = this;
 
 
-        if (s_statusEditPost && clickPostID === ID) {
-            delete this.clickPostID;
+        if (s_statusEditPost && currentPostID === ID) {
+            delete this.currentPostID;
             return (
                 <FormEditer
                     postData={postData}
