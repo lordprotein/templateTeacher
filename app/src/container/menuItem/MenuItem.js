@@ -8,10 +8,32 @@ import dbService from '../../dbService/dbService';
 
 
 class MenuItem extends Component {
-    
-    
-    onDelete = () => {
 
+
+    onDelete = e => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const db = new dbService();
+
+        const {
+            a_removeAllModes, a_updateMenu,
+            loginData,
+            menuItem: { ID, position } } = this.props;
+
+        const data = { ...loginData, ID };
+
+        const ask = window.confirm(`Подтвердите удаление`);
+
+        if (!ask) return;
+
+        db.deleteMenu(data)
+            .then(() => {
+                db.updateMenuList(position, menuList => {
+                    a_updateMenu(menuList);
+                    a_removeAllModes();
+                });
+            });
     }
 
     onEdit = e => {
@@ -102,7 +124,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     const { a_toToggleEditMenu, a_removeAllModes, a_updateMenu } = bindActionCreators(actions, dispatch);
-    return { a_toToggleEditMenu, a_removeAllModes, a_updateMenu }
+    return {
+        a_toToggleEditMenu,
+        a_removeAllModes,
+        a_updateMenu
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuItem);
