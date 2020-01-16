@@ -40,6 +40,23 @@ const reducer = (state = initState, action = {}) => {
 
             return { ...state, components: { ...components, Menu: { ...Menu, modeAddMenu: status } } };
         }
+        case 'TOGGLE_EDIT_MENU': { //ADD MENU
+            const { components, components: { Menu, Menu: { modeEditMenu } } } = state;
+            let status = action.value;
+
+            if (status === undefined) status = !modeEditMenu
+
+            return {
+                ...state,
+                components: {
+                    ...components,
+                    Menu: {
+                        ...Menu,
+                        modeEditMenu: status
+                    }
+                }
+            };
+        }
 
         //END TOGGLE
 
@@ -84,6 +101,7 @@ const reducer = (state = initState, action = {}) => {
                     Menu: {
                         ...Menu,
                         modeAddMenu: false,
+                        modeEditMenu: false,
                     }
                 }
             }
@@ -104,14 +122,19 @@ class Selectors {
     loginData = ({ logIn }) => {
         return { login: logIn.login, password: logIn.password }
     }
+
     s_toggleAddPost = ({ components }) => {
         return components.Content.modeAddPost;
     }
     s_statusEditPost = ({ components }) => {
         return components.Content.modeEditPost;
     }
+
     s_toggleAddMenu = ({ components }) => {
         return components.Menu.modeAddMenu;
+    }
+    s_toggleEditMenu = ({ components }) => {
+        return components.Menu.modeEditMenu;
     }
 
 }
