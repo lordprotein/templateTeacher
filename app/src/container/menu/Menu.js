@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MenuItem from '../../component/menuItem/MenuItem';
+import MenuItem from '../menuItem/MenuItem';
 import { connect } from 'react-redux';
 import { selectors } from '../../redux/reducer';
 import { bindActionCreators } from 'redux';
@@ -10,12 +10,11 @@ import dbService from '../../dbService/dbService';
 
 class Menu extends Component {
 
-    renderMenuList = (menuList = []) => {
-        return menuList.map(({ title, link }, key) => {
+    renderMenuList = (menuList) => {
+        return menuList.map((menuItem, key) => {
             return (
                 <MenuItem
-                    title={title}
-                    link={link}
+                    menuItem={menuItem}
                     removeAllModes={this.removeAllModes}
                     key={key}
                 />
@@ -26,7 +25,7 @@ class Menu extends Component {
     removeAllModes = () => {
         this.props.a_removeAllModes();
     }
-    
+
     clickAddMenu = () => {
         const { a_toToggleAddMenu, position } = this.props;
         this.typeMenu = position;
@@ -75,7 +74,7 @@ class Menu extends Component {
         }
         else {
             delete this.typeMenu;
-            
+
             return (
                 <button onClick={() => this.clickAddMenu()}>
                     Добавить новое меню
@@ -87,7 +86,7 @@ class Menu extends Component {
 
     render() {
         const { position, menuList } = this.props;
-        
+
         const menuPosList = menuList.filter(menuItem => position === menuItem.position);
 
         let stylePos = 'menu ';
