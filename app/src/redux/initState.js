@@ -14,6 +14,7 @@ const initState = {
         },
         Menu: {
             modeAddMenu: false,
+            modeEditMenu: false,
             // title: '',
             // content: '',
         }
