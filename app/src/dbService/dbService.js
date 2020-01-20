@@ -37,13 +37,14 @@ export default class dbService {
         let menuList = await this.getMenuList()
             .then(res => res);
 
-        menuList = menuList.map(async ({ ID, title, position }) => {
+        menuList = menuList.map(async ({ ID, title, position, submenu }) => {
             const postList = await this.getContentList(ID);
             return {
                 ID,
                 title,
                 link: `/${toNormalizeLink(title)}`,
                 position,
+                submenu,
                 postList
             }
         })

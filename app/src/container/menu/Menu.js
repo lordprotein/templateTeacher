@@ -6,18 +6,50 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../dbService/dbService';
 
+import SubMenu from '../subMenu/SubMenu';
+
 
 
 class Menu extends Component {
 
+    getSubMenu = (menuItem, menuList) => {
+        const subMenuList = menuList.filter(item => menuItem.ID === item.submenu);
+
+        if (!subMenuList.length) return '';
+
+        let inFor = [];
+
+        for (let i = 0, max = subMenuList.length; i < max; i++) {
+            const menuElem = subMenuList[i];
+            const li = (
+                <MenuItem
+                    menuItem={menuElem}>
+                    {this.getSubMenu(menuElem, menuList)}
+                </MenuItem>
+            );
+            inFor = [...inFor, li];
+        }
+        return inFor;
+    }
+
+
+
     renderMenuList = (menuList) => {
         return menuList.map((menuItem, key) => {
+
+            if (menuItem.submenu) return false;
+
+            let out = this.getSubMenu(menuItem, menuList);
+            console.log(out);
+
             return (
                 <MenuItem
                     menuItem={menuItem}
                     removeAllModes={this.removeAllModes}
                     key={key}
-                />
+                >
+                    {out}
+                </MenuItem>
             )
         });
     }
@@ -128,6 +160,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);
-
-
-
