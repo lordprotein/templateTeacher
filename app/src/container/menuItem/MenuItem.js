@@ -93,26 +93,25 @@ class MenuItem extends Component {
                     <input type="text" defaultValue={title} onChange={this.onSaveTitle} />
                     <button onClick={this.onSubmit}>OK</button>
                     <button onClick={a_removeAllModes}>Отмена</button>
-                    {/* {this.props.children} */}
                 </>
             )
         }
         else {
             return (
-                <>
-                    <div>
-                        <Link
-                            to={link}
-                            className="menu__link"
-                            onClick={removeAllModes}
-                        >
-                            {title}
-                            <button onClick={this.onEdit}>Ред</button>
-                            <button onClick={this.onDelete}>Уд</button>
-                        </Link>
+                <div className="menu__item">
+                    <Link
+                        to={link}
+                        className="menu__link"
+                        onClick={removeAllModes}
+                    >
+                        {title}
+                        <button onClick={this.onEdit}>Ред</button>
+                        <button onClick={this.onDelete}>Уд</button>
+                    </Link>
+                    <div className="menu__sub">
                         {this.props.children}
                     </div>
-                </>
+                </div>
             );
         }
 
