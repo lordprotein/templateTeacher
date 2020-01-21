@@ -6,9 +6,6 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../dbService/dbService';
 
-import SubMenu from '../subMenu/SubMenu';
-
-
 
 class Menu extends Component {
 
