@@ -47,7 +47,20 @@ class MenuItem extends Component {
         a_toToggleEditMenu(true);
     }
 
-    onSubmit = e => {
+    addSubMenu = e => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const { a_toToggleAddSubMenu, statusAddSubMenu, menuItem: { ID } } = this.props;
+        this.currentItemID = ID;
+
+
+        a_toToggleAddSubMenu(true);
+        console.log(statusAddSubMenu)
+
+    }
+
+    handleSubmitEdit = e => {
         e.preventDefault();
         e.stopPropagation();
 
@@ -83,7 +96,7 @@ class MenuItem extends Component {
         const { currentItemID } = this;
         const {
             a_removeAllModes,
-            statusEdit,
+            statusEdit, statusAddSubMenu,
             menuItem: { title, link, removeAllModes, ID } } = this.props;
 
         if (statusEdit && currentItemID === ID) {
@@ -91,7 +104,7 @@ class MenuItem extends Component {
             return (
                 <>
                     <input type="text" defaultValue={title} onChange={this.onSaveTitle} />
-                    <button onClick={this.onSubmit}>OK</button>
+                    <button onClick={this.handleSubmitEdit}>OK</button>
                     <button onClick={a_removeAllModes}>Отмена</button>
                 </>
             )
@@ -107,11 +120,24 @@ class MenuItem extends Component {
                         {title}
                         <button onClick={this.onEdit}>Ред</button>
                         <button onClick={this.onDelete}>Уд</button>
+                        <button onClick={this.addSubMenu}>Подменю</button>
                     </Link>
                     <div className="menu__sub">
                         {this.props.children}
-                    </div>
+                        <div className="menu__item">
+                            {
+                                statusAddSubMenu && currentItemID === ID
+                                    ? (
+                                        <>
+                                            <input type="text" onChange={this.onSaveTitle} />
+                                            <button onClick={(e) => this.props.addSub(e, this.title, ID)}>Добавить</button>
+                                        </>
+                        )
+                        : false
+                }
+                        </div>
                 </div>
+                </div >
             );
         }
 
@@ -123,14 +149,16 @@ class MenuItem extends Component {
 const mapStateToProps = state => {
     return {
         statusEdit: selectors.s_toggleEditMenu(state),
+        statusAddSubMenu: selectors.s_toggleAddSubMenu(state),
         loginData: selectors.loginData(state),
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_toToggleEditMenu, a_removeAllModes, a_updateMenu } = bindActionCreators(actions, dispatch);
+    const { a_toToggleEditMenu, a_toToggleAddSubMenu, a_removeAllModes, a_updateMenu } = bindActionCreators(actions, dispatch);
     return {
         a_toToggleEditMenu,
+        a_toToggleAddSubMenu,
         a_removeAllModes,
         a_updateMenu
     }

@@ -12,6 +12,7 @@ class Menu extends Component {
     getSubMenu = (menuItem, menuList) => {
         const subMenuList = menuList.filter(item => menuItem.ID === item.submenu);
 
+
         if (!subMenuList.length) return '';
 
         let inFor = [];
@@ -20,8 +21,11 @@ class Menu extends Component {
             const menuElem = subMenuList[i];
             const li = (
                 <MenuItem
-                    menuItem={menuElem}>
+                    menuItem={menuElem}
+                    addSub={(e, title, submenu) => this.onSubmit(e, title, submenu)}
+                >
                     {this.getSubMenu(menuElem, menuList)}
+
                 </MenuItem>
             );
             inFor = [...inFor, li];
@@ -37,12 +41,14 @@ class Menu extends Component {
             if (menuItem.submenu) return false;
 
             let out = this.getSubMenu(menuItem, menuList);
-            console.log(out);
+            // console.log(out);
 
             return (
                 <MenuItem
                     menuItem={menuItem}
                     removeAllModes={this.removeAllModes}
+                    addSub={(e, title, submenu) => this.onSubmit(e, title, submenu)}
+
                     key={key}
                 >
                     {out}
@@ -62,12 +68,14 @@ class Menu extends Component {
         a_toToggleAddMenu(true);
     }
 
-    onSubmit = e => {
+    onSubmit = (e, title, submenu = false) => {
         e.preventDefault();
-        const { title } = this;
+
+        if (!title) title = this.title;
+
         const { a_toToggleAddMenu, a_updateMenu, loginData, position } = this.props;
 
-        const data = { position, title, ...loginData }
+        const data = { ...loginData, title, position, submenu }
         const db = new dbService();
 
         db.addMenu(data)
@@ -85,6 +93,7 @@ class Menu extends Component {
 
     modeEdit = () => {
         const { statusAuthoriz, statusEdit, position } = this.props;
+
         if (!statusAuthoriz) return;
 
 
@@ -96,7 +105,7 @@ class Menu extends Component {
                     <button onClick={this.clickAddMenu}>
                         Отмена
                     </button>
-                    <input type="Submit" defaultValue="Добавить" onClick={this.onSubmit} />
+                    <input type="Submit" defaultValue="Добавить" onClick={(e) => this.onSubmit(e)} />
                     <input type="text" onChange={this.onSaveTitle} />
                 </>
             );
