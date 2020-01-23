@@ -71,7 +71,7 @@ class MenuItem extends Component {
             loginData,
             menuItem: { title, ID, position } } = this.props;
 
-        let inputTitle = this.title;
+        let inputTitle = this.input_text;
         if (!inputTitle) inputTitle = title;
 
         const data = { ...loginData, ID, title: inputTitle };
@@ -88,62 +88,92 @@ class MenuItem extends Component {
 
     }
 
-    onSaveTitle = e => {
-        return this.title = e.target.value;
+    handleSaveInput = e => {
+        return this.input_text = e.target.value;
+    }
+
+    getEditPanel = () => {
+        const {
+            a_removeAllModes,
+            menuItem: { title }
+        } = this.props;
+
+        return (
+            <>
+                <input type="text" defaultValue={title} onChange={this.handleSaveInput} />
+                <button onClick={this.handleSubmitEdit}>OK</button>
+                <button onClick={a_removeAllModes}>Отмена</button>
+            </>
+        );
+    }
+
+    addFormAddingSubmenu = () => {
+        const { currentItemID } = this;
+
+        const {
+            statusAddSubMenu,
+            menuItem: { ID }
+        } = this.props;
+
+        if (statusAddSubMenu && currentItemID === ID) {
+            return (
+                <>
+                    <input type="text" onChange={this.handleSaveInput} />
+                    <button onClick={e => this.props.addSub(e, this.input_text, ID)}>Добавить</button>
+                </>
+            );
+        }
+
+    }
+
+    getMenuItem = () => {
+        const { menuItem: { title, link, removeAllModes } } = this.props;
+
+
+        return (
+            <div className="menu__item">
+                <Link
+                    to={link}
+                    className="menu__link"
+                    onClick={removeAllModes}
+                >
+                    {title}
+                    <button onClick={this.onEdit}>Ред</button>
+                    <button onClick={this.onDelete}>Уд</button>
+                    <button onClick={this.addSubMenu}>Подменю</button>
+                </Link>
+
+                <div className="menu__sub">
+                    {this.props.children}
+                    <div className="menu__item">
+                        {this.addFormAddingSubmenu()}
+                    </div>
+                </div>
+
+
+            </div >
+        );
     }
 
     render() {
         const { currentItemID } = this;
         const {
-            a_removeAllModes,
-            statusEdit, statusAddSubMenu,
-            menuItem: { title, link, removeAllModes, ID } } = this.props;
+            statusEdit,
+            menuItem: { ID } } = this.props;
 
         if (statusEdit && currentItemID === ID) {
             delete this.currentItemID;
-            return (
-                <>
-                    <input type="text" defaultValue={title} onChange={this.onSaveTitle} />
-                    <button onClick={this.handleSubmitEdit}>OK</button>
-                    <button onClick={a_removeAllModes}>Отмена</button>
-                </>
-            )
+            return this.getEditPanel();
         }
         else {
-            return (
-                <div className="menu__item">
-                    <Link
-                        to={link}
-                        className="menu__link"
-                        onClick={removeAllModes}
-                    >
-                        {title}
-                        <button onClick={this.onEdit}>Ред</button>
-                        <button onClick={this.onDelete}>Уд</button>
-                        <button onClick={this.addSubMenu}>Подменю</button>
-                    </Link>
-                    <div className="menu__sub">
-                        {this.props.children}
-                        <div className="menu__item">
-                            {
-                                statusAddSubMenu && currentItemID === ID
-                                    ? (
-                                        <>
-                                            <input type="text" onChange={this.onSaveTitle} />
-                                            <button onClick={(e) => this.props.addSub(e, this.title, ID)}>Добавить</button>
-                                        </>
-                        )
-                        : false
-                }
-                        </div>
-                </div>
-                </div >
-            );
+            return this.getMenuItem();
         }
-
-
     }
 }
+
+
+
+
 
 
 const mapStateToProps = state => {
