@@ -40,6 +40,14 @@ const reducer = (state = initState, action = {}) => {
 
             return { ...state, components: { ...components, Menu: { ...Menu, modeAddMenu: status } } };
         }
+        case 'TOGGLE_ADD_SUB_MENU': { //ADD MENU
+            const { components, components: { Menu, Menu: { modeAddSubMenu } } } = state;
+            let status = action.value;
+
+            if (status === undefined) status = !modeAddSubMenu
+
+            return { ...state, components: { ...components, Menu: { ...Menu, modeAddSubMenu: status } } };
+        }
         case 'TOGGLE_EDIT_MENU': { //ADD MENU
             const { components, components: { Menu, Menu: { modeEditMenu } } } = state;
             let status = action.value;
@@ -132,6 +140,9 @@ class Selectors {
 
     s_toggleAddMenu = ({ components }) => {
         return components.Menu.modeAddMenu;
+    }
+    s_toggleAddSubMenu = ({ components }) => {
+        return components.Menu.modeAddSubMenu;
     }
     s_toggleEditMenu = ({ components }) => {
         return components.Menu.modeEditMenu;

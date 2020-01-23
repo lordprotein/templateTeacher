@@ -6,6 +6,7 @@ export const a_updateContent = value => ({ type: 'UPDATE_POSTS', value });
 
 //Menu
 export const a_toToggleAddMenu = value => ({ type: 'TOGGLE_ADD_MENU', value });
+export const a_toToggleAddSubMenu = value => ({ type: 'TOGGLE_ADD_SUB_MENU', value });
 export const a_toToggleEditMenu = value => ({ type: 'TOGGLE_EDIT_MENU', value });
 //Menu end
 
