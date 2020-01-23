@@ -9,53 +9,34 @@ import dbService from '../../dbService/dbService';
 
 class Menu extends Component {
 
-    getSubMenu = (menuItem, menuList) => {
-        const subMenuList = menuList.filter(item => menuItem.ID === item.submenu);
+    getSubmenuList = (menuItem, menuList) => {
+        const submenu_list = menuList.filter(item => menuItem.ID === item.submenu);
 
 
-        if (!subMenuList.length) return '';
+        if (!submenu_list.length) return false; //Check have submenu list
 
-        let inFor = [];
+        let list_menu_items = [];
 
-        for (let i = 0, max = subMenuList.length; i < max; i++) {
-            const menuElem = subMenuList[i];
-            const li = (
+        for (let i = 0, max = submenu_list.length; i < max; i++) { //go to all menu items in this lvl
+            const menu_elem = submenu_list[i];
+            const menu_item = (
                 <MenuItem
-                    menuItem={menuElem}
-                    addSub={(e, title, submenu) => this.onSubmit(e, title, submenu)}
-                >
-                    {this.getSubMenu(menuElem, menuList)}
-
-                </MenuItem>
-            );
-            inFor = [...inFor, li];
-        }
-        return inFor;
-    }
-
-
-
-    renderMenuList = (menuList) => {
-        return menuList.map((menuItem, key) => {
-
-            if (menuItem.submenu) return false;
-
-            let out = this.getSubMenu(menuItem, menuList);
-            // console.log(out);
-
-            return (
-                <MenuItem
-                    menuItem={menuItem}
+                    menuItem={menu_elem}
                     removeAllModes={this.removeAllModes}
-                    addSub={(e, title, submenu) => this.onSubmit(e, title, submenu)}
-
-                    key={key}
+                    addSub={(e, title, submenu) => this.addMenuItem(e, title, submenu)}
+                    key={i} //Probably wrong
                 >
-                    {out}
+                    {this.getSubmenuList(menu_elem, menuList)}
                 </MenuItem>
-            )
-        });
+            ); //If in menu item have submenu or submenu list - use recursion and go to are one level below
+            list_menu_items = [...list_menu_items, menu_item];
+        }
+        return list_menu_items;
     }
+
+
+
+
 
     removeAllModes = () => {
         this.props.a_removeAllModes();
@@ -68,7 +49,7 @@ class Menu extends Component {
         a_toToggleAddMenu(true);
     }
 
-    onSubmit = (e, title, submenu = false) => {
+    addMenuItem = (e, title, submenu = false) => {
         e.preventDefault();
 
         if (!title) title = this.title;
@@ -91,10 +72,10 @@ class Menu extends Component {
         return this.title = e.target.value;
     }
 
-    modeEdit = () => {
+    getAddingPanel = () => {
         const { statusAuthoriz, statusEdit, position } = this.props;
 
-        if (!statusAuthoriz) return;
+        if (!statusAuthoriz) return false;
 
 
         if (statusEdit && (this.typeMenu === position)) {
@@ -102,11 +83,16 @@ class Menu extends Component {
 
             return (
                 <>
-                    <button onClick={this.clickAddMenu}>
-                        Отмена
-                    </button>
-                    <input type="Submit" defaultValue="Добавить" onClick={(e) => this.onSubmit(e)} />
-                    <input type="text" onChange={this.onSaveTitle} />
+                    <button onClick={this.clickAddMenu}>Отмена</button>
+                    <input
+                        type="Submit"
+                        defaultValue="Добавить"
+                        onClick={e => this.addMenuItem(e)}
+                    />
+                    <input
+                        type="text"
+                        onChange={this.onSaveTitle}
+                    />
                 </>
             );
         }
@@ -114,12 +100,32 @@ class Menu extends Component {
             delete this.typeMenu;
 
             return (
-                <button onClick={() => this.clickAddMenu()}>
+                <button onClick={this.clickAddMenu}>
                     Добавить новое меню
                 </button>
             );
         }
 
+    }
+
+    renderMenuList = (menuList) => {
+        return menuList.map((menuItem, key) => {
+
+            if (menuItem.submenu) return false;
+
+            const submenu_items = this.getSubmenuList(menuItem, menuList);
+
+            return (
+                <MenuItem
+                    menuItem={menuItem}
+                    removeAllModes={this.removeAllModes}
+                    addSub={(e, title, submenu) => this.addMenuItem(e, title, submenu)}
+                    key={key}
+                >
+                    {submenu_items.length && submenu_items}
+                </MenuItem>
+            )
+        });
     }
 
     render() {
@@ -132,14 +138,8 @@ class Menu extends Component {
 
         return (
             <nav className={stylePos}>
-
-                {
-                    this.modeEdit()
-                    // statusAuthoriz && <button onClick={this.clickAddMenu}>Добавить новое меню</button>
-                }
-                {
-                    this.renderMenuList(menuPosList)
-                }
+                {this.getAddingPanel()}
+                {this.renderMenuList(menuPosList)}
             </nav>
         );
     }
