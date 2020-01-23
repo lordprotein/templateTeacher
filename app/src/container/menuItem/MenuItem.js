@@ -42,7 +42,7 @@ class MenuItem extends Component {
 
 
         const { a_toToggleEditMenu, menuItem: { ID } } = this.props;
-        this.currentItemID = ID;
+        this.current_item_ID = ID;
 
         a_toToggleEditMenu(true);
     }
@@ -52,7 +52,7 @@ class MenuItem extends Component {
         e.stopPropagation();
 
         const { a_toToggleAddSubMenu, statusAddSubMenu, menuItem: { ID } } = this.props;
-        this.currentItemID = ID;
+        this.current_item_ID = ID;
 
 
         a_toToggleAddSubMenu(true);
@@ -108,14 +108,15 @@ class MenuItem extends Component {
     }
 
     addFormAddingSubmenu = () => {
-        const { currentItemID } = this;
+        const { current_item_ID } = this;
 
         const {
             statusAddSubMenu,
             menuItem: { ID }
         } = this.props;
 
-        if (statusAddSubMenu && currentItemID === ID) {
+        if (statusAddSubMenu && current_item_ID === ID) { //"current_item_ID" - render form for a particular element
+            delete this.current_item_ID; //clear to cansel saving current_item_ID
             return (
                 <>
                     <input type="text" onChange={this.handleSaveInput} />
@@ -128,7 +129,6 @@ class MenuItem extends Component {
 
     getMenuItem = () => {
         const { menuItem: { title, link, removeAllModes } } = this.props;
-
 
         return (
             <div className="menu__item">
@@ -156,13 +156,13 @@ class MenuItem extends Component {
     }
 
     render() {
-        const { currentItemID } = this;
+        const { current_item_ID } = this;
         const {
             statusEdit,
             menuItem: { ID } } = this.props;
 
-        if (statusEdit && currentItemID === ID) {
-            delete this.currentItemID;
+        if (statusEdit && current_item_ID === ID) {
+            delete this.current_item_ID;
             return this.getEditPanel();
         }
         else {
