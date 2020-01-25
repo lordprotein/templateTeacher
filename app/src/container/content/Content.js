@@ -16,7 +16,7 @@ class Content extends Component {
         this.db = new dbService();
     }
 
-    get createRoute() {
+    getAllRoutes() {
         const { menuList } = this.props;
 
         if (!menuList.length) return false;
@@ -25,62 +25,65 @@ class Content extends Component {
             return (
                 <Route
                     path={link}
-                    render={() => this.generatePosts(postList, ID)}
+                    render={() => this.getListPosts(postList, ID)}
                     key={key}
                 />
             );
         });
     }
 
-    clickAddPost = () => {
+    onAddPost = () => {
         this.props.a_toToggleAddPost(true);
     }
 
-    generatePosts = (menuItem, idMenu) => {
+    getFormEditer = (ID_MENU) => {
+        return (
+            <FormEditer
+                ID_MENU={ID_MENU}
+                action="add"
+            />
+        );
+    }
+
+    getBtnAddPost = () => {
+        return (
+            <button onClick={this.onAddPost}>
+                Добавить пост
+            </button>
+        );
+    }
+
+    getListPosts = (menuItem, ID_MENU) => {
         const { statusAuthoriz, statusEdit } = this.props;
 
-        const content = menuItem.map((post, key) => {
+        const content_list = menuItem.map((postItem, key) => {
             return (
                 <ContentItem
-                    postData={post}
-                    statusAuthoriz={statusAuthoriz}
-                    ID_MENU={idMenu}
+                    postItem={postItem}
+                    ID_MENU={ID_MENU}
                     key={key}
                 />
             )
         });
 
-        const FormEditerContainer = (
-            <FormEditer
-                ID_MENU={idMenu}
-                action="add"
-            />
-        )
 
         return (
             <>
-                {
-                    statusAuthoriz && !statusEdit &&
-                    <button onClick={this.clickAddPost}>
-                        Добавить пост
-                    </button>
-                }
-                {statusEdit ? FormEditerContainer : content}
+                {(statusAuthoriz && !statusEdit) ? this.getBtnAddPost() : false}
+                {!statusEdit ? content_list : this.getFormEditer()}
             </>
         );
 
     }
 
 
-
-
     render() {
         return (
             <section className="content">
                 <Switch>
-                    <Route exact path='/' render={() => <Te />} />
+                    {/* <Route exact path='/' render={() => <Te />} />  */}
                     <Route path='/authorization' render={() => <Authorization />} />
-                    {this.createRoute}
+                    {this.getAllRoutes()}
                 </Switch>
             </section>
         );
@@ -96,6 +99,7 @@ const mapStateToProps = state => {
         loginData: selectors.loginData(state),
         statusAuthoriz: selectors.statusAuthoriz(state),
         statusEdit: selectors.s_toggleAddPost(state),
+
     }
 }
 
@@ -104,8 +108,8 @@ const mapDispatchToProps = dispatch => {
     return { a_toToggleAddPost, a_updateContent };
 }
 
-const Te = () => {
-    return <div>Hello!</div>;
-}
+// const Te = () => {
+//     return <div>Hello!</div>;
+// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content);

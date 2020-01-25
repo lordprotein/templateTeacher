@@ -23,7 +23,7 @@ class Menu extends Component {
                 <MenuItem
                     menuItem={menu_elem}
                     removeAllModes={this.removeAllModes}
-                    addSub={(e, title, submenu) => this.addMenuItem(e, title, submenu)}
+                    addSubmenuItem={(title, submenu) => this.addMenuItem(title, submenu)}
                     key={i} //Probably wrong
                 >
                     {this.getSubmenuList(menu_elem, menuList)}
@@ -49,15 +49,13 @@ class Menu extends Component {
         a_toToggleAddMenu(true);
     }
 
-    addMenuItem = (e, title, submenu = false) => {
-        e.preventDefault();
-
-        if (!title) title = this.title;
-
+    addMenuItem = (title, submenu = false) => { //add new menu elem
         const { a_toToggleAddMenu, a_updateMenu, loginData, position } = this.props;
 
         const data = { ...loginData, title, position, submenu }
         const db = new dbService();
+
+        console.log(data)
 
         db.addMenu(data)
             .then(res => {
@@ -68,8 +66,8 @@ class Menu extends Component {
             })
     }
 
-    onSaveTitle = e => {
-        return this.title = e.target.value;
+    handleSaveInput = e => {
+        return this.input_text = e.target.value;
     }
 
     getAddingPanel = () => {
@@ -84,14 +82,14 @@ class Menu extends Component {
             return (
                 <>
                     <button onClick={this.clickAddMenu}>Отмена</button>
-                    <input
-                        type="Submit"
-                        defaultValue="Добавить"
-                        onClick={e => this.addMenuItem(e)}
-                    />
+                    <button
+                        onClick={() => this.addMenuItem(this.input_text)}
+                    >
+                        Добавить
+                    </button>
                     <input
                         type="text"
-                        onChange={this.onSaveTitle}
+                        onChange={this.handleSaveInput}
                     />
                 </>
             );
@@ -119,7 +117,7 @@ class Menu extends Component {
                 <MenuItem
                     menuItem={menuItem}
                     removeAllModes={this.removeAllModes}
-                    addSub={(e, title, submenu) => this.addMenuItem(e, title, submenu)}
+                    addSubmenuItem={(title, submenu) => this.addMenuItem(title, submenu)}
                     key={key}
                 >
                     {submenu_items.length && submenu_items}

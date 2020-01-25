@@ -23,8 +23,8 @@ class App extends Component {
         return (
             <>
                 <Header statusAuthoriz={statusAuthoriz} />
-                <Sidebar statusAuthoriz={statusAuthoriz} />
-                <Content statusAuthoriz={statusAuthoriz} />
+                <Sidebar />
+                <Content />
             </>
         );
     }

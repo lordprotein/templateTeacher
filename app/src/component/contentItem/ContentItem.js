@@ -13,10 +13,10 @@ class ContentItem extends Component {
         this.db = new dbService();
     }
 
-    deletePost = () => {
-        const { ID_MENU, postData } = this.props;
+    onDeletePost = () => {
+        const { ID_MENU, postItem } = this.props;
         const { loginData, a_updateContent } = this.props;
-        const { ID } = postData;
+        const { ID } = postItem;
         const data = { ...loginData, ID };
 
         const ask = window.confirm(`Подтвердите удаление`);
@@ -32,14 +32,14 @@ class ContentItem extends Component {
     }
 
     onEditPost = () => {
-        const { postData, a_toToggleEditPost } = this.props;
+        const { postItem, a_toToggleEditPost } = this.props;
 
-        this.currentPostID = postData.ID;
+        this.currentPostID = postItem.ID;
 
         a_toToggleEditPost(true);
     }
 
-    authorizElems = (postData) => {
+    authorizElems = (postItem) => {
         const { statusAuthoriz } = this.props;
 
         if (!statusAuthoriz) return;
@@ -52,7 +52,7 @@ class ContentItem extends Component {
                     Редактировать
                 </button>
                 <button
-                    onClick={this.deletePost}
+                    onClick={this.onDeletePost}
                 >
                     Удалить
                 </button>
@@ -62,7 +62,7 @@ class ContentItem extends Component {
 
     render() {
         const { s_statusEditPost } = this.props;
-        const { postData, postData: { ID, title, content } } = this.props;
+        const { postItem, postItem: { ID, title, content } } = this.props;
         const { currentPostID } = this;
 
 
@@ -70,7 +70,7 @@ class ContentItem extends Component {
             delete this.currentPostID;
             return (
                 <FormEditer
-                    postData={postData}
+                    postItem={postItem}
                     action="edit"
                 />
             )
@@ -82,7 +82,7 @@ class ContentItem extends Component {
                     <p className="content__text">
                         {content}
                     </p>
-                    {this.authorizElems(postData)}
+                    {this.authorizElems(postItem)}
                 </>
             );
         }
@@ -94,7 +94,7 @@ const mapStateToProps = state => {
     return {
         loginData: selectors.loginData(state),
         s_statusEditPost: selectors.s_statusEditPost(state),
-
+        statusAuthoriz: selectors.statusAuthoriz(state),
     }
 }
 
