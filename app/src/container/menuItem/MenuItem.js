@@ -120,7 +120,7 @@ class MenuItem extends Component {
             return (
                 <>
                     <input type="text" onChange={this.handleSaveInput} />
-                    <button onClick={e => this.props.addSub(e, this.input_text, ID)}>Добавить</button>
+                    <button onClick={() => this.props.addSubmenuItem(this.input_text, ID)}>Добавить</button>
                 </>
             );
         }
