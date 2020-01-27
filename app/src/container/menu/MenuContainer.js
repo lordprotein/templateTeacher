@@ -24,7 +24,7 @@ class MenuContainer extends Component {
                 <MenuItemContainer
                     menuItem={menu_elem}
                     removeAllModes={this.removeAllModes}
-                    addSubmenuItem={(title, submenu) => this.onAaddMenuItem(title, submenu)}
+                    addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
                     key={i} //Probably wrong
                 >
                     {this.getSubmenuList(menu_elem, menuList)}
