@@ -35,10 +35,6 @@ class MenuContainer extends Component {
         return list_menu_items;
     }
 
-
-
-
-
     removeAllModes = () => {
         this.props.a_removeAllModes();
     }
