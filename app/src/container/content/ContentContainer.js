@@ -1,19 +1,42 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectors } from '../../redux/reducer'
 import ContentItemContainer from './ContentItemContainer';
-import AuthorizationContainer from '../Authorization/AuthorizationContainer';
 import FormEditerContainer from '../FormEditer/FormEditerContainer';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
+import { Content } from '../../component/content/Content/Content';
 
 
 class ContentContainer extends Component {
     constructor(props) {
         super(props);
         this.db = new dbService();
+    }
+
+    getListPosts = (menuItem, ID_MENU) => {
+        const { statusAuthoriz, statusEdit } = this.props;
+
+        const content_list = menuItem.map((postItem, key) => {
+            return (
+                <ContentItemContainer
+                    postItem={postItem}
+                    ID_MENU={ID_MENU}
+                    key={key}
+                />
+            )
+        });
+
+
+        return (
+            <>
+                {(statusAuthoriz && !statusEdit) ? this.getBtnAddPost() : false}
+                {!statusEdit ? content_list : this.getFormEditer(ID_MENU)}
+            </>
+        );
+
     }
 
     getAllRoutes() {
@@ -53,40 +76,11 @@ class ContentContainer extends Component {
         );
     }
 
-    getListPosts = (menuItem, ID_MENU) => {
-        const { statusAuthoriz, statusEdit } = this.props;
 
-        const content_list = menuItem.map((postItem, key) => {
-            return (
-                <ContentItemContainer
-                    postItem={postItem}
-                    ID_MENU={ID_MENU}
-                    key={key}
-                />
-            )
-        });
-
-
-        return (
-            <>
-                {(statusAuthoriz && !statusEdit) ? this.getBtnAddPost() : false}
-                {!statusEdit ? content_list : this.getFormEditer(ID_MENU)}
-            </>
-        );
-
-    }
 
 
     render() {
-        return (
-            <section className="content">
-                <Switch>
-                    {/* <Route exact path='/' render={() => <Te />} />  */}
-                    <Route path='/authorization' render={() => <AuthorizationContainer />} />
-                    {this.getAllRoutes()}
-                </Switch>
-            </section>
-        );
+        return (<Content allRoutes={() => this.getAllRoutes()} />);
     }
 }
 
