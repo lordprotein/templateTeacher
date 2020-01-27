@@ -80,6 +80,15 @@ class Content extends Component {
     render() {
         return (
             <section className="content">
+                <>
+                    <h1>Upload file</h1>
+                    <form action="http://77.222.63.195:3333/upload" method="post" enctype="multipart/form-data">
+                        <label>Файл</label>
+                        <input type="file" name="filedata" />
+                        <input type="submit" value="Send" />
+                    </form>
+                </>
+
                 <Switch>
                     {/* <Route exact path='/' render={() => <Te />} />  */}
                     <Route path='/authorization' render={() => <Authorization />} />
