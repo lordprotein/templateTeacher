@@ -1,121 +1,109 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { selectors } from '../../redux/reducer';
 import dbService from '../../service/service';
-import { bindActionCreators } from 'redux';
+import { FormEditer } from '../../component/FormEditer/FormEditer';
 import * as actions from '../../redux/actions';
 
 
 class FormEditerContainer extends Component {
-    onSaveTitle = e => {
-        this.title = e.target.value;
-    }
+   onTitleInput = e => {
+      this.title = e.target.value;
+   }
 
-    onSaveContent = e => {
-        this.content = e.target.value;
-    }
+   onContentInput = e => {
+      this.content = e.target.value;
+   }
 
-    handleSubmit = e => {
-        e.preventDefault();
+   handleSend = e => {
+      e.preventDefault();
 
-        const {
-            s_loginData, a_removeAllModes, a_updateContent,
-            action, postData,
-        } = this.props;
-
-
-        let { title, content } = this;
-
-        if (!title) title = postData.title;
-        if (!content) content = postData.content;
-
-        let data = { ...s_loginData, title, content }
+      const {
+         s_loginData, a_removeAllModes, a_updateContent,
+         action, postData,
+      } = this.props;
 
 
-        const db = new dbService();
+      let { title, content } = this;
 
-        switch (action) {
-            case 'add': {
-                const { ID_MENU } = this.props;
-                data = { ...data, ID_MENU };
-                db.addPost(data)
-                    .then(() => {
-                        db.updatePostList(ID_MENU, (contentList) => {
-                            a_updateContent({ ID_MENU, contentList });
-                        })
-                    });
-                break;
-            }
-            case 'edit': {
-                const { ID_MENU, ID } = postData;
-                data = { ...data, ID };
-                db.editPost(data)
-                    .then(() => {
-                        db.updatePostList(ID_MENU, contentList => {
-                            a_updateContent({ ID_MENU, contentList });
-                        })
-                    })
-                break;
-            }
-            default: break;
-        }
+      if (!title) title = postData.title;
+      if (!content) content = postData.content;
 
-        a_removeAllModes();
-    }
+      let data = { ...s_loginData, title, content }
 
 
-    render() {
-        const { postData, a_removeAllModes } = this.props;
-        let title = '', content = '';
+      const db = new dbService();
 
-        if (postData !== undefined) {
-            title = postData.title;
-            content = postData.content;
-        }
+      switch (action) {
+         case 'add': {
+            const { ID_MENU } = this.props;
+            data = { ...data, ID_MENU };
 
-        return (
-            <div className="editer">
-                <input
-                    type="text"
-                    placeholder="title"
-                    onChange={this.onSaveTitle}
-                    defaultValue={title}
-                />
+            db.addPost(data)
+               .then(() => {
+                  db.updatePostList(ID_MENU, (contentList) => {
+                     a_updateContent({ ID_MENU, contentList });
+                  })
+               });
+            break;
+         }
+         case 'edit': {
+            const { ID_MENU, ID } = postData;
+            data = { ...data, ID };
+            db.editPost(data)
+               .then(() => {
+                  db.updatePostList(ID_MENU, contentList => {
+                     a_updateContent({ ID_MENU, contentList });
+                  })
+               })
+            break;
+         }
+         default: break;
+      }
 
-                <textarea
-                    placeholder="Type content"
-                    onChange={this.onSaveContent}
-                    defaultValue={content}
-                >
-                </textarea>
+      a_removeAllModes();
+   }
 
-                <input
-                    type="submit"
-                    value="Send"
-                    onClick={this.handleSubmit}
-                />
 
-                <button onClick={a_removeAllModes}>
-                    Назад
-                </button>
-            </div>
-        );
-    }
+   render() {
+      const { postData, a_removeAllModes } = this.props;
+      let title = '', content = '';
+
+      if (postData !== undefined) {
+         title = postData.title;
+         content = postData.content;
+      }
+
+      const actions = {
+         onTitleInput: (e) => this.onTitleInput(e),
+         onContentInput: (e) => this.onContentInput(e),
+         handleSend: (e) => this.handleSend(e),
+      }
+
+      return (
+         <FormEditer
+            postData={{title, content}}
+            actions={actions}
+            removeAllModes={a_removeAllModes}
+         />
+      );
+   }
 }
 
 
 
 const mapStateToProps = state => {
-    console.log(state.components.Content.modeAddPost, state.components.Content.modeEditPost);
-    return ({
-        s_loginData: selectors.loginData(state),
-        s_statusEdit: selectors.s_toggleAddPost(state),
-    });
+   return ({
+      s_loginData: selectors.loginData(state),
+      s_statusEdit: selectors.s_toggleAddPost(state),
+   });
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_updateContent, a_removeAllModes } = bindActionCreators(actions, dispatch);
-    return { a_updateContent, a_removeAllModes };
+   const { a_updateContent, a_removeAllModes } = bindActionCreators(actions, dispatch);
+   return { a_updateContent, a_removeAllModes };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormEditerContainer);
