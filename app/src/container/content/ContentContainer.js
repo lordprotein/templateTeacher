@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectors } from '../../redux/reducer'
 import ContentItemContainer from './ContentItemContainer';
@@ -7,6 +7,7 @@ import FormEditerContainer from '../FormEditer/FormEditerContainer';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
+import LogInContainer from '../LogIn/LogInContainer';
 import { Content } from '../../component/content/Content/Content';
 
 
@@ -44,15 +45,25 @@ class ContentContainer extends Component {
 
         if (!menuList.length) return false;
 
-        return menuList.map(({ link, postList, ID }, key) => {
+        const first_route = (
+            <Route
+                path='/login'
+                render={() => <LogInContainer />}
+                key={0}
+            />
+        )
+
+        const route_list = menuList.map(({ link, postList, ID }, key) => {
             return (
                 <Route
                     path={link}
-                    render={() => this.getListPosts(postList, ID)}
+                    render={() => this.getListPosts(postList, ID + 1)}
                     key={key}
                 />
             );
         });
+
+        return (<Switch>{[first_route, ...route_list]}</Switch>);
     }
 
     onAddPost = () => {
