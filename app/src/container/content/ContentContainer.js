@@ -17,10 +17,11 @@ class ContentContainer extends Component {
         this.db = new dbService();
     }
 
-    getListPosts = (menuItem, ID_MENU) => {
+    getListPosts = (postList, ID_MENU) => {
         const { statusAuthoriz, statusEdit } = this.props;
-
-        const content_list = menuItem.map((postItem, key) => {
+        
+        const content_list = postList.map((postItem, key) => {
+            console.log(postItem)
             return (
                 <ContentItemContainer
                     postItem={postItem}
@@ -54,11 +55,12 @@ class ContentContainer extends Component {
         )
 
         const route_list = menuList.map(({ link, postList, ID }, key) => {
+
             return (
                 <Route
                     path={link}
-                    render={() => this.getListPosts(postList, ID + 1)}
-                    key={key}
+                    render={() => this.getListPosts(postList, ID)}
+                    key={key + 1}
                 />
             );
         });
