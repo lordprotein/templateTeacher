@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MenuItem from './MenuItemContainer';
+import MenuItemContainer from './MenuItemContainer';
 import { selectors } from '../../redux/reducer';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
@@ -20,14 +20,14 @@ class Menu extends Component {
         for (let i = 0, max = submenu_list.length; i < max; i++) { //go to all menu items in this lvl
             const menu_elem = submenu_list[i];
             const menu_item = (
-                <MenuItem
+                <MenuItemContainer
                     menuItem={menu_elem}
                     removeAllModes={this.removeAllModes}
                     addSubmenuItem={(title, submenu) => this.addMenuItem(title, submenu)}
                     key={i} //Probably wrong
                 >
                     {this.getSubmenuList(menu_elem, menuList)}
-                </MenuItem>
+                </MenuItemContainer>
             ); //If in menu item have submenu or submenu list - use recursion and go to are one level below
             list_menu_items = [...list_menu_items, menu_item];
         }
@@ -114,14 +114,14 @@ class Menu extends Component {
             const submenu_items = this.getSubmenuList(menuItem, menuList);
 
             return (
-                <MenuItem
+                <MenuItemContainer
                     menuItem={menuItem}
                     removeAllModes={this.removeAllModes}
                     addSubmenuItem={(title, submenu) => this.addMenuItem(title, submenu)}
                     key={key}
                 >
                     {submenu_items.length && submenu_items}
-                </MenuItem>
+                </MenuItemContainer>
             )
         });
     }

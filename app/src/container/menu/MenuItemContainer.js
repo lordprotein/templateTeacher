@@ -7,7 +7,7 @@ import { selectors } from '../../redux/reducer';
 import dbService from '../../service/service';
 
 
-class MenuItem extends Component {
+class MenuItemContainer extends Component {
 
 
     onDelete = e => {
@@ -194,4 +194,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuItem);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuItemContainer);
