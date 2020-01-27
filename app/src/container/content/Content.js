@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectors } from '../../redux/reducer'
-import ContentItem from '../../component/contentItem/ContentItem';
+import ContentItem from '../ContentItem/ContentItem';
 import Authorization from '../authorization/Authorization';
 import FormEditer from '../FormEditer/FormEditer';
 import { bindActionCreators } from 'redux';

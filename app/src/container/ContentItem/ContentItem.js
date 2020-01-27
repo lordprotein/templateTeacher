@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { selectors } from '../../redux/reducer';
-import FormEditer from '../../container/FormEditer/FormEditer';
+import FormEditer from '../FormEditer/FormEditer';
 
 
 class ContentItem extends Component {
