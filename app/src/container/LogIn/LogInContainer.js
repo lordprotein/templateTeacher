@@ -3,66 +3,57 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
+import { LogIn } from '../../component/LogIn/LogIn';
 
 
 
 class LogInContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.login = '';
+        this.password = '';
+    }
 
-    onSaveLogin = e => {
+    onChangeInputLogin = e => {
         return this.login = e.target.value;
     }
 
-    onSavePassword = e => {
+    onChangeInputPassword = e => {
         return this.password = e.target.value;
     }
 
-    handleSubmit = (e) => {
+    handleSend = e => {
         e.preventDefault();
 
         const { login, password } = this,
             data = { login, password },
             db = new dbService();
 
+
         db.checkLogin(data)
             .then(({ access }) => {
+                console.log(access)
                 if (access) return this.props.a_setLogIn(data);
             });
     }
 
     render() {
         return (
-            <form>
-                <label>
-                    Логин
-                    <input
-                        type="text"
-                        name="auth-login"
-                        defaultValue="admin"
-                        onChange={this.onSaveLogin}
-                    />
-                </label>
-                <label>
-                    Пароль
-                    <input
-                        type="text"
-                        name="auth-password"
-                        defaultValue="1234"
-                        onChange={this.onSavePassword}
-                    />
-                </label>
-                <input type="submit" value="Submit" onClick={this.handleSubmit} />
-            </form >
+            <LogIn
+                onChangeInputLogin={e => this.onChangeInputLogin(e)}
+                onChangeInputPassword={e => this.onChangeInputPassword(e)}
+                handleSend={e => this.handleSend(e)}
+            />
         );
     }
 }
 
-const mapStateToProps = state => {
-    console.log(state.logIn);
-}
 
 const mapDispatchToProps = dispatch => {
     const { a_setLogIn } = bindActionCreators(actions, dispatch);
     return { a_setLogIn };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogInContainer);
+
+
+export default connect(false, mapDispatchToProps)(LogInContainer);
