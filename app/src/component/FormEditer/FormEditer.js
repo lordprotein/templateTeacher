@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const FormEditer = ({ postData, actions, removeAllModes }) => {
-	const { onTitleInput, onContentInput, handleSend } = actions;
+	const { onChangeTitleInput, onChangeContentInput, handleSend } = actions;
 	const { title, content } = postData;
 
 	return (
@@ -9,13 +9,13 @@ export const FormEditer = ({ postData, actions, removeAllModes }) => {
 			<input // title 
 				type="text"
 				placeholder="title"
-				onChange={onTitleInput}
+				onChange={onChangeTitleInput}
 				defaultValue={title}
 			/>
 
 			<textarea //content
 				placeholder="Type content"
-				onChange={onContentInput}
+				onChange={onChangeContentInput}
 				defaultValue={content}
 			>
 			</textarea>

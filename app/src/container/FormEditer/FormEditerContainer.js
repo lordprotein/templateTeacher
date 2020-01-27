@@ -9,11 +9,11 @@ import * as actions from '../../redux/actions';
 
 
 class FormEditerContainer extends Component {
-   onTitleInput = e => {
+   onChangeTitleInput = e => {
       this.title = e.target.value;
    }
 
-   onContentInput = e => {
+   onChangeContentInput = e => {
       this.content = e.target.value;
    }
 
@@ -77,8 +77,8 @@ class FormEditerContainer extends Component {
       }
 
       const actions = {
-         onTitleInput: (e) => this.onTitleInput(e),
-         onContentInput: (e) => this.onContentInput(e),
+         onChangeTitleInput: (e) => this.onChangeTitleInput(e),
+         onChangeContentInput: (e) => this.onChangeContentInput(e),
          handleSend: (e) => this.handleSend(e),
       }
 

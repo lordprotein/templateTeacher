@@ -24,7 +24,7 @@ class MenuContainer extends Component {
                 <MenuItemContainer
                     menuItem={menu_elem}
                     removeAllModes={this.removeAllModes}
-                    addSubmenuItem={(title, submenu) => this.addMenuItem(title, submenu)}
+                    addSubmenuItem={(title, submenu) => this.onAaddMenuItem(title, submenu)}
                     key={i} //Probably wrong
                 >
                     {this.getSubmenuList(menu_elem, menuList)}
@@ -39,14 +39,14 @@ class MenuContainer extends Component {
         this.props.a_removeAllModes();
     }
 
-    clickAddMenu = () => {
+    onAddMenu = () => {
         const { a_toToggleAddMenu, position } = this.props;
         this.typeMenu = position;
 
         a_toToggleAddMenu(true);
     }
 
-    addMenuItem = (title, submenu = false) => { //add new menu elem
+    onAddMenuItem = (title, submenu = false) => { //add new menu elem
         const { a_toToggleAddMenu, a_updateMenu, loginData, position } = this.props;
 
         const data = { ...loginData, title, position, submenu }
@@ -61,12 +61,12 @@ class MenuContainer extends Component {
             })
     }
 
-    handleSaveInput = e => {
+    onChangeInput = e => {
         return this.input_text = e.target.value;
     }
 
-    getAddingPanel = () => {
-        const { statusAuthoriz, statusEdit, position } = this.props;
+    getPanelForAdd = () => {
+        const { a_removeAllModes, statusAuthoriz, statusEdit, position } = this.props;
 
         if (!statusAuthoriz) return false;
 
@@ -76,15 +76,15 @@ class MenuContainer extends Component {
 
             return (
                 <>
-                    <button onClick={this.clickAddMenu}>Отмена</button>
+                    <button onClick={a_removeAllModes}>Отмена</button>
                     <button
-                        onClick={() => this.addMenuItem(this.input_text)}
+                        onClick={() => this.onAddMenuItem(this.input_text)}
                     >
                         Добавить
                     </button>
                     <input
                         type="text"
-                        onChange={this.handleSaveInput}
+                        onChange={this.onChangeInput}
                     />
                 </>
             );
@@ -93,7 +93,7 @@ class MenuContainer extends Component {
             delete this.typeMenu;
 
             return (
-                <button onClick={this.clickAddMenu}>
+                <button onClick={this.onAddMenu}>
                     Добавить новое меню
                 </button>
             );
@@ -115,7 +115,7 @@ class MenuContainer extends Component {
                 <MenuItemContainer
                     menuItem={menuItem}
                     removeAllModes={this.removeAllModes}
-                    addSubmenuItem={(title, submenu) => this.addMenuItem(title, submenu)}
+                    addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
                     key={key}
                 >
                     {submenu_items.length && submenu_items}
@@ -129,7 +129,7 @@ class MenuContainer extends Component {
 
         return (
             <Menu
-                addingPanel={this.getAddingPanel()}
+                addingPanel={this.getPanelForAdd()}
                 menuList={this.renderMenuList()}
                 stylePos={position === 'top' ? 'menu menu--line': 'menu'}
             />
