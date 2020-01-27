@@ -5,6 +5,7 @@ import MenuItemContainer from './MenuItemContainer';
 import { selectors } from '../../redux/reducer';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
+import { Menu } from '../../component/menu/Menu/Menu';
 
 
 class MenuContainer extends Component {
@@ -106,7 +107,10 @@ class MenuContainer extends Component {
 
     }
 
-    renderMenuList = (menuList) => {
+    renderMenuList = () => {
+        let { position, menuList } = this.props;
+        menuList = menuList.filter(menuItem => position === menuItem.position);
+
         return menuList.map((menuItem, key) => {
 
             if (menuItem.submenu) return false;
@@ -127,18 +131,14 @@ class MenuContainer extends Component {
     }
 
     render() {
-        const { position, menuList } = this.props;
-
-        const menuPosList = menuList.filter(menuItem => position === menuItem.position);
-
-        let stylePos = 'menu ';
-        if (position === 'top') stylePos += 'menu--line';
+        const { position } = this.props;
 
         return (
-            <nav className={stylePos}>
-                {this.getAddingPanel()}
-                {this.renderMenuList(menuPosList)}
-            </nav>
+            <Menu
+                addingPanel={this.getAddingPanel()}
+                menuList={this.renderMenuList()}
+                stylePos={position === 'top' ? 'menu menu--line': 'menu'}
+            />
         );
     }
 
