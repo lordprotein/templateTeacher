@@ -70,7 +70,7 @@ class ContentContainer extends Component {
         return (
             <>
                 {(statusAuthoriz && !statusEdit) ? this.getBtnAddPost() : false}
-                {!statusEdit ? content_list : this.getFormEditer()}
+                {!statusEdit ? content_list : this.getFormEditer(ID_MENU)}
             </>
         );
 
