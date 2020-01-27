@@ -7,7 +7,7 @@ import Authorization from '../authorization/Authorization';
 import FormEditer from '../FormEditer/FormEditer';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
-import dbService from '../../dbService/dbService';
+import dbService from '../../service/service';
 
 
 class Content extends Component {

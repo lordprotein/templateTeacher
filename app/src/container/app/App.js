@@ -6,7 +6,7 @@ import Content from '../content/Content';
 import Sidebar from '../../component/sidebar/Sidebar';
 import * as actions from '../../redux/actions';
 import { selectors } from '../../redux/reducer';
-import dbService from '../../dbService/dbService';
+import dbService from '../../service/service';
 
 
 class App extends Component {

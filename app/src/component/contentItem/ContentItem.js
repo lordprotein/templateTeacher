@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
-import dbService from '../../dbService/dbService';
+import dbService from '../../service/service';
 import { selectors } from '../../redux/reducer';
 import FormEditer from '../../container/FormEditer/FormEditer';
 

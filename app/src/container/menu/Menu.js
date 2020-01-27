@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { selectors } from '../../redux/reducer';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
-import dbService from '../../dbService/dbService';
+import dbService from '../../service/service';
 
 
 class Menu extends Component {
