@@ -10,7 +10,8 @@ export const Content = ({ allRoutes }) => {
 					path='/authorization'
 					render={
 						() => <AuthorizationContainer />
-					} />
+					}
+				/>
 				{allRoutes()}
 			</Switch>
 		</section>
