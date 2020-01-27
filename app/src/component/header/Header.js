@@ -1,5 +1,5 @@
 import React from 'react';
-import Menu from '../../container/menu/MenuContainer';
+import MenuContainer from '../../container/menu/MenuContainer';
 
 const Header = () => {
 
@@ -9,7 +9,7 @@ const Header = () => {
                 title
             </h1>
 
-            <Menu
+            <MenuContainer
                 position='top'
             />
         </header>

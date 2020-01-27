@@ -1,10 +1,10 @@
 import React from 'react';
-import Menu from '../../container/menu/MenuContainer';
+import MenuContainer from '../../container/menu/MenuContainer';
 
 const Sidebar = () => {
     return (
         <aside className="sidebar">
-            <Menu
+            <MenuContainer
                 position='left'
             />
         </aside>

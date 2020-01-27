@@ -7,7 +7,7 @@ import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 
 
-class Menu extends Component {
+class MenuContainer extends Component {
 
     getSubmenuList = (menuItem, menuList) => {
         const submenu_list = menuList.filter(item => menuItem.ID === item.submenu);
@@ -163,4 +163,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuContainer);
