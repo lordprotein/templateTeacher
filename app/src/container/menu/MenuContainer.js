@@ -52,8 +52,6 @@ class MenuContainer extends Component {
         const data = { ...loginData, title, position, submenu }
         const db = new dbService();
 
-        console.log(data)
-
         db.addMenu(data)
             .then(res => {
                 db.updateMenuList(position, menuList => {

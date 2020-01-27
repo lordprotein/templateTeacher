@@ -68,9 +68,10 @@ class ContentItemContainer extends Component {
 
         if (s_statusEditPost && currentPostID === ID) {
             delete this.currentPostID;
+            console.log(postItem)
             return (
                 <FormEditerContainer
-                    postItem={postItem}
+                    postData={postItem}
                     action="edit"
                 />
             )
