@@ -5,6 +5,7 @@ import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { selectors } from '../../redux/reducer';
 import FormEditerContainer from '../FormEditer/FormEditerContainer';
+import { ContentItem } from '../../component/content/ContentItem/ContentItem';
 
 
 class ContentItemContainer extends Component {
@@ -39,7 +40,7 @@ class ContentItemContainer extends Component {
         a_toToggleEditPost(true);
     }
 
-    authorizElems = (postItem) => {
+    getControlPanel = (postItem) => {
         const { statusAuthoriz } = this.props;
 
         if (!statusAuthoriz) return;
@@ -68,7 +69,7 @@ class ContentItemContainer extends Component {
 
         if (s_statusEditPost && currentPostID === ID) {
             delete this.currentPostID;
-            console.log(postItem)
+
             return (
                 <FormEditerContainer
                     postData={postItem}
@@ -76,17 +77,14 @@ class ContentItemContainer extends Component {
                 />
             )
         }
-        else {
-            return (
-                <>
-                    <h2 className="conten__title">{title}</h2>
-                    <p className="content__text">
-                        {content}
-                    </p>
-                    {this.authorizElems(postItem)}
-                </>
-            );
-        }
+
+        return (
+            <ContentItem
+                title={title}
+                content={content}
+                getControlPanel={() => this.getControlPanel(postItem)}
+            />
+        );
 
     }
 }
