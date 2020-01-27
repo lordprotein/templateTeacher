@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Header from '../../component/header/Header';
-import Content from '../content/Content';
-import Sidebar from '../../component/sidebar/Sidebar';
+import Header from '../../component/Header/Header';
+import Content from '../content/ContentContainer';
+import Sidebar from '../../component/Sidebar/Sidebar';
 import * as actions from '../../redux/actions';
 import { selectors } from '../../redux/reducer';
 import dbService from '../../service/service';

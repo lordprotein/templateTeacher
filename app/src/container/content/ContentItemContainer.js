@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { selectors } from '../../redux/reducer';
-import FormEditer from '../FormEditer/FormEditer';
+import FormEditerContainer from '../FormEditer/FormEditerContainer';
 
 
 class ContentItem extends Component {
@@ -69,7 +69,7 @@ class ContentItem extends Component {
         if (s_statusEditPost && currentPostID === ID) {
             delete this.currentPostID;
             return (
-                <FormEditer
+                <FormEditerContainer
                     postItem={postItem}
                     action="edit"
                 />

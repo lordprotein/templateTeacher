@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 
 
-class FormEditer extends Component {
+class FormEditerContainer extends Component {
     onSaveTitle = e => {
         this.title = e.target.value;
     }
@@ -118,4 +118,4 @@ const mapDispatchToProps = dispatch => {
     return { a_updateContent, a_removeAllModes };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormEditer);
+export default connect(mapStateToProps, mapDispatchToProps)(FormEditerContainer);

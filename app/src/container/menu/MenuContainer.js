@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import MenuItem from '../menuItem/MenuItem';
-import { connect } from 'react-redux';
-import { selectors } from '../../redux/reducer';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import MenuItem from './MenuItemContainer';
+import { selectors } from '../../redux/reducer';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 

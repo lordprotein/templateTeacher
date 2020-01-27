@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectors } from '../../redux/reducer'
-import ContentItem from '../ContentItem/ContentItem';
-import Authorization from '../authorization/Authorization';
-import FormEditer from '../FormEditer/FormEditer';
+import ContentItem from './ContentItemContainer';
+import Authorization from '../Authorization/AuthorizationContainer';
+import FormEditerContainer from '../FormEditer/FormEditerContainer';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
@@ -38,7 +38,7 @@ class Content extends Component {
 
     getFormEditer = (ID_MENU) => {
         return (
-            <FormEditer
+            <FormEditerContainer
                 ID_MENU={ID_MENU}
                 action="add"
             />
