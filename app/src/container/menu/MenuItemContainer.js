@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import { selectors } from '../../redux/reducer';
 import dbService from '../../service/service';
+import { MenuItem } from '../../component/menu/MenuItem/MenuItem';
 
 
 class MenuItemContainer extends Component {
-
-
-    onDelete = e => {
+    constructor(props) {
+        super(props);
+        this.db = new dbService();
+    }
+    disableDomActions = e => {
         e.preventDefault();
         e.stopPropagation();
+    }
 
-        const db = new dbService();
+    handleDelete = e => { //delete
+        this.disableDomActions(e);
+
+        const { db } = this;
 
         const {
             a_removeAllModes, a_updateMenu,
@@ -36,35 +42,10 @@ class MenuItemContainer extends Component {
             });
     }
 
-    onEdit = e => {
-        e.preventDefault();
-        e.stopPropagation();
+    handleEdit = e => { //succsessful edit
+        this.disableDomActions(e);
 
-
-        const { a_toToggleEditMenu, menuItem: { ID } } = this.props;
-        this.current_item_ID = ID;
-
-        a_toToggleEditMenu(true);
-    }
-
-    addSubMenu = e => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const { a_toToggleAddSubMenu, statusAddSubMenu, menuItem: { ID } } = this.props;
-        this.current_item_ID = ID;
-
-
-        a_toToggleAddSubMenu(true);
-        console.log(statusAddSubMenu)
-
-    }
-
-    handleSubmitEdit = e => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const db = new dbService();
+        const { db } = this;
 
         const {
             a_removeAllModes, a_updateMenu,
@@ -76,6 +57,9 @@ class MenuItemContainer extends Component {
 
         const data = { ...loginData, ID, title: inputTitle };
 
+        const ask = window.confirm(`Подтвердите редактирование`);
+
+        if (!ask) return;
 
         db.editMenu(data)
             .then(() => {
@@ -84,8 +68,24 @@ class MenuItemContainer extends Component {
                     a_removeAllModes();
                 });
             });
+    }
 
+    onEdit = e => {
+        this.disableDomActions(e);
 
+        const { a_toToggleEditMenu, menuItem: { ID } } = this.props;
+        this.current_item_ID = ID;
+
+        a_toToggleEditMenu(true);
+    }
+
+    onAddSubmenu = e => {
+        this.disableDomActions(e);
+
+        const { a_toToggleAddSubMenu, menuItem: { ID } } = this.props;
+        this.current_item_ID = ID;
+
+        a_toToggleAddSubMenu(true);
     }
 
     handleSaveInput = e => {
@@ -101,13 +101,13 @@ class MenuItemContainer extends Component {
         return (
             <>
                 <input type="text" defaultValue={title} onChange={this.handleSaveInput} />
-                <button onClick={this.handleSubmitEdit}>OK</button>
+                <button onClick={this.handleEdit}>OK</button>
                 <button onClick={a_removeAllModes}>Отмена</button>
             </>
         );
     }
 
-    addFormAddingSubmenu = () => {
+    onAddFormAddingSubmenu = () => {
         const { current_item_ID } = this;
 
         const {
@@ -120,54 +120,44 @@ class MenuItemContainer extends Component {
             return (
                 <>
                     <input type="text" onChange={this.handleSaveInput} />
-                    <button onClick={() => this.props.addSubmenuItem(this.input_text, ID)}>Добавить</button>
+                    <button onClick={() => this.props.addSubmenuItem(this.input_text, ID)}>
+                        Добавить
+                    </button>
                 </>
             );
         }
 
     }
 
-    getMenuItem = () => {
-        const { menuItem: { title, link, removeAllModes } } = this.props;
-
-        return (
-            <div className="menu__item">
-                <Link
-                    to={link}
-                    className="menu__link"
-                    onClick={removeAllModes}
-                >
-                    {title}
-                    <button onClick={this.onEdit}>Ред</button>
-                    <button onClick={this.onDelete}>Уд</button>
-                    <button onClick={this.addSubMenu}>Подменю</button>
-                </Link>
-
-                <div className="menu__sub">
-                    {this.props.children}
-                    <div className="menu__item">
-                        {this.addFormAddingSubmenu()}
-                    </div>
-                </div>
-
-
-            </div >
-        );
-    }
 
     render() {
         const { current_item_ID } = this;
         const {
+            removeAllModes,
             statusEdit,
-            menuItem: { ID } } = this.props;
+            menuItem, menuItem: { ID } } = this.props;
+
 
         if (statusEdit && current_item_ID === ID) {
             delete this.current_item_ID;
             return this.getEditPanel();
         }
-        else {
-            return this.getMenuItem();
+
+        const actions = {
+            onEdit: (e) => this.onEdit(e),
+            handleDelete: (e) => this.handleDelete(e),
+            onAddSubmenu: (e) => this.onAddSubmenu(e),
         }
+
+        return (
+            <MenuItem
+                menuItem={menuItem}
+                actions={actions}
+                childrens={this.props.children}
+                removeAllModes={removeAllModes}
+                formAddSubmenu={() => this.onAddFormAddingSubmenu()}
+            />
+        );
     }
 }
 
