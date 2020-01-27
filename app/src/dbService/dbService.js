@@ -3,8 +3,8 @@ import toNormalizeLink from '../normalizeLink/normalizeLink';
 
 export default class dbService {
     constructor() {
-        // this._link = 'http://localhost:3333';
-        this._link = 'http://77.222.63.195:3333';
+        this._link = 'http://localhost:3333';
+        // this._link = 'http://77.222.63.195:3333';
     }
 
     async getResource(url = '') {
