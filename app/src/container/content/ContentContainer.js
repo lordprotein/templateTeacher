@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectors } from '../../redux/reducer'
-import ContentItem from './ContentItemContainer';
-import Authorization from '../Authorization/AuthorizationContainer';
+import ContentItemContainer from './ContentItemContainer';
+import AuthorizationContainer from '../Authorization/AuthorizationContainer';
 import FormEditerContainer from '../FormEditer/FormEditerContainer';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 
 
-class Content extends Component {
+class ContentContainer extends Component {
     constructor(props) {
         super(props);
         this.db = new dbService();
@@ -58,7 +58,7 @@ class Content extends Component {
 
         const content_list = menuItem.map((postItem, key) => {
             return (
-                <ContentItem
+                <ContentItemContainer
                     postItem={postItem}
                     ID_MENU={ID_MENU}
                     key={key}
@@ -82,7 +82,7 @@ class Content extends Component {
             <section className="content">
                 <Switch>
                     {/* <Route exact path='/' render={() => <Te />} />  */}
-                    <Route path='/authorization' render={() => <Authorization />} />
+                    <Route path='/authorization' render={() => <AuthorizationContainer />} />
                     {this.getAllRoutes()}
                 </Switch>
             </section>
@@ -112,4 +112,4 @@ const mapDispatchToProps = dispatch => {
 //     return <div>Hello!</div>;
 // }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(ContentContainer);

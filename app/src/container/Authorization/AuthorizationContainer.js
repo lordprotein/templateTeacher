@@ -7,7 +7,7 @@ import dbService from '../../service/service';
 
 
 
-class Authorization extends Component {
+class AuthorizationContainer extends Component {
 
     onSaveLogin = e => {
         return this.login = e.target.value;
@@ -66,4 +66,4 @@ const mapDispatchToProps = dispatch => {
     return { a_setLogIn };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Authorization);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorizationContainer);

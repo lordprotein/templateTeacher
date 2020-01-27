@@ -7,7 +7,7 @@ import { selectors } from '../../redux/reducer';
 import FormEditerContainer from '../FormEditer/FormEditerContainer';
 
 
-class ContentItem extends Component {
+class ContentItemContainer extends Component {
     constructor(props) {
         super(props);
         this.db = new dbService();
@@ -107,4 +107,4 @@ const mapDispatchToPros = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToPros)(ContentItem);
+export default connect(mapStateToProps, mapDispatchToPros)(ContentItemContainer);
