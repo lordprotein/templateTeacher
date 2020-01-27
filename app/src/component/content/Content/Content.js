@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import AuthorizationContainer from '../../../container/Authorization/AuthorizationContainer';
+import LogInContainer from '../../../container/LogIn/LogInContainer';
 
 export const Content = ({ allRoutes }) => {
 	return (
@@ -9,7 +9,7 @@ export const Content = ({ allRoutes }) => {
 				<Route
 					path='/authorization'
 					render={
-						() => <AuthorizationContainer />
+						() => <LogInContainer />
 					}
 				/>
 				{allRoutes()}

@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
-// import selectors from '../../redux/reducer';
 import dbService from '../../service/service';
 
 
 
-class AuthorizationContainer extends Component {
+class LogInContainer extends Component {
 
     onSaveLogin = e => {
         return this.login = e.target.value;
@@ -66,4 +65,4 @@ const mapDispatchToProps = dispatch => {
     return { a_setLogIn };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthorizationContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LogInContainer);
