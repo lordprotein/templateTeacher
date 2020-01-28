@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const MenuItem = ({ menuItem, actions, childrens, formAddSubmenu, removeAllModes }) => {
     const { title, link } = menuItem;
     const { onEdit, handleDelete, onAddSubmenu } = actions;
-
+    //ddd
     return (
         <div className="menu__item">
             <Link
@@ -24,8 +24,6 @@ export const MenuItem = ({ menuItem, actions, childrens, formAddSubmenu, removeA
                     {formAddSubmenu()}
                 </div>
             </div>
-
-
         </div >
     );
 }
