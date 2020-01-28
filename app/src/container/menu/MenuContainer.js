@@ -16,28 +16,7 @@ class MenuContainer extends Component {
         }
     }
 
-    getSubmenuList = (menuItem, menuList) => {
-        const submenu_list = menuList.filter(item => menuItem.ID === item.submenu);
 
-        if (!submenu_list.length) return false; //Check have submenu list
-
-        let list_menu_items = [];
-
-        for (let i = 0, max = submenu_list.length; i < max; i++) { //go to all menu items in this lvl
-            const menu_elem = submenu_list[i];
-            const menu_item = (
-                <MenuItemContainer
-                    menuItem={menu_elem}
-                    addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
-                    key={i} //Probably wrong
-                >
-                    {this.getSubmenuList(menu_elem, menuList)}
-                </MenuItemContainer>
-            ); //If in menu item have submenu or submenu list - use recursion and go to are one level below
-            list_menu_items = [...list_menu_items, menu_item];
-        }
-        return list_menu_items;
-    }
 
 
     onToggleShow = isToggle => this.setState({ isModeAddMenu: isToggle });
@@ -60,7 +39,7 @@ class MenuContainer extends Component {
         const db = new dbService();
 
         db.addMenu(data)
-            .then(res => {
+            .then(() => {
                 db.updateMenuList(position, menuList => {
                     a_updateMenu(menuList);
                     this.onToggleShow(false);
@@ -105,12 +84,37 @@ class MenuContainer extends Component {
 
     }
 
+    getSubmenuList = (menuItem, menuList) => {
+        const submenu_list = menuList.filter(item => menuItem.ID === item.submenu);
+
+        if (!submenu_list.length) return false; //Check have submenu list
+
+        let list_menu_items = [];
+
+        for (let i = 0, max = submenu_list.length; i < max; i++) { //go to all menu items in this lvl
+            const menu_elem = submenu_list[i];
+            const menu_item = (
+                <MenuItemContainer
+                    menuItem={menu_elem}
+                    addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
+                    key={i} //Probably wrong
+                >
+                    {this.getSubmenuList(menu_elem, menuList)}
+                </MenuItemContainer>
+            ); //If in menu item have submenu or submenu list - use recursion and go to are one level below
+            list_menu_items = [...list_menu_items, menu_item];
+        }
+        return list_menu_items;
+    }
+
     renderMenuList = () => {
-        let { position, menuList } = this.props;
+        let { menuList } = this.props;
+        const { position } = this.props;
+
+        //get a menu list for particular position
         menuList = menuList.filter(menuItem => position === menuItem.position);
 
         return menuList.map((menuItem, key) => {
-
             if (menuItem.submenu) return false;
 
             const submenu_items = this.getSubmenuList(menuItem, menuList);
