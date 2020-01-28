@@ -9,10 +9,15 @@ import { Menu } from '../../component/menu/Menu/Menu';
 
 
 class MenuContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModeAddMenu: false,
+        }
+    }
 
     getSubmenuList = (menuItem, menuList) => {
         const submenu_list = menuList.filter(item => menuItem.ID === item.submenu);
-
 
         if (!submenu_list.length) return false; //Check have submenu list
 
@@ -23,7 +28,6 @@ class MenuContainer extends Component {
             const menu_item = (
                 <MenuItemContainer
                     menuItem={menu_elem}
-                    removeAllModes={this.removeAllModes}
                     addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
                     key={i} //Probably wrong
                 >
@@ -35,19 +39,22 @@ class MenuContainer extends Component {
         return list_menu_items;
     }
 
-    removeAllModes = () => {
-        this.props.a_removeAllModes();
-    }
+
+    onToggleShow = isToggle => this.setState({ isModeAddMenu: isToggle });
+
+
+    onChangeInput = e => this.input_text = e.target.value;
+
 
     onAddMenu = () => {
-        const { a_toToggleAddMenu, position } = this.props;
+        const { position } = this.props;
         this.typeMenu = position;
 
-        a_toToggleAddMenu(true);
+        this.onToggleShow(true);
     }
 
     onAddMenuItem = (title, submenu = false) => { //add new menu elem
-        const { a_toToggleAddMenu, a_updateMenu, loginData, position } = this.props;
+        const { a_updateMenu, loginData, position } = this.props;
 
         const data = { ...loginData, title, position, submenu }
         const db = new dbService();
@@ -56,27 +63,26 @@ class MenuContainer extends Component {
             .then(res => {
                 db.updateMenuList(position, menuList => {
                     a_updateMenu(menuList);
-                    a_toToggleAddMenu(false);
+                    this.onToggleShow(false);
                 })
             })
     }
 
-    onChangeInput = e => {
-        return this.input_text = e.target.value;
-    }
+
+
 
     getPanelForAdd = () => {
-        const { a_removeAllModes, statusAuthoriz, statusEdit, position } = this.props;
+        const { statusAuthoriz, position } = this.props;
+        const { isModeAddMenu } = this.state;
 
         if (!statusAuthoriz) return false;
 
-
-        if (statusEdit && (this.typeMenu === position)) {
+        if (isModeAddMenu && (this.typeMenu === position)) {
             delete this.typeMenu;
 
             return (
                 <>
-                    <button onClick={a_removeAllModes}>Отмена</button>
+                    <button onClick={() => this.onToggleShow(false)}>Отмена</button>
                     <button
                         onClick={() => this.onAddMenuItem(this.input_text)}
                     >
@@ -89,15 +95,13 @@ class MenuContainer extends Component {
                 </>
             );
         }
-        else {
-            delete this.typeMenu;
 
-            return (
-                <button onClick={this.onAddMenu}>
-                    Добавить новое меню
-                </button>
-            );
-        }
+        delete this.typeMenu;
+        return (
+            <button onClick={this.onAddMenu}>
+                Добавить новое меню
+            </button>
+        );
 
     }
 
@@ -114,7 +118,6 @@ class MenuContainer extends Component {
             return (
                 <MenuItemContainer
                     menuItem={menuItem}
-                    removeAllModes={this.removeAllModes}
                     addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
                     key={key}
                 >
@@ -131,7 +134,7 @@ class MenuContainer extends Component {
             <Menu
                 addingPanel={this.getPanelForAdd()}
                 menuList={this.renderMenuList()}
-                stylePos={position === 'top' ? 'menu menu--line': 'menu'}
+                stylePos={position === 'top' ? 'menu menu--line' : 'menu'}
             />
         );
     }
@@ -143,18 +146,13 @@ const mapStateToProps = state => {
         menuList: selectors.menuList(state),
         statusAuthoriz: selectors.statusAuthoriz(state),
         loginData: selectors.loginData(state),
-        statusEdit: selectors.s_toggleAddMenu(state),
     };
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_toToggleAddMenu, a_updateMenu, a_removeAllModes } = bindActionCreators(actions, dispatch);
+    const { a_updateMenu } = bindActionCreators(actions, dispatch);
 
-    return {
-        a_toToggleAddMenu,
-        a_updateMenu,
-        a_removeAllModes
-    }
+    return { a_updateMenu }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuContainer);
