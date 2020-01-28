@@ -21,7 +21,6 @@ class ContentContainer extends Component {
         const { statusAuthoriz, statusEdit } = this.props;
         
         const content_list = postList.map((postItem, key) => {
-            console.log(postItem)
             return (
                 <ContentItemContainer
                     postItem={postItem}
