@@ -9,7 +9,7 @@ import reducer from './redux/reducer';
 
 const AppRender = () => {
     const store = createStore(reducer);
-    
+
     return (
         <Provider store={store}>
             <BrowserRouter>
