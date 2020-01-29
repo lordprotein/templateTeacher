@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const MenuItem = ({ menuItemData, actions, childrens, formAddSubmenu, removeAllModes }) => {
+export const MenuItem = ({ menuItemData, actions, childrens, formAddSubmenu }) => {
     const { title, link } = menuItemData;
     const { onEdit, handleDelete, onAddSubmenu } = actions;
-    //ddd
+    
     return (
         <div className="menu__item">
             <Link
                 to={link}
                 className="menu__link"
-            // onClick={removeAllModes}
             >
                 {title}
                 <button onClick={(e) => onEdit(e)}>Ред</button>
