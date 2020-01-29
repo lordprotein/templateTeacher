@@ -10,7 +10,7 @@ export const MenuItem = ({ menuItem, actions, childrens, formAddSubmenu, removeA
             <Link
                 to={link}
                 className="menu__link"
-                onClick={removeAllModes}
+                // onClick={removeAllModes}
             >
                 {title}
                 <button onClick={(e) => onEdit(e)}>Ред</button>
