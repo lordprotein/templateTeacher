@@ -97,12 +97,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToPros = dispatch => {
-    const { a_updateContent, a_toToggleEditPost } = bindActionCreators(actions, dispatch);
+    const { a_updateContent } = bindActionCreators(actions, dispatch);
 
-    return {
-        a_updateContent,
-        a_toToggleEditPost
-    }
+    return { a_updateContent }
 }
 
 export default connect(mapStateToProps, mapDispatchToPros)(ContentItemContainer);
