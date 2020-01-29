@@ -16,7 +16,7 @@ class FormEditerContainer extends Component {
    handleSend = e => {
       e.preventDefault();
 
-      const { loginData, a_updateContent, action, postData } = this.props;
+      const { loginData, a_updateContent, action, postData, toReset } = this.props;
 
       let { title, content } = this;
 
@@ -35,6 +35,7 @@ class FormEditerContainer extends Component {
                .then(() => {
                   db.updatePostList(ID_MENU, (contentList) => {
                      a_updateContent({ ID_MENU, contentList });
+                     toReset();
                   })
                });
             break;
@@ -46,6 +47,7 @@ class FormEditerContainer extends Component {
                .then(() => {
                   db.updatePostList(ID_MENU, contentList => {
                      a_updateContent({ ID_MENU, contentList });
+                     toReset();
                   })
                })
             break;
