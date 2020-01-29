@@ -15,11 +15,15 @@ class ContentContainer extends Component {
     constructor(props) {
         super(props);
         this.db = new dbService();
+        this.state = {
+            isEdit: false,
+        }
     }
 
     getListPosts = (postList, ID_MENU) => {
-        const { statusAuthoriz, statusEdit } = this.props;
-        
+        const { isLogIn } = this.props;
+        const { isEdit } = this.state;
+
         const content_list = postList.map((postItem, key) => {
             return (
                 <ContentItemContainer
@@ -33,8 +37,8 @@ class ContentContainer extends Component {
 
         return (
             <>
-                {(statusAuthoriz && !statusEdit) ? this.getBtnAddPost() : false}
-                {!statusEdit ? content_list : this.getFormEditer(ID_MENU)}
+                {(isLogIn && !isEdit) ? this.getBtnAddPost() : false}
+                {!isEdit ? content_list : this.getFormEditer(ID_MENU)}
             </>
         );
 
@@ -67,28 +71,25 @@ class ContentContainer extends Component {
         return (<Switch>{[first_route, ...route_list]}</Switch>);
     }
 
-    onAddPost = () => {
-        this.props.a_toToggleAddPost(true);
-    }
+    setModeAddPost = isToggle => this.setState({ isEdit: isToggle });
 
     getFormEditer = (ID_MENU) => {
         return (
             <FormEditerContainer
                 ID_MENU={ID_MENU}
                 action="add"
+                toReset={() => this.setModeAddPost(false)}
             />
         );
     }
 
     getBtnAddPost = () => {
         return (
-            <button onClick={this.onAddPost}>
+            <button onClick={this.setModeAddPost}>
                 Добавить пост
             </button>
         );
     }
-
-
 
 
     render() {
@@ -103,8 +104,7 @@ const mapStateToProps = state => {
     return {
         menuList: selectors.menuList(state),
         loginData: selectors.loginData(state),
-        statusAuthoriz: selectors.statusAuthoriz(state),
-        statusEdit: selectors.s_toggleAddPost(state),
+        isLogIn: selectors.statusAuthoriz(state),
 
     }
 }
@@ -113,9 +113,5 @@ const mapDispatchToProps = dispatch => {
     const { a_toToggleAddPost, a_updateContent } = bindActionCreators(actions, dispatch);
     return { a_toToggleAddPost, a_updateContent };
 }
-
-// const Te = () => {
-//     return <div>Hello!</div>;
-// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentContainer);
