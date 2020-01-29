@@ -24,10 +24,10 @@ class ContentContainer extends Component {
         const { isLogIn } = this.props;
         const { isEdit } = this.state;
 
-        const content_list = postList.map((postItem, key) => {
+        const content_list = postList.map((postData, key) => {
             return (
                 <ContentItemContainer
-                    postItem={postItem}
+                    postData={postData}
                     ID_MENU={ID_MENU}
                     key={key}
                 />

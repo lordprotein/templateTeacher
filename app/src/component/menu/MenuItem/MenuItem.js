@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const MenuItem = ({ menuItem, actions, childrens, formAddSubmenu, removeAllModes }) => {
-    const { title, link } = menuItem;
+export const MenuItem = ({ menuItemData, actions, childrens, formAddSubmenu, removeAllModes }) => {
+    const { title, link } = menuItemData;
     const { onEdit, handleDelete, onAddSubmenu } = actions;
     //ddd
     return (
@@ -10,7 +10,7 @@ export const MenuItem = ({ menuItem, actions, childrens, formAddSubmenu, removeA
             <Link
                 to={link}
                 className="menu__link"
-                // onClick={removeAllModes}
+            // onClick={removeAllModes}
             >
                 {title}
                 <button onClick={(e) => onEdit(e)}>Ред</button>

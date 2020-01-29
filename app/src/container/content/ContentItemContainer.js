@@ -22,7 +22,7 @@ class ContentItemContainer extends Component {
     onEdit = () => this.toToggleEdit(true);
 
     onDeletePost = () => {
-        const { ID_MENU, postItem: { ID }, loginData, a_updateContent } = this.props;
+        const { ID_MENU, postData: { ID }, loginData, a_updateContent } = this.props;
 
         const data = { ...loginData, ID };
 
@@ -55,13 +55,13 @@ class ContentItemContainer extends Component {
     }
 
     render() {
-        const { postItem, postItem: { title, content } } = this.props;
+        const { postData, postData: { title, content } } = this.props;
         const { isEdit } = this.state;
 
         if (isEdit) {
             return (
                 <FormEditerContainer
-                    postData={postItem}
+                    postData={postData}
                     action="edit"
                     toReset={() => this.toToggleEdit(false)}
                 />
@@ -72,7 +72,7 @@ class ContentItemContainer extends Component {
             <ContentItem
                 title={title}
                 content={content}
-                getControlPanel={() => this.getControlPanel(postItem)}
+                getControlPanel={() => this.getControlPanel(postData)}
             />
         );
 

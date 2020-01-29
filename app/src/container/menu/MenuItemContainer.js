@@ -27,10 +27,7 @@ class MenuItemContainer extends Component {
 
         const { db } = this;
 
-        const {
-            a_updateMenu,
-            loginData,
-            menuItem: { ID, position } } = this.props;
+        const { a_updateMenu, loginData, menuItemData: { ID, position } } = this.props;
 
         const data = { ...loginData, ID };
 
@@ -51,10 +48,7 @@ class MenuItemContainer extends Component {
 
         const { db } = this;
 
-        const {
-            a_updateMenu,
-            loginData,
-            menuItem: { title, ID, position } } = this.props;
+        const { a_updateMenu, loginData, menuItemData: { title, ID, position } } = this.props;
 
         let inputTitle = this.input_text;
         if (!inputTitle) inputTitle = title;
@@ -75,7 +69,7 @@ class MenuItemContainer extends Component {
     }
 
     handleAddSubmenu = () => {
-        const { addSubmenuItem, menuItem: { ID } } = this.props;
+        const { addSubmenuItem, menuItemData: { ID } } = this.props;
 
         addSubmenuItem(this.input_text, ID);
         this.onAddSubmenu(false);
@@ -95,7 +89,7 @@ class MenuItemContainer extends Component {
     }
 
     getEditPanel = () => {
-        const { menuItem: { title } } = this.props;
+        const { menuItemData: { title } } = this.props;
 
         return (
             <>
@@ -130,13 +124,13 @@ class MenuItemContainer extends Component {
 
     render() {
         const { isEdit } = this.state;
-        const { menuItem } = this.props;
+        const { menuItemData } = this.props;
 
         if (isEdit) return this.getEditPanel();
 
         return (
             <MenuItem
-                menuItem={menuItem}
+                menuItemData={menuItemData}
                 actions={
                     {
                         onEdit: e => this.onEdit(true, e),

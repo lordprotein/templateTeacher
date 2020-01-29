@@ -84,8 +84,8 @@ class MenuContainer extends Component {
 
     }
 
-    getSubmenuList = (menuItem, menuList) => {
-        const submenu_list = menuList.filter(item => menuItem.ID === item.submenu);
+    getSubmenuList = (menuItemData, menuList) => {
+        const submenu_list = menuList.filter(item => menuItemData.ID === item.submenu);
 
         if (!submenu_list.length) return false; //Check have submenu list
 
@@ -95,7 +95,7 @@ class MenuContainer extends Component {
             const menu_elem = submenu_list[i];
             const menu_item = (
                 <MenuItemContainer
-                    menuItem={menu_elem}
+                    menuItemData={menu_elem}
                     addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
                     key={i} //Probably wrong
                 >
@@ -112,16 +112,16 @@ class MenuContainer extends Component {
         const { position } = this.props;
 
         //get a menu list for particular position
-        menuList = menuList.filter(menuItem => position === menuItem.position);
+        menuList = menuList.filter(item => position === item.position);
 
-        return menuList.map((menuItem, key) => {
-            if (menuItem.submenu) return false;
+        return menuList.map((menuItemData, key) => {
+            if (menuItemData.submenu) return false;
 
-            const submenu_items = this.getSubmenuList(menuItem, menuList);
+            const submenu_items = this.getSubmenuList(menuItemData, menuList);
 
             return (
                 <MenuItemContainer
-                    menuItem={menuItem}
+                    menuItemData={menuItemData}
                     addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
                     key={key}
                 >
