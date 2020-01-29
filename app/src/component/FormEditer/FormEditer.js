@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const FormEditer = ({ postData, actions, removeAllModes }) => {
+export const FormEditer = ({ postData, actions, toReset }) => {
 	const { onChangeTitleInput, onChangeContentInput, handleSend } = actions;
 	const { title, content } = postData;
 
@@ -26,7 +26,7 @@ export const FormEditer = ({ postData, actions, removeAllModes }) => {
 				onClick={handleSend}
 			/>
 
-			<button onClick={removeAllModes}>
+			<button onClick={toReset}>
 				Отмена
             </button>
 		</div>
