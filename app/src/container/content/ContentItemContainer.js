@@ -12,12 +12,14 @@ class ContentItemContainer extends Component {
     constructor(props) {
         super(props);
         this.db = new dbService();
+        this.state = {
+            isEdit: false
+        }
     }
 
     onDeletePost = () => {
-        const { ID_MENU, postItem } = this.props;
-        const { loginData, a_updateContent } = this.props;
-        const { ID } = postItem;
+        const { ID_MENU, postItem: { ID }, loginData, a_updateContent } = this.props;
+
         const data = { ...loginData, ID };
 
         const ask = window.confirm(`Подтвердите удаление`);
@@ -32,29 +34,26 @@ class ContentItemContainer extends Component {
             })
     }
 
-    onEditPost = () => {
-        const { postItem, a_toToggleEditPost } = this.props;
+    toToggleEdit = isToggle => {
+        this.setState({ isEdit: isToggle })
+    }
 
+    onEdit = () => {
+        const { postItem } = this.props;
         this.currentPostID = postItem.ID;
-
-        a_toToggleEditPost(true);
+        this.toToggleEdit(true);
     }
 
     getControlPanel = (postItem) => {
-        const { statusAuthoriz } = this.props;
-
-        if (!statusAuthoriz) return;
+        const { isLogIn } = this.props;
+        if (!isLogIn) return;
 
         return (
             <>
-                <button
-                    onClick={this.onEditPost}
-                >
+                <button onClick={this.onEdit}>
                     Редактировать
                 </button>
-                <button
-                    onClick={this.onDeletePost}
-                >
+                <button onClick={this.onDeletePost}>
                     Удалить
                 </button>
             </>
@@ -62,18 +61,19 @@ class ContentItemContainer extends Component {
     }
 
     render() {
-        const { s_statusEditPost } = this.props;
         const { postItem, postItem: { ID, title, content } } = this.props;
+        const { isEdit } = this.state;
         const { currentPostID } = this;
 
 
-        if (s_statusEditPost && currentPostID === ID) {
+        if (isEdit && currentPostID === ID) {
             delete this.currentPostID;
 
             return (
                 <FormEditerContainer
                     postData={postItem}
                     action="edit"
+                    toReset={() => this.toToggleEdit(false)}
                 />
             )
         }
@@ -92,8 +92,7 @@ class ContentItemContainer extends Component {
 const mapStateToProps = state => {
     return {
         loginData: selectors.loginData(state),
-        s_statusEditPost: selectors.s_statusEditPost(state),
-        statusAuthoriz: selectors.statusAuthoriz(state),
+        isLogIn: selectors.statusAuthoriz(state),
     }
 }
 
