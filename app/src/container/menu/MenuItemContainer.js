@@ -81,14 +81,14 @@ class MenuItemContainer extends Component {
         this.onAddSubmenu(false);
     }
 
+    onEdit = (isToggle, e = false) => this.onToggleShow('isEdit', isToggle, e);
+
+    onAddSubmenu = (isToggle, e = false) => this.onToggleShow('isAddSubmenu', isToggle, e);
+
     onToggleShow = (variable, isToggle, e) => {
         if (e) this.disableDomActions(e);
         this.setState({ [variable]: isToggle });
     }
-
-    onEdit = (isToggle, e = false) => this.onToggleShow('isEdit', isToggle, e);
-
-    onAddSubmenu = (isToggle, e = false) => this.onToggleShow('isAddSubmenu', isToggle, e);
 
     onChangeInput = e => {
         return this.input_text = e.target.value;
@@ -96,7 +96,7 @@ class MenuItemContainer extends Component {
 
     getEditPanel = () => {
         const { menuItem: { title } } = this.props;
-        
+
         return (
             <>
                 <input type="text" defaultValue={title} onChange={this.onChangeInput} />
@@ -154,16 +154,12 @@ class MenuItemContainer extends Component {
 
 
 const mapStateToProps = state => {
-    return {
-        loginData: selectors.loginData(state),
-    }
+    return { loginData: selectors.loginData(state) }
 }
 
 const mapDispatchToProps = dispatch => {
     const { a_updateMenu } = bindActionCreators(actions, dispatch);
-    return {
-        a_updateMenu
-    }
+    return { a_updateMenu }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuItemContainer);
