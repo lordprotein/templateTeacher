@@ -17,6 +17,10 @@ class ContentItemContainer extends Component {
         }
     }
 
+    toToggleEdit = isToggle => this.setState({ isEdit: isToggle });
+
+    onEdit = () => this.toToggleEdit(true);
+
     onDeletePost = () => {
         const { ID_MENU, postItem: { ID }, loginData, a_updateContent } = this.props;
 
@@ -34,17 +38,7 @@ class ContentItemContainer extends Component {
             })
     }
 
-    toToggleEdit = isToggle => {
-        this.setState({ isEdit: isToggle })
-    }
-
-    onEdit = () => {
-        const { postItem } = this.props;
-        this.currentPostID = postItem.ID;
-        this.toToggleEdit(true);
-    }
-
-    getControlPanel = (postItem) => {
+    getControlPanel = () => {
         const { isLogIn } = this.props;
         if (!isLogIn) return;
 
@@ -61,14 +55,10 @@ class ContentItemContainer extends Component {
     }
 
     render() {
-        const { postItem, postItem: { ID, title, content } } = this.props;
+        const { postItem, postItem: { title, content } } = this.props;
         const { isEdit } = this.state;
-        const { currentPostID } = this;
 
-
-        if (isEdit && currentPostID === ID) {
-            delete this.currentPostID;
-
+        if (isEdit) {
             return (
                 <FormEditerContainer
                     postData={postItem}
@@ -98,7 +88,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToPros = dispatch => {
     const { a_updateContent } = bindActionCreators(actions, dispatch);
-
     return { a_updateContent }
 }
 
