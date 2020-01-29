@@ -9,33 +9,23 @@ import * as actions from '../../redux/actions';
 
 
 class FormEditerContainer extends Component {
-   onChangeTitleInput = e => {
-      this.title = e.target.value;
-   }
+   onChangeTitleInput = e => this.title = e.target.value;
 
-   onChangeContentInput = e => {
-      this.content = e.target.value;
-   }
+   onChangeContentInput = e => this.content = e.target.value;
 
    handleSend = e => {
       e.preventDefault();
 
-      const {
-         s_loginData, a_removeAllModes, a_updateContent,
-         action, postData,
-      } = this.props;
-
+      const { loginData, a_updateContent, action, postData } = this.props;
 
       let { title, content } = this;
 
       if (!title) title = postData.title;
       if (!content) content = postData.content;
 
-      let data = { ...s_loginData, title, content }
-
+      let data = { ...loginData, title, content }
 
       const db = new dbService();
-
       switch (action) {
          case 'add': {
             const { ID_MENU } = this.props;
@@ -62,13 +52,11 @@ class FormEditerContainer extends Component {
          }
          default: break;
       }
-
-      a_removeAllModes();
    }
 
 
    render() {
-      const { postData, a_removeAllModes } = this.props;
+      const { postData, toReset } = this.props;
       let title = '', content = '';
 
       if (postData !== undefined) {
@@ -76,17 +64,17 @@ class FormEditerContainer extends Component {
          content = postData.content;
       }
 
-      const actions = {
-         onChangeTitleInput: (e) => this.onChangeTitleInput(e),
-         onChangeContentInput: (e) => this.onChangeContentInput(e),
-         handleSend: (e) => this.handleSend(e),
-      }
-
       return (
          <FormEditer
-            postData={{title, content}}
-            actions={actions}
-            removeAllModes={a_removeAllModes}
+            postData={{ title, content }}
+            actions={
+               {
+                  onChangeTitleInput: (e) => this.onChangeTitleInput(e),
+                  onChangeContentInput: (e) => this.onChangeContentInput(e),
+                  handleSend: (e) => this.handleSend(e),
+               }
+            }
+            toReset={toReset}
          />
       );
    }
@@ -95,15 +83,12 @@ class FormEditerContainer extends Component {
 
 
 const mapStateToProps = state => {
-   return ({
-      s_loginData: selectors.loginData(state),
-      s_statusEdit: selectors.s_toggleAddPost(state),
-   });
+   return { loginData: selectors.loginData(state) };
 }
 
 const mapDispatchToProps = dispatch => {
-   const { a_updateContent, a_removeAllModes } = bindActionCreators(actions, dispatch);
-   return { a_updateContent, a_removeAllModes };
+   const { a_updateContent } = bindActionCreators(actions, dispatch);
+   return { a_updateContent };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormEditerContainer);
