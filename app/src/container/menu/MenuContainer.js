@@ -51,10 +51,10 @@ class MenuContainer extends Component {
 
 
     getPanelForAdd = () => {
-        const { statusAuthoriz, position } = this.props;
+        const { isLogIn, position } = this.props;
         const { isModeAddMenu } = this.state;
 
-        if (!statusAuthoriz) return false;
+        if (!isLogIn) return false;
 
         if (isModeAddMenu && (this.typeMenu === position)) {
             delete this.typeMenu;
@@ -148,7 +148,7 @@ class MenuContainer extends Component {
 const mapStateToProps = state => {
     return {
         menuList: selectors.menuList(state),
-        statusAuthoriz: selectors.statusAuthoriz(state),
+        isLogIn: selectors.isLogIn(state),
         loginData: selectors.loginData(state),
     };
 }

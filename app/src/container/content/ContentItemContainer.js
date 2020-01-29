@@ -82,7 +82,7 @@ class ContentItemContainer extends Component {
 const mapStateToProps = state => {
     return {
         loginData: selectors.loginData(state),
-        isLogIn: selectors.statusAuthoriz(state),
+        isLogIn: selectors.isLogIn(state),
     }
 }
 

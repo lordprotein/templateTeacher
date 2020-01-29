@@ -18,11 +18,11 @@ class App extends Component {
     }
 
     render() {
-        const { statusAuthoriz } = this.props;
+        const { isLogIn } = this.props;
 
         return (
             <>
-                <Header statusAuthoriz={statusAuthoriz} />
+                <Header isLogIn={isLogIn} />
                 <Sidebar />
                 <ContentContainer />
             </>
@@ -33,7 +33,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
     return {
         menuList: selectors.menuList(state),
-        statusAuthoriz: selectors.statusAuthoriz(state)
+        isLogIn: selectors.isLogIn(state)
     };
 }
 

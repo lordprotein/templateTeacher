@@ -104,14 +104,14 @@ const mapStateToProps = state => {
     return {
         menuList: selectors.menuList(state),
         loginData: selectors.loginData(state),
-        isLogIn: selectors.statusAuthoriz(state),
+        isLogIn: selectors.isLogIn(state),
 
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_toToggleAddPost, a_updateContent } = bindActionCreators(actions, dispatch);
-    return { a_toToggleAddPost, a_updateContent };
+    const { a_updateContent } = bindActionCreators(actions, dispatch);
+    return { a_updateContent };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentContainer);
