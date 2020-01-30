@@ -5,6 +5,7 @@ import * as actions from '../../redux/actions';
 import { selectors } from '../../redux/reducer';
 import dbService from '../../service/service';
 import { MenuItem } from '../../component/menu/MenuItem/MenuItem';
+import { ButtonWithLogIn } from '../../component/button/Button/Button';
 
 
 class MenuItemContainer extends Component {
@@ -104,7 +105,7 @@ class MenuItemContainer extends Component {
         );
     }
 
-    onAddFormAddingSubmenu = () => { //For add submenu
+    getAddSubmenuPanel = () => { //For add submenu
         const { isAddSubmenu } = this.state;
 
         if (!isAddSubmenu) return false;
@@ -121,6 +122,24 @@ class MenuItemContainer extends Component {
 
     }
 
+    getButtonsPanel = () => {
+        return (
+            <>
+                <ButtonWithLogIn
+                    title="Ред"
+                    onClick={e => this.onEdit(true, e)}
+                />
+                <ButtonWithLogIn
+                    title="Уд"
+                    onClick={e => this.handleDelete(e)}
+                />
+                <ButtonWithLogIn
+                    title="Подменю"
+                    onClick={e => this.onAddSubmenu(true, e)}
+                />
+            </>
+        );
+    }
 
     render() {
         const { isEdit } = this.state;
@@ -131,15 +150,9 @@ class MenuItemContainer extends Component {
         return (
             <MenuItem
                 menuItemData={menuItemData}
-                actions={
-                    {
-                        onEdit: e => this.onEdit(true, e),
-                        handleDelete: e => this.handleDelete(e),
-                        onAddSubmenu: e => this.onAddSubmenu(true, e),
-                    }
-                }
+                getAddSubmenuPanel={() => this.getAddSubmenuPanel()}
+                getButtonsPanel={() => this.getButtonsPanel()}
                 childrens={this.props.children}
-                formAddSubmenu={() => this.onAddFormAddingSubmenu()}
             />
         );
     }

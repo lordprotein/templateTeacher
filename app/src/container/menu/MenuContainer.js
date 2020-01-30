@@ -6,6 +6,7 @@ import { selectors } from '../../redux/reducer';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { Menu } from '../../component/menu/Menu/Menu';
+import { ButtonWithLogIn } from '../../component/button/Button/Button';
 
 
 class MenuContainer extends Component {
@@ -26,9 +27,6 @@ class MenuContainer extends Component {
 
 
     onAddMenu = () => {
-        const { position } = this.props;
-        this.typeMenu = position;
-
         this.onToggleShow(true);
     }
 
@@ -50,15 +48,10 @@ class MenuContainer extends Component {
 
 
 
-    getPanelForAdd = () => {
-        const { isLogIn, position } = this.props;
+    getFormAdd = () => {
         const { isModeAddMenu } = this.state;
 
-        if (!isLogIn) return false;
-
-        if (isModeAddMenu && (this.typeMenu === position)) {
-            delete this.typeMenu;
-
+        if (isModeAddMenu) {
             return (
                 <>
                     <button onClick={() => this.onToggleShow(false)}>Отмена</button>
@@ -75,16 +68,16 @@ class MenuContainer extends Component {
             );
         }
 
-        delete this.typeMenu;
         return (
-            <button onClick={this.onAddMenu}>
-                Добавить новое меню
-            </button>
+            <ButtonWithLogIn
+                title="Добавить меню"
+                onClick={() => this.onAddMenu()}
+            />
         );
 
     }
 
-    getSubmenuList = (menuItemData, menuList) => {
+    getRecursionSubmenuList = (menuItemData, menuList) => {
         const submenu_list = menuList.filter(item => menuItemData.ID === item.submenu);
 
         if (!submenu_list.length) return false; //Check have submenu list
@@ -99,7 +92,7 @@ class MenuContainer extends Component {
                     addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
                     key={i} //Probably wrong
                 >
-                    {this.getSubmenuList(menu_elem, menuList)}
+                    {this.getRecursionSubmenuList(menu_elem, menuList)}
                 </MenuItemContainer>
             ); //If in menu item have submenu or submenu list - use recursion and go to are one level below
             list_menu_items = [...list_menu_items, menu_item];
@@ -117,7 +110,7 @@ class MenuContainer extends Component {
         return menuList.map((menuItemData, key) => {
             if (menuItemData.submenu) return false;
 
-            const submenu_items = this.getSubmenuList(menuItemData, menuList);
+            const submenu_items = this.getRecursionSubmenuList(menuItemData, menuList);
 
             return (
                 <MenuItemContainer
@@ -136,7 +129,7 @@ class MenuContainer extends Component {
 
         return (
             <Menu
-                addingPanel={this.getPanelForAdd()}
+                addingPanel={this.getFormAdd()}
                 menuList={this.renderMenuList()}
                 stylePos={position === 'top' ? 'menu menu--line' : 'menu'}
             />
