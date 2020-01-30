@@ -1,5 +1,5 @@
 import React from 'react';
-import { withLogin } from '../../../Hoc/withLogin/withLogin';
+import { withLogIn } from '../../../Hoc/withLogIn/withLogIn';
 
 
 export const Button = ({ title, onClick, className }) => {
@@ -10,4 +10,4 @@ export const Button = ({ title, onClick, className }) => {
     );
 }
 
-export const ButtonWithLogin = withLogin(Button);
+export const ButtonWithLogIn = withLogIn(Button);

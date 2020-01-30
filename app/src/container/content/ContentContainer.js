@@ -9,6 +9,7 @@ import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import LogInContainer from '../LogIn/LogInContainer';
 import { Content } from '../../component/content/Content/Content';
+import { ButtonWithLogIn } from '../../component/button/Button/Button';
 
 
 class ContentContainer extends Component {
@@ -85,9 +86,10 @@ class ContentContainer extends Component {
 
     getBtnAddPost = () => {
         return (
-            <button onClick={this.setModeAddPost}>
-                Добавить пост
-            </button>
+            <ButtonWithLogIn
+                title="Добавить пост"
+                onClick={this.setModeAddPost}
+            />
         );
     }
 
