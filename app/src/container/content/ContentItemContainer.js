@@ -6,6 +6,7 @@ import dbService from '../../service/service';
 import { selectors } from '../../redux/reducer';
 import FormEditerContainer from '../FormEditer/FormEditerContainer';
 import { ContentItem } from '../../component/content/ContentItem/ContentItem';
+import { ButtonWithLogIn } from '../../component/button/Button/Button';
 
 
 class ContentItemContainer extends Component {
@@ -39,17 +40,16 @@ class ContentItemContainer extends Component {
     }
 
     getControlPanel = () => {
-        const { isLogIn } = this.props;
-        if (!isLogIn) return;
-
         return (
             <>
-                <button onClick={this.onEdit}>
-                    Редактировать
-                </button>
-                <button onClick={this.onDeletePost}>
-                    Удалить
-                </button>
+                <ButtonWithLogIn
+                    title="Редактировать"
+                    onClick={() => this.onEdit()}
+                />
+                <ButtonWithLogIn
+                    title="Удалить"
+                    onClick={() => this.onDeletePost()}
+                />
             </>
         )
     }
