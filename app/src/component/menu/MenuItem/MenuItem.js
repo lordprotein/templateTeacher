@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const MenuItem = ({ menuItemData, childrens, getAddSubmenuPanel, getButtonsPanel }) => {
     const { title, link } = menuItemData;
-
+    // console.log(link)
     return (
         <div className="menu__item">
             <Link
