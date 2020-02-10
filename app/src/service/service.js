@@ -1,5 +1,4 @@
 // import generateMenuList from '../generateMenuList/generateMenuList';
-import toNormalizeLink from '../normalizeLink/normalizeLink';
 
 export default class dbService {
     constructor() {
@@ -31,25 +30,6 @@ export default class dbService {
         }
 
         return await postData.json();
-    }
-
-    async generateMenuList() {
-        let menuList = await this.getMenuList()
-            .then(res => res);
-
-        menuList = menuList.map(async ({ ID, title, position, submenu }) => {
-            const postList = await this.getContentList(ID);
-            return {
-                ID,
-                title,
-                link: `/${toNormalizeLink(title)}`,
-                position,
-                submenu,
-                postList
-            }
-        })
-
-        return await Promise.all(menuList);
     }
 
     getMenuList() {
