@@ -14,13 +14,29 @@ class ContentItemContainer extends Component {
         super(props);
         this.db = new dbService();
         this.state = {
-            isEdit: false
+            isEdit: false,
+            editPostId: null,
+            postList: [],
         }
+    }
+
+    componentDidMount = () => {
+        const { ID_MENU } = this.props;
+        
+        this.db.getContentList(ID_MENU)
+            .then(res => {
+                this.setState(() => {
+                    return { postList: res }
+                });
+            })
     }
 
     toToggleEdit = isToggle => this.setState({ isEdit: isToggle });
 
-    onEdit = () => this.toToggleEdit(true);
+    onEdit = postId => {
+        this.toToggleEdit(true);
+        this.setState({ editPostId: postId })
+    }
 
     onDeletePost = () => {
         const { ID_MENU, postData: { ID }, loginData, a_updateContent } = this.props;
@@ -39,12 +55,12 @@ class ContentItemContainer extends Component {
             })
     }
 
-    getControlPanel = () => {
+    getControlButtons = postId => {
         return (
             <>
                 <ButtonWithLogIn
                     title="Редактировать"
-                    onClick={() => this.onEdit()}
+                    onClick={() => this.onEdit(postId)}
                 />
                 <ButtonWithLogIn
                     title="Удалить"
@@ -54,28 +70,39 @@ class ContentItemContainer extends Component {
         )
     }
 
-    render() {
-        const { postData, postData: { title, content } } = this.props;
-        const { isEdit } = this.state;
 
-        if (isEdit) {
+    getPostList = () => {
+        const { postList, isEdit } = this.state;
+        let { editPostId } = this.state;
+
+        console.log(editPostId);
+
+        return postList.map((postData, key) => {
+            if (postData.ID === editPostId && isEdit) {
+
+                return (
+                    <FormEditerContainer
+                        postData={postData}
+                        action="edit"
+                        toReset={() => this.toToggleEdit(false)}
+                        key={key}
+                    />
+                );
+            }
+
             return (
-                <FormEditerContainer
+                <ContentItem
                     postData={postData}
-                    action="edit"
-                    toReset={() => this.toToggleEdit(false)}
+                    getControlButtons={(postId) => this.getControlButtons(postId)}
+                    key={key}
                 />
-            )
-        }
+            );
+        })
+    }
 
-        return (
-            <ContentItem
-                title={title}
-                content={content}
-                getControlPanel={() => this.getControlPanel(postData)}
-            />
-        );
 
+    render() {
+        return this.getPostList();
     }
 }
 

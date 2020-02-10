@@ -11,20 +11,25 @@ import dbService from '../../service/service';
 
 class App extends Component {
 
-    async componentDidMount() {
+    state = {
+        menuList: [],
+    }
+
+    componentDidMount() {
         const db = new dbService();
-        const menuList = await db.generateMenuList();
-        this.props.a_updateMenu(menuList);
+        db.getMenuList()
+            .then(res => this.setState({ menuList: res }))
     }
 
     render() {
         const { isLogIn } = this.props;
-
+        const { menuList } = this.state;
+        
         return (
             <>
                 <Header isLogIn={isLogIn} />
                 <Sidebar />
-                <ContentContainer />
+                <ContentContainer menuList={menuList} />
             </>
         );
     }

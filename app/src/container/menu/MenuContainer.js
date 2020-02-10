@@ -14,17 +14,21 @@ class MenuContainer extends Component {
         super(props);
         this.state = {
             isModeAddMenu: false,
+            menuList: [],
         }
     }
 
+    componentDidMount = () => {
+        const db = new dbService();
+        const { position } = this.props;
 
-
+        db.getMenuPositionList(position)
+            .then(res => this.setState({ menuList: res }))
+    }
 
     onToggleShow = isToggle => this.setState({ isModeAddMenu: isToggle });
 
-
     onChangeInput = e => this.input_text = e.target.value;
-
 
     onAddMenu = () => {
         this.onToggleShow(true);
@@ -44,9 +48,6 @@ class MenuContainer extends Component {
                 })
             })
     }
-
-
-
 
     getFormAdd = () => {
         const { isModeAddMenu } = this.state;
@@ -101,9 +102,9 @@ class MenuContainer extends Component {
     }
 
     renderMenuList = () => {
-        let { menuList } = this.props;
+        let { menuList } = this.state;
         const { position } = this.props;
-
+        
         //get a menu list for particular position
         menuList = menuList.filter(item => position === item.position);
 
