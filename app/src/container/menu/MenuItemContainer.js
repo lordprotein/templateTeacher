@@ -6,6 +6,7 @@ import { selectors } from '../../redux/reducer';
 import dbService from '../../service/service';
 import { MenuItem } from '../../component/menu/MenuItem/MenuItem';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
+import PropTypes from 'prop-types';
 
 
 class MenuItemContainer extends Component {
@@ -169,4 +170,13 @@ const mapDispatchToProps = dispatch => {
     return { a_updateMenu }
 }
 
+
+
+
+
 export default connect(mapStateToProps, mapDispatchToProps)(MenuItemContainer);
+
+MenuItemContainer.propTypes = {
+    menuItemData: PropTypes.object,
+    addSubmenuItem: PropTypes.func,
+};
