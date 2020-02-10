@@ -58,12 +58,11 @@ class ContentContainer extends Component {
             />
         )
 
-        const route_list = menuList.map(({ link, postList, ID }, key) => {
-
+        const route_list = menuList.map(({ link, ID }, key) => {
             return (
                 <Route
                     path={link}
-                    render={() => this.getListPosts(postList, ID)}
+                    render={() => <ContentItemContainer ID_MENU={ID} />}
                     key={key + 1}
                 />
             );
@@ -95,7 +94,7 @@ class ContentContainer extends Component {
 
 
     render() {
-        return (<Content allRoutes={() => this.getAllRoutes()} />);
+        return <Content allRoutes={() => this.getAllRoutes()} />;
     }
 }
 
@@ -104,10 +103,8 @@ class ContentContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        menuList: selectors.menuList(state),
         loginData: selectors.loginData(state),
         isLogIn: selectors.isLogIn(state),
-
     }
 }
 
