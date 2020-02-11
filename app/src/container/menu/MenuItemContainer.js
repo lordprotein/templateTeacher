@@ -28,45 +28,45 @@ class MenuItemContainer extends Component {
         this.disableDomActions(e);
 
         const { db } = this;
+        const { a_updateMenu, loginData, menuItemData: { ID }, menuList } = this.props;
 
-        const { a_updateMenu, loginData, menuItemData: { ID, position } } = this.props;
+        // const ask = window.confirm(`Подтвердите удаление`);
+
+        // if (!ask) return;
 
         const data = { ...loginData, ID };
 
-        const ask = window.confirm(`Подтвердите удаление`);
-
-        if (!ask) return;
 
         db.deleteMenu(data)
             .then(() => {
-                db.updateMenuList(position, menuList => {
-                    a_updateMenu(menuList);
-                });
+                const numDeleteElem = menuList.findIndex(elem => elem.ID === ID);
+                a_updateMenu([...menuList.slice(0, numDeleteElem), ...menuList.slice(numDeleteElem + 1)]);
             });
     }
 
     handleEdit = e => { //succsessful edit
         this.disableDomActions(e);
 
-        const { db } = this;
-
-        const { a_updateMenu, loginData, menuItemData: { title, ID, position } } = this.props;
+        const { db } = this,
+            { a_updateMenu, loginData, menuItemData: { title, ID }, menuList } = this.props;
 
         let inputTitle = this.input_text;
+
         if (!inputTitle) inputTitle = title;
 
         const data = { ...loginData, ID, title: inputTitle };
 
-        const ask = window.confirm(`Подтвердите редактирование`);
+        // const ask = window.confirm(`Подтвердите редактирование`);
 
-        if (!ask) return;
+        // if (!ask) return;
+
+        const numEditElem = menuList.findIndex(elem => elem.ID === ID);
+        menuList[numEditElem] = { ...menuList[numEditElem], title: inputTitle };
 
         db.editMenu(data)
             .then(() => {
-                db.updateMenuList(position, menuList => {
-                    a_updateMenu(menuList);
-                    this.onEdit(false);
-                });
+                a_updateMenu(menuList);
+                this.onEdit(false);
             });
     }
 
@@ -162,7 +162,10 @@ class MenuItemContainer extends Component {
 
 
 const mapStateToProps = state => {
-    return { loginData: selectors.loginData(state) }
+    return {
+        loginData: selectors.loginData(state),
+        menuList: selectors.getMenuList(state),
+    }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -177,6 +180,6 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(MenuItemContainer);
 
 MenuItemContainer.propTypes = {
-    menuItemData: PropTypes.object,
-    addSubmenuItem: PropTypes.func,
+    menuItemData: PropTypes.object.isRequired,
+    addSubmenuItem: PropTypes.func.isRequired,
 };

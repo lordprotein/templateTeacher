@@ -7,6 +7,7 @@ import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { Menu } from '../../component/menu/Menu/Menu';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
+import cyrillicToTranslit from 'cyrillic-to-translit-js';
 
 
 class MenuContainer extends Component {
@@ -14,16 +15,17 @@ class MenuContainer extends Component {
         super(props);
         this.state = {
             isModeAddMenu: false,
-            menuList: [],
+            // menuList: [],
         }
     }
 
     componentDidMount = () => {
-        const db = new dbService();
-        const { position } = this.props;
-
-        db.getMenuPositionList(position)
-            .then(res => this.setState({ menuList: res }))
+        // const db = new dbService();
+        // const { position, a_updateMenu, menuList } = this.props;
+        // console.log(menuList)
+        // db.getMenuPositionList(position)
+        // .then(res => a_updateMenu([...menuList, ...res]))
+        // .then(res => this.setState({ menuList: res }))
     }
 
     onToggleShow = isToggle => this.setState({ isModeAddMenu: isToggle });
@@ -35,18 +37,21 @@ class MenuContainer extends Component {
     }
 
     onAddMenuItem = (title, submenu = false) => { //add new menu elem
-        const { a_updateMenu, loginData, position } = this.props;
+        if (title === undefined) return;
 
-        const data = { ...loginData, title, position, submenu }
-        const db = new dbService();
+        const { a_updateMenu, loginData, position } = this.props,
+            link = (cyrillicToTranslit().transform(title, '_')).toLowerCase(),
+            data = { title, position, link, submenu },
+            db = new dbService();
 
-        db.addMenu(data)
+        db.addMenu({ ...loginData, ...data })
             .then(() => {
-                db.updateMenuList(position, menuList => {
-                    a_updateMenu(menuList);
-                    this.onToggleShow(false);
-                })
-            })
+                db.getMenuList()
+                    .then(res => {
+                        a_updateMenu(res);
+                        this.onToggleShow(false);
+                    });
+            });
     }
 
     getFormAdd = () => {
@@ -102,9 +107,10 @@ class MenuContainer extends Component {
     }
 
     renderMenuList = () => {
-        let { menuList } = this.state;
+        let { menuList } = this.props;
+        // let { menuList } = this.state;
         const { position } = this.props;
-        
+
         //get a menu list for particular position
         menuList = menuList.filter(item => position === item.position);
 
@@ -128,6 +134,7 @@ class MenuContainer extends Component {
     render() {
         const { position } = this.props;
 
+
         return (
             <Menu
                 addingPanel={this.getFormAdd()}
@@ -141,7 +148,7 @@ class MenuContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        menuList: selectors.menuList(state),
+        menuList: selectors.getMenuList(state),
         isLogIn: selectors.isLogIn(state),
         loginData: selectors.loginData(state),
     };

@@ -10,34 +10,32 @@ import dbService from '../../service/service';
 
 
 class App extends Component {
-
-    state = {
-        menuList: [],
-    }
-
     componentDidMount() {
         const db = new dbService();
+        const { a_updateMenu } = this.props;
+
         db.getMenuList()
-            .then(res => this.setState({ menuList: res }))
+            .then(res => a_updateMenu(res))
     }
 
     render() {
         const { isLogIn } = this.props;
-        const { menuList } = this.state;
-        
+
         return (
             <>
                 <Header isLogIn={isLogIn} />
                 <Sidebar />
-                <ContentContainer menuList={menuList} />
+                <ContentContainer />
             </>
         );
     }
 }
 
+
+
 const mapStateToProps = (state) => {
     return {
-        menuList: selectors.menuList(state),
+        menuList: selectors.getMenuList(state),
         isLogIn: selectors.isLogIn(state)
     };
 }
