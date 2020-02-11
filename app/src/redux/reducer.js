@@ -52,7 +52,7 @@ const reducer = (state = initState, action = {}) => {
 
 
 class Selectors {
-    menuList = ({ api }) => {
+    getMenuList = ({ api }) => {
         return api.menu;
     }
     isLogIn = ({ logIn }) => {
