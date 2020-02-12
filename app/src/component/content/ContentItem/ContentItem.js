@@ -1,5 +1,4 @@
 import React from 'react';
-import FormEditerContainer from '../../../container/FormEditer/FormEditerContainer';
 
 
 export const ContentItem = ({ postData, getControlButtons }) => {
