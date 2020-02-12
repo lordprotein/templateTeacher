@@ -22,7 +22,7 @@ class ContentItemContainer extends Component {
 
     componentDidMount = () => {
         const { ID_MENU } = this.props;
-        
+
         this.db.getContentList(ID_MENU)
             .then(res => {
                 this.setState(() => {
@@ -38,20 +38,22 @@ class ContentItemContainer extends Component {
         this.setState({ editPostId: postId })
     }
 
-    onDeletePost = () => {
-        const { ID_MENU, postData: { ID }, loginData, a_updateContent } = this.props;
-
+    onDeletePost = ID => {
+        const { loginData } = this.props;
         const data = { ...loginData, ID };
 
-        const ask = window.confirm(`Подтвердите удаление`);
+        // const ask = window.confirm(`Подтвердите удаление`);
 
-        if (!ask) return;
+        // if (!ask) return;
 
         this.db.deletePost(data)
             .then(() => {
-                this.db.updatePostList(ID_MENU, contentList => {
-                    a_updateContent({ ID_MENU, contentList });
-                })
+                const { postList } = this.state;
+
+                const numDeleteElem = postList.findIndex(elem => elem.ID === ID);
+                const newPostList = [...postList.slice(0, numDeleteElem), ...postList.slice(numDeleteElem + 1)];
+
+                this.setState(() => { return { postList: newPostList } });
             })
     }
 
@@ -64,7 +66,7 @@ class ContentItemContainer extends Component {
                 />
                 <ButtonWithLogIn
                     title="Удалить"
-                    onClick={() => this.onDeletePost()}
+                    onClick={() => this.onDeletePost(postId)}
                 />
             </>
         )
