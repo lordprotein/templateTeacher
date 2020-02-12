@@ -48,12 +48,12 @@ class ContentItemContainer extends Component {
 
         this.db.deletePost(data)
             .then(() => {
-                const { postList } = this.state;
-
-                const numDeleteElem = postList.findIndex(elem => elem.ID === ID);
-                const newPostList = [...postList.slice(0, numDeleteElem), ...postList.slice(numDeleteElem + 1)];
-
-                this.setState(() => { return { postList: newPostList } });
+                this.setState(({ postList }) => {
+                    const numDeleteElem = postList.findIndex(elem => elem.ID === ID);
+                    const newPostList = [...postList.slice(0, numDeleteElem), ...postList.slice(numDeleteElem + 1)];
+                    
+                    return { postList: newPostList };
+                });
             })
     }
 
