@@ -105,6 +105,7 @@ const mapStateToProps = state => {
     return {
         loginData: selectors.loginData(state),
         isLogIn: selectors.isLogIn(state),
+        menuList: selectors.getMenuList(state),
     }
 }
 
