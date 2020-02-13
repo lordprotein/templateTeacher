@@ -24,17 +24,14 @@ class FormEditerContainer extends Component {
    handleSend = e => {
       e.preventDefault();
 
-      const {loginData, action, toReset } = this.props;
-      let { postData } = this.props;
+      const { loginData, action, toReset, postList, a_updateContent } = this.props;
+      const { postData } = this.props;
 
       if (!this.title && !this.content) return toReset();
-      if (!this.title) this.title = postData.title;
-      if (!this.content) this.content = postData.content;
 
 
       const data = {
          ...loginData,
-         ...postData,
          title: this.title,
          content: this.content
       };
@@ -43,26 +40,32 @@ class FormEditerContainer extends Component {
 
       switch (action) {
          case 'add': {
-            // const { ID_MENU } = this.props;
-            // data = { ...data, ID_MENU };
+            const { ID_MENU } = this.props;
 
-            // db.addPost(data)
-            // .then(() => {
-            // db.updatePostList(ID_MENU, (contentList) => {
-            //    a_updateContent({ ID_MENU, contentList });
-            //    toReset();
-            // })
-            // });
+            db.addPost({ ...data, ID_MENU })
+               .then(() => {
+                  db.updatePostList(ID_MENU, resPostList => {
+                     a_updateContent(resPostList);
+                     toReset();
+                  })
+               });
             break;
          }
          case 'edit': {
-            const { updateData } = this.props;
+            db.editPost({ ...postData, ...data })
+               .then(() => {
+                  const num = postList.findIndex(elem => elem.ID === postData.ID)
 
-            db.editPost(data)
-               .then((res) => {
-                  console.log(data)
+                  let newPostList = postList.slice(0);
+
+                  newPostList[num] = {
+                     ...newPostList[num],
+                     title: this.title,
+                     content: this.content
+                  }
+
+                  a_updateContent(newPostList)
                   toReset();
-                  updateData(this.title, this.content);
                })
             break;
          }
@@ -97,7 +100,8 @@ class FormEditerContainer extends Component {
 const mapStateToProps = state => {
    return {
       loginData: selectors.loginData(state),
-      te: selectors.getMenuList(state)
+      postList: selectors.getPostList(state),
+
    };
 }
 
@@ -115,9 +119,11 @@ FormEditerContainer.propTypes = {
       content: PropTypes.string.isRequired,
       ID: PropTypes.number.isRequired,
       ID_MENU: PropTypes.number,
-   }).isRequired,
+   }),
 
    action: PropTypes.string.isRequired,
 
    toReset: PropTypes.func.isRequired,
+
+   ID_MENU: PropTypes.number,
 }
