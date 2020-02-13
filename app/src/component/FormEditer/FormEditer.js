@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 export const FormEditer = ({ postData, actions, toReset }) => {
 	const { onChangeTitleInput, onChangeContentInput, handleSend } = actions;
@@ -33,3 +35,13 @@ export const FormEditer = ({ postData, actions, toReset }) => {
 	);
 }
 
+FormEditer.propTypes = {
+	postData: PropTypes.shape({
+		title: PropTypes.string.isRequired,
+		content: PropTypes.string.isRequired
+	}),
+
+	actions: PropTypes.object.isRequired,
+
+	toReset: PropTypes.func.isRequired,
+}
