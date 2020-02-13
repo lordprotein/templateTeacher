@@ -16,45 +16,35 @@ class PageItemContainer extends Component {
         this.db = new dbService();
         this.state = {
             isEdit: false,
-            title: '',
-            content: '',
         }
-    }
-
-    componentDidMount = () => {
-        const { postData: { title, content } } = this.props;
-
-        this.setState({ title, content })
     }
 
     toToggleEdit = isToggle => this.setState({ isEdit: isToggle });
 
-
-
     handleDeletePost = () => {
-        const { loginData, postData: { ID }, toDeletePost } = this.props;
-        const data = { ...loginData, ID };
+        const { loginData, postData: { ID }, postList, a_updateContent } = this.props;
 
         const ask = window.confirm(`Подтвердите удаление`);
         if (!ask) return;
 
+        const data = { ...loginData, ID };
+
         this.db.deletePost(data)
             .then(() => {
-                toDeletePost(ID);
+                const newPostList = postList.filter(elem => elem.ID !== ID);
+                a_updateContent(newPostList);
             });
     }
 
-
     render() {
-        const { postData } = this.props;
-        const { isEdit, title, content } = this.state;
+        const { postData, postData: { title, content }, addData } = this.props;
+        const { isEdit } = this.state;
 
         if (isEdit) {
             return (
                 <FormEditerContainer
                     postData={postData}
                     action="edit"
-                    updateData={(title, content) => this.setState({ title, content })}
                     toReset={() => this.toToggleEdit(false)}
                 />
             )
@@ -83,13 +73,12 @@ class PageItemContainer extends Component {
     }
 }
 
-
-
-
 const mapStateToProps = state => {
     return {
         loginData: selectors.loginData(state),
         isLogIn: selectors.isLogIn(state),
+        postList: selectors.getPostList(state),
+
     }
 }
 
@@ -99,33 +88,3 @@ const mapDispatchToPros = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToPros)(PageItemContainer);
-
-
-// getPostList = () => {
-    //     const { postList, isEdit } = this.state;
-    //     let { editPostId } = this.state;
-
-    //     console.log(editPostId);
-
-    //     return postList.map((postData, key) => {
-    //         if (postData.ID === editPostId && isEdit) {
-
-    //             return (
-    //                 <FormEditerContainer
-    //                     postData={postData}
-    //                     action="edit"
-    //                     toReset={() => this.toToggleEdit(false)}
-    //                     key={key}
-    //                 />
-    //             );
-    //         }
-
-    //         return (
-    //             <PageItem
-    //                 postData={postData}
-    //                 getControlButtons={(postId) => this.getControlButtons(postId)}
-    //                 key={key}
-    //             />
-    //         );
-    //     })
-    // }

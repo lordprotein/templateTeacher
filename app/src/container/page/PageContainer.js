@@ -3,9 +3,14 @@ import PageItemContainer from './PageItemContainer';
 import dbService from '../../service/service';
 import { Page } from '../../component/content/Page/Page';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
+import FormEditerContainer from '../FormEditer/FormEditerContainer';
+import { connect } from 'react-redux';
+import { selectors } from '../../redux/reducer';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../redux/actions';
 
 
-export default class PageContainer extends Component {
+class PageContainer extends Component {
     constructor(props) {
         super(props);
         this.db = new dbService();
@@ -16,43 +21,32 @@ export default class PageContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { ID_MENU } = this.props;
+        const { ID_MENU, a_updateContent } = this.props;
         this.db.getContentList(ID_MENU)
-            .then(res => {
-                this.setState(() => {
-                    return { postList: res }
-                });
-            })
+            .then(res => a_updateContent(res));
     }
 
     setModeAddPost = isToggle => this.setState({ isEdit: isToggle });
 
-    // getFormEditer = (ID_MENU) => {
-    //     return (
-    //         <FormEditerContainer
-    //             ID_MENU={ID_MENU}
-    //             action="add"
-    //             toReset={() => this.setModeAddPost(false)}
-    //         />
-    //     );
-    // }
-
-    toDeletePost = ID => {
-        this.setState(({ postList }) => {
-            const newList = postList.filter(elem => elem.ID !== ID);
-            return { postList: newList };
-        });
-
+    getFormEditer = () => {
+        const { ID_MENU } = this.props;
+        return (
+            <FormEditerContainer
+                ID_MENU={ID_MENU}
+                action="add"
+                toReset={() => this.setModeAddPost(false)}
+            />
+        );
     }
 
+
     getPostList = () => {
-        const { postList } = this.state;
-        console.log(postList)
+        const { postList } = this.props;
+
         return postList.map((postData) => {
             return (
                 <PageItemContainer
                     postData={postData}
-                    toDeletePost={() => this.toDeletePost(postData.ID)}
                     key={postData.ID}
                 />
             );
@@ -60,16 +54,33 @@ export default class PageContainer extends Component {
     }
 
     render() {
+        const { isEdit } = this.state;
+        console.log(this.props.postList)
+
         return (
             <Page>
-                {
+                {isEdit ||
                     <ButtonWithLogIn
                         title="Добавить пост"
-                        onClick={this.setModeAddPost}
+                        onClick={() => this.setModeAddPost(true)}
                     />
                 }
-                {this.getPostList()}
+                {isEdit || this.getPostList()}
+                {isEdit && this.getFormEditer()}
             </Page>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        postList: selectors.getPostList(state),
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    const { a_updateContent } = bindActionCreators(actions, dispatch);
+    return { a_updateContent };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageContainer);
