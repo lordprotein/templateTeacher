@@ -5,11 +5,12 @@ import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { selectors } from '../../redux/reducer';
 import FormEditerContainer from '../FormEditer/FormEditerContainer';
-import { ContentItem } from '../../component/content/ContentItem/ContentItem';
+import { PageItem } from '../../component/content/PageItem/PageItem';
+// import { PageItem } from '../../component/content/PageItem/PageItem';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
 
 
-class ContentItemContainer extends Component {
+class PageItemContainer extends Component {
     constructor(props) {
         super(props);
         this.db = new dbService();
@@ -93,7 +94,7 @@ class ContentItemContainer extends Component {
             }
 
             return (
-                <ContentItem
+                <PageItem
                     postData={postData}
                     getControlButtons={(postId) => this.getControlButtons(postId)}
                     key={key}
@@ -120,4 +121,4 @@ const mapDispatchToPros = dispatch => {
     return { a_updateContent }
 }
 
-export default connect(mapStateToProps, mapDispatchToPros)(ContentItemContainer);
+export default connect(mapStateToProps, mapDispatchToPros)(PageItemContainer);

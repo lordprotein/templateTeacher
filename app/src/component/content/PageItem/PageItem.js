@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export const ContentItem = ({ postData, getControlButtons }) => {
+export const PageItem = ({ postData, getControlButtons }) => {
     const { title, content, ID } = postData;
 
     return (

@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const Content = ({ allRoutes }) => {
+export const Page = ({ children }) => {
 	return (
 		<section className="content">
-			{allRoutes()}
+			{children}
 		</section>
 	);
 }
