@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import { selectors } from '../../redux/reducer';
 import dbService from '../../service/service';
@@ -16,40 +17,37 @@ class FormEditerContainer extends Component {
    handleSend = e => {
       e.preventDefault();
 
-      const { loginData, a_updateContent, action, postData, toReset } = this.props;
+      const { loginData, action, toReset } = this.props;
+      let { postData } = this.props;
 
-      let { title, content } = this;
+      if (!this.title && !this.content) return toReset();
 
-      if (!title) title = postData.title;
-      if (!content) content = postData.content;
 
-      let data = { ...loginData, title, content }
+      if (this.title) postData.title = this.title;
+      if (this.content) postData.content = this.content;
+
+
+      const data = { ...loginData, ...postData };
 
       const db = new dbService();
+
       switch (action) {
          case 'add': {
             const { ID_MENU } = this.props;
-            data = { ...data, ID_MENU };
+            // data = { ...data, ID_MENU };
 
-            db.addPost(data)
-               .then(() => {
-                  db.updatePostList(ID_MENU, (contentList) => {
-                     a_updateContent({ ID_MENU, contentList });
-                     toReset();
-                  })
-               });
+            // db.addPost(data)
+            // .then(() => {
+            // db.updatePostList(ID_MENU, (contentList) => {
+            //    a_updateContent({ ID_MENU, contentList });
+            //    toReset();
+            // })
+            // });
             break;
          }
          case 'edit': {
-            const { ID_MENU, ID } = postData;
-            data = { ...data, ID };
             db.editPost(data)
-               .then(() => {
-                  db.updatePostList(ID_MENU, contentList => {
-                     a_updateContent({ ID_MENU, contentList });
-                     toReset();
-                  })
-               })
+               .then(() => toReset())
             break;
          }
          default: break;
@@ -94,3 +92,17 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormEditerContainer);
+
+
+FormEditerContainer.propTypes = {
+   postData: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      ID: PropTypes.number.isRequired,
+      ID_MENU: PropTypes.number,
+   }).isRequired,
+
+   action: PropTypes.string.isRequired,
+   
+   toReset: PropTypes.func.isRequired,
+}
