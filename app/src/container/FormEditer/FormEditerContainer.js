@@ -10,6 +10,13 @@ import * as actions from '../../redux/actions';
 
 
 class FormEditerContainer extends Component {
+   constructor(props) {
+      super(props);
+
+      this.title = this.props.postData ? this.props.postData.title : '';
+      this.content = this.props.postData ? this.props.postData.content : '';
+   }
+
    onChangeTitleInput = e => this.title = e.target.value;
 
    onChangeContentInput = e => this.content = e.target.value;
@@ -17,23 +24,26 @@ class FormEditerContainer extends Component {
    handleSend = e => {
       e.preventDefault();
 
-      const { loginData, action, toReset } = this.props;
+      const {loginData, action, toReset } = this.props;
       let { postData } = this.props;
 
       if (!this.title && !this.content) return toReset();
+      if (!this.title) this.title = postData.title;
+      if (!this.content) this.content = postData.content;
 
 
-      if (this.title) postData.title = this.title;
-      if (this.content) postData.content = this.content;
-
-
-      const data = { ...loginData, ...postData };
+      const data = {
+         ...loginData,
+         ...postData,
+         title: this.title,
+         content: this.content
+      };
 
       const db = new dbService();
 
       switch (action) {
          case 'add': {
-            const { ID_MENU } = this.props;
+            // const { ID_MENU } = this.props;
             // data = { ...data, ID_MENU };
 
             // db.addPost(data)
@@ -46,8 +56,14 @@ class FormEditerContainer extends Component {
             break;
          }
          case 'edit': {
+            const { updateData } = this.props;
+
             db.editPost(data)
-               .then(() => toReset())
+               .then((res) => {
+                  console.log(data)
+                  toReset();
+                  updateData(this.title, this.content);
+               })
             break;
          }
          default: break;
@@ -56,17 +72,13 @@ class FormEditerContainer extends Component {
 
 
    render() {
-      const { postData, toReset } = this.props;
-      let title = '', content = '';
-
-      if (postData !== undefined) {
-         title = postData.title;
-         content = postData.content;
-      }
+      const { toReset } = this.props;
+      const { title, content } = this;
 
       return (
          <FormEditer
-            postData={{ title, content }}
+            title={title}
+            content={content}
             actions={
                {
                   onChangeTitleInput: (e) => this.onChangeTitleInput(e),
@@ -83,7 +95,10 @@ class FormEditerContainer extends Component {
 
 
 const mapStateToProps = state => {
-   return { loginData: selectors.loginData(state) };
+   return {
+      loginData: selectors.loginData(state),
+      te: selectors.getMenuList(state)
+   };
 }
 
 const mapDispatchToProps = dispatch => {
@@ -103,6 +118,6 @@ FormEditerContainer.propTypes = {
    }).isRequired,
 
    action: PropTypes.string.isRequired,
-   
+
    toReset: PropTypes.func.isRequired,
 }

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import LogInContainer from '../../container/LogIn/LogInContainer';
-// import { Page } from '../../component/content/Page/Page';
-// import { PageItem } from '../../component/content/PageItem/PageItem';
 import { store } from '../../redux/store';
-import PageItemContainer from '../../container/page/PageItemContainer';
+import PageContainer from '../../container/page/PageContainer';
 
 
 export const withRoutes = WrappedComponent => {
@@ -27,7 +25,7 @@ export const withRoutes = WrappedComponent => {
                 return (
                     <Route
                         path={link}
-                        render={() => <PageItemContainer ID_MENU={ID} />}
+                        render={() => <PageContainer ID_MENU={ID} />}
                         key={key + 1}
                     />
                 );

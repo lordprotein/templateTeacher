@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Header from '../../component/Header/Header';
-import PageContainer from '../page/PageContainer';
 import Sidebar from '../../component/Sidebar/Sidebar';
 import * as actions from '../../redux/actions';
 import { selectors } from '../../redux/reducer';
 import dbService from '../../service/service';
-import { withRoutes } from '../../Hoc/withLogIn/withRoutes';
-import PageListContainer from '../page/PageListContainer';
 import { PageListWithRoutes } from '../../component/content/PageList/PageList';
 
 

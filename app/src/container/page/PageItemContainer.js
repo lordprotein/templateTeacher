@@ -16,98 +16,75 @@ class PageItemContainer extends Component {
         this.db = new dbService();
         this.state = {
             isEdit: false,
-            editPostId: null,
-            postList: [],
+            title: '',
+            content: '',
         }
     }
 
     componentDidMount = () => {
-        const { ID_MENU } = this.props;
+        const { postData: { title, content } } = this.props;
 
-        this.db.getContentList(ID_MENU)
-            .then(res => {
-                this.setState(() => {
-                    return { postList: res }
-                });
-            })
+        this.setState({ title, content })
     }
 
     toToggleEdit = isToggle => this.setState({ isEdit: isToggle });
 
-    onEdit = postId => {
-        this.toToggleEdit(true);
-        this.setState({ editPostId: postId })
-    }
 
-    onDeletePost = ID => {
-        const { loginData } = this.props;
+
+    handleDeletePost = () => {
+        const { loginData, postData: { ID }, toDeletePost } = this.props;
         const data = { ...loginData, ID };
 
-        // const ask = window.confirm(`Подтвердите удаление`);
-
-        // if (!ask) return;
+        const ask = window.confirm(`Подтвердите удаление`);
+        if (!ask) return;
 
         this.db.deletePost(data)
             .then(() => {
-                this.setState(({ postList }) => {
-                    const numDeleteElem = postList.findIndex(elem => elem.ID === ID);
-                    const newPostList = [...postList.slice(0, numDeleteElem), ...postList.slice(numDeleteElem + 1)];
-                    
-                    return { postList: newPostList };
-                });
-            })
-    }
-
-    getControlButtons = postId => {
-        return (
-            <>
-                <ButtonWithLogIn
-                    title="Редактировать"
-                    onClick={() => this.onEdit(postId)}
-                />
-                <ButtonWithLogIn
-                    title="Удалить"
-                    onClick={() => this.onDeletePost(postId)}
-                />
-            </>
-        )
-    }
-
-
-    getPostList = () => {
-        const { postList, isEdit } = this.state;
-        let { editPostId } = this.state;
-
-        console.log(editPostId);
-
-        return postList.map((postData, key) => {
-            if (postData.ID === editPostId && isEdit) {
-
-                return (
-                    <FormEditerContainer
-                        postData={postData}
-                        action="edit"
-                        toReset={() => this.toToggleEdit(false)}
-                        key={key}
-                    />
-                );
-            }
-
-            return (
-                <PageItem
-                    postData={postData}
-                    getControlButtons={(postId) => this.getControlButtons(postId)}
-                    key={key}
-                />
-            );
-        })
+                toDeletePost(ID);
+            });
     }
 
 
     render() {
-        return this.getPostList();
+        const { postData } = this.props;
+        const { isEdit, title, content } = this.state;
+
+        if (isEdit) {
+            return (
+                <FormEditerContainer
+                    postData={postData}
+                    action="edit"
+                    updateData={(title, content) => this.setState({ title, content })}
+                    toReset={() => this.toToggleEdit(false)}
+                />
+            )
+        }
+
+        return (
+            <PageItem
+                postData={postData}
+                title={title}
+                content={content}
+            >
+                {
+                    <ButtonWithLogIn
+                        title="Редактировать"
+                        onClick={() => this.toToggleEdit(true)}
+                    />
+                }
+                {
+                    <ButtonWithLogIn
+                        title="Удалить"
+                        onClick={() => this.handleDeletePost()}
+                    />
+                }
+            </PageItem>
+        );
     }
 }
+
+
+
 
 const mapStateToProps = state => {
     return {
@@ -122,3 +99,33 @@ const mapDispatchToPros = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToPros)(PageItemContainer);
+
+
+// getPostList = () => {
+    //     const { postList, isEdit } = this.state;
+    //     let { editPostId } = this.state;
+
+    //     console.log(editPostId);
+
+    //     return postList.map((postData, key) => {
+    //         if (postData.ID === editPostId && isEdit) {
+
+    //             return (
+    //                 <FormEditerContainer
+    //                     postData={postData}
+    //                     action="edit"
+    //                     toReset={() => this.toToggleEdit(false)}
+    //                     key={key}
+    //                 />
+    //             );
+    //         }
+
+    //         return (
+    //             <PageItem
+    //                 postData={postData}
+    //                 getControlButtons={(postId) => this.getControlButtons(postId)}
+    //                 key={key}
+    //             />
+    //         );
+    //     })
+    // }

@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-export const FormEditer = ({ postData, actions, toReset }) => {
+export const FormEditer = ({ title, content, actions, toReset }) => {
 	const { onChangeTitleInput, onChangeContentInput, handleSend } = actions;
-	const { title, content } = postData;
 
 	return (
 		<div className="editer">
@@ -36,12 +35,8 @@ export const FormEditer = ({ postData, actions, toReset }) => {
 }
 
 FormEditer.propTypes = {
-	postData: PropTypes.shape({
-		title: PropTypes.string.isRequired,
-		content: PropTypes.string.isRequired
-	}),
-
+	title: PropTypes.string.isRequired,
+	content: PropTypes.string.isRequired,
 	actions: PropTypes.object.isRequired,
-
 	toReset: PropTypes.func.isRequired,
 }
