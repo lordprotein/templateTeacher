@@ -31,19 +31,30 @@ const reducer = (state = initState, action = {}) => {
         }
 
         case 'UPDATE_POSTS': {
-            const { api, api: { menu } } = state;
-            const { ID_MENU, contentList } = action.value;
-
-            const num = menu.findIndex(({ ID }) => ID === ID_MENU);
-
-            menu[num].postList = contentList;
+            const { api } = state;
+            const postList = action.value;
 
             return {
                 ...state,
                 api: {
-                    ...api, menu
+                    ...api,
+                    postList
                 }
             };
+            // const { api, api: { menu } } = state;
+            // const { ID_MENU, postList } = action.value;
+
+            // const num = menu.findIndex(({ ID }) => ID === ID_MENU);
+
+            // menu[num].postList = postList;
+
+            // return {
+            //     ...state,
+            //     api: {
+            //         ...api,
+            //         postList: menu
+            //     }
+            // };
         }
         //END UPDATES
         default: return state;
@@ -54,6 +65,9 @@ const reducer = (state = initState, action = {}) => {
 class Selectors {
     getMenuList = ({ api }) => {
         return api.menu;
+    }
+    getPostList = ({ api }) => {
+        return api.postList;
     }
     isLogIn = ({ logIn }) => {
         return logIn.status;

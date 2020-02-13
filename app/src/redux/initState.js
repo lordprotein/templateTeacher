@@ -1,6 +1,7 @@
 const initState = {
     api: {
         menu: [],
+        postList: []
     },
     logIn: {
         status: true,
