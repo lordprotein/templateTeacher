@@ -16,7 +16,6 @@ class MenuContainer extends Component {
         this.state = {
             isModeAddMenu: false,
         }
-        this.menuList = [];
     }
 
     componentDidMount = () => {
@@ -26,7 +25,6 @@ class MenuContainer extends Component {
         db.getMenuPositionList(position)
             .then(menuList => {
                 a_updateMenu({ menuList, isOldMenu: true });
-                this.menuList = menuList;
             });
     }
 
@@ -107,7 +105,8 @@ class MenuContainer extends Component {
     }
 
     renderMenuList = () => {
-        const { menuList } = this;
+        let { menuList, position } = this.props;
+        menuList = menuList.filter(elem => elem.position === position)
 
         return menuList.map((menuItemData, key) => {
             if (menuItemData.submenu) return false;
@@ -129,7 +128,6 @@ class MenuContainer extends Component {
     render() {
         const { position } = this.props;
 
-
         return (
             <Menu
                 addingPanel={this.getFormAdd()}
@@ -143,7 +141,7 @@ class MenuContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        // menuList: selectors.getMenuList(state),
+        menuList: selectors.getMenuList(state),
         isLogIn: selectors.isLogIn(state),
         loginData: selectors.loginData(state),
     };
