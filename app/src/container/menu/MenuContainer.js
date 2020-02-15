@@ -15,17 +15,15 @@ class MenuContainer extends Component {
         super(props);
         this.state = {
             isModeAddMenu: false,
-            // menuList: [],
         }
     }
 
     componentDidMount = () => {
-        // const db = new dbService();
-        // const { position, a_updateMenu, menuList } = this.props;
-        // console.log(menuList)
-        // db.getMenuPositionList(position)
-        // .then(res => a_updateMenu([...menuList, ...res]))
-        // .then(res => this.setState({ menuList: res }))
+        const { a_updateMenu, position } = this.props;
+
+        const db = new dbService();
+        db.getMenuPositionList(position)
+            .then(res => a_updateMenu({ menuList: res, isOldMenu: true }));
     }
 
     onToggleShow = isToggle => this.setState({ isModeAddMenu: isToggle });
@@ -40,15 +38,15 @@ class MenuContainer extends Component {
         if (title === undefined) return;
 
         const { a_updateMenu, loginData, position } = this.props,
-            link = (cyrillicToTranslit().transform(title, '_')).toLowerCase(),
+            link = (`/${(cyrillicToTranslit().transform(title, '_')).toLowerCase()}`),
             data = { title, position, link, submenu },
             db = new dbService();
 
         db.addMenu({ ...loginData, ...data })
             .then(() => {
                 db.getMenuList()
-                    .then(res => {
-                        a_updateMenu(res);
+                    .then(menuList => {
+                        a_updateMenu({menuList});
                         this.onToggleShow(false);
                     });
             });

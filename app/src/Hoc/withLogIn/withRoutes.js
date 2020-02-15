@@ -7,9 +7,19 @@ import PageContainer from '../../container/page/PageContainer';
 
 export const withRoutes = WrappedComponent => {
     return class extends Component {
-        getRoutes() {
-            const { menu } = store.getState().api;
-            const menuList = menu;
+        state = {
+            menuList: []
+        }
+
+        componentDidMount = () => {
+            store.subscribe(() => {
+                const menuList = store.getState().api.menu;
+                this.setState({ menuList });
+            })
+        }
+
+        getRoutes = () => {
+            const { menuList } = this.state;
 
             if (!menuList.length) return false;
 

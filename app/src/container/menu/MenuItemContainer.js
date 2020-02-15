@@ -40,7 +40,8 @@ class MenuItemContainer extends Component {
         db.deleteMenu(data)
             .then(() => {
                 const numDeleteElem = menuList.findIndex(elem => elem.ID === ID);
-                a_updateMenu([...menuList.slice(0, numDeleteElem), ...menuList.slice(numDeleteElem + 1)]);
+                const newList = [...menuList.slice(0, numDeleteElem), ...menuList.slice(numDeleteElem + 1)];
+                a_updateMenu({ menuList: newList });
             });
     }
 
@@ -65,7 +66,7 @@ class MenuItemContainer extends Component {
 
         db.editMenu(data)
             .then(() => {
-                a_updateMenu(menuList);
+                a_updateMenu({ menuList });
                 this.onEdit(false);
             });
     }

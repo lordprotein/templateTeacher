@@ -18,8 +18,11 @@ const reducer = (state = initState, action = {}) => {
         }
         //UPDATES
         case 'UPDATE_MENU': {
-            const { api } = state;
-            const menuList = action.value;
+            const { api, api: { menu } } = state;
+            const { isOldMenu } = action.value;
+            let { menuList } = action.value;
+
+            if (isOldMenu) menuList = [...menu, ...menuList];
 
             return {
                 ...state,
