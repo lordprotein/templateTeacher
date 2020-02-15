@@ -24,27 +24,6 @@ class MenuItemContainer extends Component {
         e.stopPropagation();
     }
 
-    _deleteAllChildMenu = ID => {
-        const { menuList } = this.props;
-        const { db } = this;
-        const { a_updateMenu, loginData } = this.props;
-
-        const newList = menuList.filter(elem => {
-            if (elem.submenu !== ID) return elem;
-
-            this._deleteAllChildMenu(elem.ID);
-
-            return function () {
-                const data = { ...loginData, ID: elem.ID };
-                db.deleteMenu(data).then(res => console.log(res));
-            }();
-        });
-
-        if (!newList.length) return;
-
-        a_updateMenu({ menuList: newList });
-    }
-
     handleDelete = e => { //delete
         this.disableDomActions(e);
 
@@ -57,7 +36,6 @@ class MenuItemContainer extends Component {
 
         db.deleteMenu(data)
             .then(() => {
-                this._deleteAllChildMenu(ID);
                 const newList = menuList.filter(elem => elem.ID !== ID);
                 a_updateMenu({ menuList: newList });
             });
