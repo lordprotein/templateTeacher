@@ -55,7 +55,6 @@ class PageContainer extends Component {
 
     render() {
         const { isEdit } = this.state;
-        console.log(this.props.postList)
 
         return (
             <Page>
