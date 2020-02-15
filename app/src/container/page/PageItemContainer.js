@@ -6,7 +6,6 @@ import dbService from '../../service/service';
 import { selectors } from '../../redux/reducer';
 import FormEditerContainer from '../FormEditer/FormEditerContainer';
 import { PageItem } from '../../component/content/PageItem/PageItem';
-// import { PageItem } from '../../component/content/PageItem/PageItem';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
 
 
@@ -37,7 +36,7 @@ class PageItemContainer extends Component {
     }
 
     render() {
-        const { postData, postData: { title, content }, addData } = this.props;
+        const { postData, postData: { title, content } } = this.props;
         const { isEdit } = this.state;
 
         if (isEdit) {
