@@ -16,6 +16,7 @@ class MenuContainer extends Component {
         this.state = {
             isModeAddMenu: false,
         }
+        this.menuList = [];
     }
 
     componentDidMount = () => {
@@ -23,16 +24,17 @@ class MenuContainer extends Component {
 
         const db = new dbService();
         db.getMenuPositionList(position)
-            .then(res => a_updateMenu({ menuList: res, isOldMenu: true }));
+            .then(menuList => {
+                a_updateMenu({ menuList, isOldMenu: true });
+                this.menuList = menuList;
+            });
     }
 
     onToggleShow = isToggle => this.setState({ isModeAddMenu: isToggle });
 
     onChangeInput = e => this.input_text = e.target.value;
 
-    onAddMenu = () => {
-        this.onToggleShow(true);
-    }
+    onAddMenu = () => this.onToggleShow(true);
 
     onAddMenuItem = (title, submenu = false) => { //add new menu elem
         if (title === undefined) return;
@@ -46,7 +48,7 @@ class MenuContainer extends Component {
             .then(() => {
                 db.getMenuList()
                     .then(menuList => {
-                        a_updateMenu({menuList});
+                        a_updateMenu({ menuList });
                         this.onToggleShow(false);
                     });
             });
@@ -105,12 +107,7 @@ class MenuContainer extends Component {
     }
 
     renderMenuList = () => {
-        let { menuList } = this.props;
-        // let { menuList } = this.state;
-        const { position } = this.props;
-
-        //get a menu list for particular position
-        menuList = menuList.filter(item => position === item.position);
+        const { menuList } = this;
 
         return menuList.map((menuItemData, key) => {
             if (menuItemData.submenu) return false;
@@ -146,7 +143,7 @@ class MenuContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        menuList: selectors.getMenuList(state),
+        // menuList: selectors.getMenuList(state),
         isLogIn: selectors.isLogIn(state),
         loginData: selectors.loginData(state),
     };
