@@ -30,10 +30,7 @@ class MenuItemContainer extends Component {
         const { a_updateMenu, loginData } = this.props;
 
         const newList = menuList.filter(elem => {
-            if (elem.submenu !== ID) {
-                console.log(1)
-                return elem;
-            }
+            if (elem.submenu !== ID) return elem;
 
             this._deleteAllChildMenu(elem.ID);
 
@@ -56,16 +53,15 @@ class MenuItemContainer extends Component {
 
         // const ask = window.confirm(`Подтвердите удаление`);
         // if (!ask) return;
-        this._deleteAllChildMenu(ID);
-        // const data = { ...loginData, ID };
+        const data = { ...loginData, ID };
 
-        // db.deleteMenu(data)
-        //     .then(() => {
-        //         this._deleteAllChildMenu(ID);
-        //         const numDeleteElem = menuList.findIndex(elem => elem.ID === ID);
-        //         const newList = [...menuList.slice(0, numDeleteElem), ...menuList.slice(numDeleteElem + 1)];
-        //         a_updateMenu({ menuList: newList });
-        //     });
+        db.deleteMenu(data)
+            .then(() => {
+                this._deleteAllChildMenu(ID);
+                const newList = menuList.filter(elem => elem.ID !== ID);
+                a_updateMenu({ menuList: newList });
+            });
+
     }
 
     handleEdit = e => { //succsessful edit
