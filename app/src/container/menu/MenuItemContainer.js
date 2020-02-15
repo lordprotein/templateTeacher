@@ -24,6 +24,30 @@ class MenuItemContainer extends Component {
         e.stopPropagation();
     }
 
+    _deleteAllChildMenu = ID => {
+        const { menuList } = this.props;
+        const { db } = this;
+        const { a_updateMenu, loginData } = this.props;
+
+        const newList = menuList.filter(elem => {
+            if (elem.submenu !== ID) {
+                console.log(1)
+                return elem;
+            }
+
+            this._deleteAllChildMenu(elem.ID);
+
+            return function () {
+                const data = { ...loginData, ID: elem.ID };
+                db.deleteMenu(data).then(res => console.log(res));
+            }();
+        });
+
+        if (!newList.length) return;
+
+        a_updateMenu({ menuList: newList });
+    }
+
     handleDelete = e => { //delete
         this.disableDomActions(e);
 
@@ -31,18 +55,17 @@ class MenuItemContainer extends Component {
         const { a_updateMenu, loginData, menuItemData: { ID }, menuList } = this.props;
 
         // const ask = window.confirm(`Подтвердите удаление`);
-
         // if (!ask) return;
+        this._deleteAllChildMenu(ID);
+        // const data = { ...loginData, ID };
 
-        const data = { ...loginData, ID };
-
-
-        db.deleteMenu(data)
-            .then(() => {
-                const numDeleteElem = menuList.findIndex(elem => elem.ID === ID);
-                const newList = [...menuList.slice(0, numDeleteElem), ...menuList.slice(numDeleteElem + 1)];
-                a_updateMenu({ menuList: newList });
-            });
+        // db.deleteMenu(data)
+        //     .then(() => {
+        //         this._deleteAllChildMenu(ID);
+        //         const numDeleteElem = menuList.findIndex(elem => elem.ID === ID);
+        //         const newList = [...menuList.slice(0, numDeleteElem), ...menuList.slice(numDeleteElem + 1)];
+        //         a_updateMenu({ menuList: newList });
+        //     });
     }
 
     handleEdit = e => { //succsessful edit
