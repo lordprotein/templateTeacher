@@ -1,0 +1,39 @@
+.menu__item {
+    /* max-height              : 50px; */
+    display                    : flex;
+    flex-direction             : row;
+    height                     : 55px;
+
+    margin: 5px 10px;
+}
+
+.menu__item:hover>.menu__sub {
+    display : block;
+    position: relative;
+}
+
+.menu__link {
+    min-width      : 270px;
+    display        : flex;
+    flex-direction : row;
+    align-items    : center;
+    padding        : 14px 30px;
+    text-decoration: none;
+    color          : #F8F8F8;
+    background     : #8376BB;
+
+}
+
+.menu__sub {
+    /* display: none; */
+}
+
+.menu__sub .menu__item {
+    margin    : 0 0 5px 6px;
+    padding   : 0;
+}
+
+.menu__sub .menu__item .menu__link {
+    background: #635896;
+
+}
