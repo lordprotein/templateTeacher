@@ -1,0 +1,31 @@
+.btn {
+    border : none;
+    outline: none;
+}
+
+.add {
+    width      : 20px;
+    height     : 20px;
+    margin-left: 10px;
+    cursor     : pointer;
+    background : url('../../../img/add_icon.svg') center/contain;
+    color      : transparent;
+}
+
+.edit {
+    width      : 20px;
+    height     : 20px;
+    margin-left: 10px;
+    cursor     : pointer;
+    background : url('../../../img/edit_icon.svg') center/contain;
+    color      : transparent;
+}
+
+.remove {
+    width      : 20px;
+    height     : 20px;
+    margin-left: 10px;
+    cursor     : pointer;
+    background : url('../../../img/trash_icon.svg') center/contain;
+    color      : transparent;
+}

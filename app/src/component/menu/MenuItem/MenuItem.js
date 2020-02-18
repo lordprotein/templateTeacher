@@ -4,15 +4,18 @@ import styles from './MenuItem.module.css';
 
 
 export const MenuItem = ({ menuItemData, childrens, getAddSubmenuPanel, getButtonsPanel }) => {
-    const { title, link } = menuItemData;
+    const { title, link, position } = menuItemData;
     const formAddPanel = getAddSubmenuPanel();
-    // console.log(childrens)
-    // console.log(link)
+
+    const itemStyle = position !== 'top' ? styles.item : (styles.item + ' ' + styles.item_line);
+    const linkStyle = position !== 'top' ? styles.link : (styles.link + ' ' + styles.link_line);
+    const subStyle = position !== 'top' ? styles.sub : (styles.sub + ' ' + styles.sub_line);
+
     return (
-        <div className={styles.menu__item}>
+        <div className={itemStyle}>
             <Link
                 to={link}
-                className={styles.menu__link}
+                className={linkStyle}
             >
                 {title}
                 {getButtonsPanel()}
@@ -20,10 +23,10 @@ export const MenuItem = ({ menuItemData, childrens, getAddSubmenuPanel, getButto
             {
                 childrens
                     ? (
-                        <div className={styles.menu__sub}>
+                        <div className={subStyle}>
                             {childrens}
                             {formAddPanel && (
-                                <div className={styles.menu__item}>
+                                <div className={styles.item}>
                                     {formAddPanel}
                                 </div>
                             )}
@@ -32,8 +35,8 @@ export const MenuItem = ({ menuItemData, childrens, getAddSubmenuPanel, getButto
                     :
                     (!childrens && formAddPanel)
                         ? (
-                            <div className={styles.menu__sub}>
-                                <div className={styles.menu__item}>
+                            <div className={subStyle}>
+                                <div className={styles.item}>
                                     {formAddPanel}
                                 </div>
                             </div>

@@ -7,6 +7,7 @@ import dbService from '../../service/service';
 import { MenuItem } from '../../component/menu/MenuItem/MenuItem';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
 import PropTypes from 'prop-types';
+import btnStyles from '../../component/button/Button/Button.module.css';
 
 
 class MenuItemContainer extends Component {
@@ -123,20 +124,26 @@ class MenuItemContainer extends Component {
 
     getButtonsPanel = () => {
         return (
-            <>
+            <div>
+                <ButtonWithLogIn
+                    title="Подменю"
+                    onClick={e => this.onAddSubmenu(true, e)}
+                    className={btnStyles.add}
+                    hint="Добавить подменю"
+                />
                 <ButtonWithLogIn
                     title="Ред"
                     onClick={e => this.onEdit(true, e)}
+                    className={btnStyles.edit}
+                    hint="Редактировать меню"
                 />
                 <ButtonWithLogIn
                     title="Уд"
                     onClick={e => this.handleDelete(e)}
+                    className={btnStyles.remove}
+                    hint="Удалить меню"
                 />
-                <ButtonWithLogIn
-                    title="Подменю"
-                    onClick={e => this.onAddSubmenu(true, e)}
-                />
-            </>
+            </div>
         );
     }
 

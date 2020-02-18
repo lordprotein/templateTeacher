@@ -132,7 +132,7 @@ class MenuContainer extends Component {
             <Menu
                 addingPanel={this.getFormAdd()}
                 menuList={this.renderMenuList()}
-                stylePos={position === 'top' ? 'menu menu--line' : 'menu'}
+                stylePos={position}
             />
         );
     }
