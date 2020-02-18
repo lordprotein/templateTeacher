@@ -4,7 +4,6 @@ import styles from './Header.module.css';
 
 
 const Header = () => {
-    console.log(styles)
     return (
         <header className={styles.header}>
             {/* <h1 className="header__title">
