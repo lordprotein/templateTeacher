@@ -25,12 +25,13 @@
 }
 
 .menu__sub {
-    /* display: none; */
+    display: none;
 }
 
 .menu__sub .menu__item {
-    margin    : 0 0 5px 6px;
-    padding   : 0;
+    height : calc(55px + 5px);
+    margin : 0;
+    padding: 0 0 5px 6px;
 }
 
 .menu__sub .menu__item .menu__link {

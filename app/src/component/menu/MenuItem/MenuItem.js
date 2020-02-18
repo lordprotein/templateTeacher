@@ -41,18 +41,6 @@ export const MenuItem = ({ menuItemData, childrens, getAddSubmenuPanel, getButto
                         :
                         false
             }
-            {/* {
-                formAddPanel && !childrens
-                    ? (
-                        <div className={styles.menu__sub}>
-                            <div className={styles.menu__item}>
-                                {formAddPanel}
-                            </div>
-                        </div>
-                    )
-                    : false
-            } */}
-
         </div >
     );
 }
