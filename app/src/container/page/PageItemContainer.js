@@ -5,7 +5,7 @@ import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { selectors } from '../../redux/reducer';
 import FormEditerContainer from '../FormEditer/FormEditerContainer';
-import { PageItem } from '../../component/content/PageItem/PageItem';
+import { PageItem } from '../../component/page/PageItem/PageItem';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
 import styles from '../../component/button/Button/Button.module.css';
 

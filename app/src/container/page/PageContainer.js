@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PageItemContainer from './PageItemContainer';
 import dbService from '../../service/service';
-import { Page } from '../../component/content/Page/Page';
+import { Page } from '../../component/page/Page/Page';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
 import FormEditerContainer from '../FormEditer/FormEditerContainer';
 import { connect } from 'react-redux';

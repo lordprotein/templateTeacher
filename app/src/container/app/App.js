@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Header from '../../component/Header/Header';
 import Sidebar from '../../component/Sidebar/Sidebar';
 import { selectors } from '../../redux/reducer';
-import { PageListWithRoutes } from '../../component/content/PageList/PageList';
+import { PageListWithRoutes } from '../../component/page/PageList/PageList';
 import styles from './App.module.css';
 
 
