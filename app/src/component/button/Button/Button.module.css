@@ -1,31 +1,58 @@
 .btn {
-    border : none;
-    outline: none;
+    padding      : 8px 16px;
+    outline      : none;
+    border       : none;
+    background   : #4C3786;
+    color        : #fff;
+    border-radius: 5px;
+    font-weight  : 400;
+}
+
+.btn:focus {
+    box-shadow: -4px 4px 6px #9D8BCE;
+}
+
+.add,
+.edit,
+.remove,
+.remove_post,
+.edit_post {
+    width        : 20px;
+    height       : 20px;
+    margin-left  : 10px;
+    background   : center/contain no-repeat;
+    border       : none;
+    border-radius: 5px;
+    outline      : none;
+    color        : transparent;
+    cursor       : pointer;
 }
 
 .add {
-    width      : 20px;
-    height     : 20px;
-    margin-left: 10px;
-    cursor     : pointer;
-    background : url('../../../img/add_icon.svg') center/contain;
-    color      : transparent;
+    background-image: url('../../../img/add_icon.svg');
 }
 
-.edit {
-    width      : 20px;
-    height     : 20px;
-    margin-left: 10px;
-    cursor     : pointer;
-    background : url('../../../img/edit_icon.svg') center/contain;
-    color      : transparent;
+.edit,
+.edit_post {
+    background-image: url('../../../img/edit_icon.svg');
 }
 
-.remove {
-    width      : 20px;
-    height     : 20px;
-    margin-left: 10px;
-    cursor     : pointer;
-    background : url('../../../img/trash_icon.svg') center/contain;
-    color      : transparent;
+.remove,
+.remove_post {
+    background-image: url('../../../img/trash_icon.svg');
+}
+
+.remove_post,
+.edit_post {
+    width          : 30px;
+    height         : 30px;
+    background-size: 70%;
+}
+
+.remove_post {
+    background-color: #DA607E;
+}
+
+.edit_post {
+    background-color: #5890B1;
 }
