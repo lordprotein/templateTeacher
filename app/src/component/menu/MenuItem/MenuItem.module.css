@@ -22,6 +22,10 @@
     display: block;
 }
 
+.item:hover>.sub .link:hover {
+    background: rgb(139, 125, 204);
+}
+
 .item_line:hover>.sub {
     /* display       : flex; */
     flex-direction   : column;
@@ -34,18 +38,25 @@
 /*link*/
 
 .link {
-    min-width         : 270px;
-    display           : flex;
-    /* flex-direction : column; */
-    /* justify-content: center; */
-    flex-direction    : row;
-    justify-content   : space-between;
-    padding           : 14px 30px;
-    text-decoration   : none;
-    color             : #F8F8F8;
-    background        : #8376BB;
-    border-radius     : 4px;
+    min-width      : 270px;
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    padding        : 14px 30px;
+    text-decoration: none;
+    color          : #F8F8F8;
+    background     : #8376BB;
+    border-radius  : 4px;
+    transition: transform 0.2s;
+
 }
+
+.link:hover {
+    background: rgb(108, 96, 161);
+    transform : translateX(5px);
+    transition: transform 0.1s;
+}
+
 
 .link_line {
     min-width: auto;
