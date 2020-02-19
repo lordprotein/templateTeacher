@@ -4,7 +4,7 @@ import styles from './Content.module.css';
 
 export const Page = ({ children }) => {
 	return (
-		<section className={styles.content}>
+		<section className={styles.page}>
 			{children}
 		</section>
 	);

@@ -6,6 +6,7 @@
     color        : #fff;
     border-radius: 5px;
     font-weight  : 400;
+    cursor       : pointer;
 }
 
 .btn:focus {
@@ -46,11 +47,11 @@
 .edit_post {
     width          : 30px;
     height         : 30px;
-    background-size: 70%;
+    background-size: 60%;
 }
 
 .remove_post {
-    background-color: #DA607E;
+    background-color: #ea3461;
 }
 
 .edit_post {
