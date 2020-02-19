@@ -1,0 +1,89 @@
+.editWrap {
+    display       : flex;
+    flex-direction: column;
+    margin        : 40px 0 90px 0;
+    border        : 1px dashed #cec9da;
+    padding       : 20px;
+    background    : #fdfcff;
+}
+
+.section {
+    margin-bottom: 45px;
+}
+
+.section_title {
+    margin-bottom : 21px;
+    font-weight   : 300;
+    font-size     : 24px;
+    letter-spacing: 0.03em;
+    color         : #383838;
+}
+
+.titleInput,
+.contentInput {
+    width        : 100%;
+    padding      : 10px 18px;
+    background   : #FCFCFC;
+    border       : 1px solid #C9C9C9;
+    border-radius: 3px;
+    color        : #232323;
+}
+
+.contentInput {
+    max-width : 100%;
+    min-width : 100%;
+    min-height: 350px;
+}
+
+.btnWrap {
+    display        : flex;
+    flex-direction : row;
+    justify-content: flex-end;
+}
+
+.btnTrue,
+.btnFalse {
+    outline      : none;
+    border       : none;
+    margin-left  : 6px;
+    padding      : 8px 10px;
+    border-radius: 5px;
+    text-align   : center;
+    color        : #fff;
+    cursor       : pointer;
+}
+
+.btnTrue {
+    background: #5890B1;
+}
+
+.btnTrue:hover {
+    background: rgb(109, 171, 207);
+
+}
+
+.btnFalse {
+    background: #e45d7e;
+}
+
+.btnFalse:hover {
+    background: #f77f9d;
+
+}
+
+.panel_bold,
+.panel_italic,
+.panel_link,
+.panel_img,
+.panel_file {
+    outline   : none;
+    border    : 1px solid #C9C9C9;
+    width     : 45px;
+    height    : 35px;
+    background: #6750A4;
+    cursor    : pointer;
+}
+
+.panel button:hover {
+    background: rgb(133, 106, 207);
+}
