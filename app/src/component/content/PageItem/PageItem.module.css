@@ -1,0 +1,27 @@
+.post {
+    margin-top: 50px;
+}
+
+.wrapTitle {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    align-items    : center;
+    margin-bottom  : 40px;
+}
+
+.title {
+    font-weight   : 500;
+    font-size     : 30px;
+    font-weight   : 600;
+    letter-spacing: 0.03em;
+    color         : #39266C;
+}
+
+.content {
+    font-size     : 18px;
+    line-height   : 26px;
+    letter-spacing: 0.03em;
+    color         : #26242C;
+    text-indent   : 50px;
+}

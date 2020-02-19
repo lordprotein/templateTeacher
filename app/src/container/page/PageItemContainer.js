@@ -7,6 +7,7 @@ import { selectors } from '../../redux/reducer';
 import FormEditerContainer from '../FormEditer/FormEditerContainer';
 import { PageItem } from '../../component/content/PageItem/PageItem';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
+import styles from '../../component/button/Button/Button.module.css';
 
 
 class PageItemContainer extends Component {
@@ -59,12 +60,14 @@ class PageItemContainer extends Component {
                     <ButtonWithLogIn
                         title="Редактировать"
                         onClick={() => this.toToggleEdit(true)}
+                        className={styles.edit_post}
                     />
                 }
                 {
                     <ButtonWithLogIn
                         title="Удалить"
                         onClick={() => this.handleDeletePost()}
+                        className={styles.remove_post}
                     />
                 }
             </PageItem>
