@@ -17,6 +17,7 @@ export const FormEditer = ({ title, content, actions, toReset }) => {
 					defaultValue={title}
 					className={styles.titleInput}
 					autoFocus={true}
+					spellCheck={true}
 					tabIndex="1"
 
 				/>
@@ -37,10 +38,9 @@ export const FormEditer = ({ title, content, actions, toReset }) => {
 					onChange={onChangeContentInput}
 					defaultValue={content}
 					className={styles.contentInput}
+					spellCheck={true}
 					tabIndex="2"
-
-				>
-				</textarea>
+				/>
 			</div>
 			<div className={styles.btnWrap}>
 				<button onClick={toReset} className={styles.btnFalse}>
