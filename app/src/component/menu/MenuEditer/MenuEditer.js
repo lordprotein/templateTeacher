@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './MenuEditer.module.css';
+import PropTypes from 'prop-types';
 
 
 export const MenuEditer = ({ toReset, toSubmit, handleChange, defValue }) => {
@@ -12,6 +13,7 @@ export const MenuEditer = ({ toReset, toSubmit, handleChange, defValue }) => {
                 onChange={handleChange}
                 className={styles.input}
                 {...defValue}
+                placeholder="Введите название"
             />
             <button onClick={toSubmit}>Ок</button>
             <button onClick={toReset}>Отмена</button>
@@ -19,3 +21,9 @@ export const MenuEditer = ({ toReset, toSubmit, handleChange, defValue }) => {
     );
 }
 
+MenuEditer.propTypes = {
+    toReset: PropTypes.func.isRequired,
+    toSubmit: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    defValue: PropTypes.string
+}
