@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './FormEditer.module.css';
+import { FormDownloadFile } from '../FormDownloadFile/FormDownloadFile';
 
 
-export const FormEditer = ({ title, content, actions, toReset }) => {
+export const FormEditer = ({ postID, title, content, actions, toReset }) => {
 	const { onChangeTitleInput, onChangeContentInput, handleSend } = actions;
-
+	
 	return (
 		<div className={styles.editWrap}>
 			<div className={styles.section}>
@@ -46,12 +47,11 @@ export const FormEditer = ({ title, content, actions, toReset }) => {
 				<button onClick={toReset} className={styles.btnFalse}>
 					Отмена
             	</button>
-
 				<button onClick={handleSend} className={styles.btnTrue}>
 					Сохранить
 				</button>
-
 			</div>
+			<FormDownloadFile postID={postID} />
 		</div >
 	);
 }
