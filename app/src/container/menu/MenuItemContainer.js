@@ -8,6 +8,7 @@ import { MenuItem } from '../../component/menu/MenuItem/MenuItem';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
 import PropTypes from 'prop-types';
 import btnStyles from '../../component/button/Button/Button.module.css';
+import { MenuEditer } from '../../component/menu/MenuEditer/MenuEditer';
 
 
 class MenuItemContainer extends Component {
@@ -92,16 +93,14 @@ class MenuItemContainer extends Component {
     getEditPanel = () => {
         const { menuItemData: { title } } = this.props;
 
+        const actions = {
+            toReset: () => this.onEdit(false),
+            toSubmit: (e) => this.handleEdit(e),
+            handleChange: (e) => this.onChangeInput(e)
+        }
+
         return (
-            <>
-                <input type="text" defaultValue={title} onChange={this.onChangeInput} />
-                <button onClick={this.handleEdit}>
-                    OK
-                </button>
-                <button onClick={() => this.onEdit(false)}>
-                    Отмена
-                </button>
-            </>
+            <MenuEditer {...actions} defValue={title} />
         );
     }
 

@@ -8,6 +8,7 @@ import dbService from '../../service/service';
 import { Menu } from '../../component/menu/Menu/Menu';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
 import cyrillicToTranslit from 'cyrillic-to-translit-js';
+import { MenuEditer } from '../../component/menu/MenuEditer/MenuEditer';
 
 
 class MenuContainer extends Component {
@@ -30,6 +31,7 @@ class MenuContainer extends Component {
 
     onToggleShow = isToggle => this.setState({ isModeAddMenu: isToggle });
 
+    // onChangeInput = e => console.log(e.target.value);
     onChangeInput = e => this.input_text = e.target.value;
 
     onAddMenu = () => this.onToggleShow(true);
@@ -56,20 +58,13 @@ class MenuContainer extends Component {
         const { isModeAddMenu } = this.state;
 
         if (isModeAddMenu) {
-            return (
-                <>
-                    <button onClick={() => this.onToggleShow(false)}>Отмена</button>
-                    <button
-                        onClick={() => this.onAddMenuItem(this.input_text)}
-                    >
-                        Добавить
-                    </button>
-                    <input
-                        type="text"
-                        onChange={this.onChangeInput}
-                    />
-                </>
-            );
+            const actions = {
+                toReset: () => this.onToggleShow(false),
+                toSubmit: () => this.onAddMenuItem(this.input_text),
+                handleChange: (e) => this.onChangeInput(e)
+            }
+
+            return <MenuEditer {...actions} />
         }
 
         return (
