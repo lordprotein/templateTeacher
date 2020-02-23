@@ -75,8 +75,11 @@ class FormEditerContainer extends Component {
 
 
    render() {
-      const { toReset, postData: { ID } } = this.props;
+      const { toReset, postData } = this.props;
       const { title, content } = this;
+
+      let ID;
+      if (postData) ID = postData.ID;
 
       return (
          <FormEditer
