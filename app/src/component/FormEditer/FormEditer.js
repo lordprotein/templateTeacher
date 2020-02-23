@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './FormEditer.module.css';
-import { FormDownloadFile } from '../FormDownloadFile/FormDownloadFile';
+import { FormDownloadFile } from '../formDownloadFile/FormDownloadFiles/FormDownloadFile';
 
 
 export const FormEditer = ({ postID, title, content, actions, toReset }) => {
