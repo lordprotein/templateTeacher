@@ -1,0 +1,55 @@
+.fileDownload {
+    display       : flex;
+    flex-direction: row;
+    background    : #656565;
+}
+
+.left,
+.rigth {
+    /* margin: 30px 35px; */
+    padding  : 30px 28px;
+
+}
+
+.left {
+    width: 35%;
+}
+
+.rigth {
+    width: 65%;
+}
+
+.inputWrap {
+    margin-bottom: 30px;
+    padding      : 15px;
+    border       : 1px solid #888888;
+    border-radius: 3px;
+}
+
+.inputWrap:hover {
+    background: rgb(128, 128, 128);
+}
+
+.title {
+    font-size    : 18px;
+    color        : white;
+    font-weight  : normal;
+    margin-bottom: 16px;
+}
+
+.btnDownload {
+    color : white;
+    cursor: pointer;
+}
+
+.itemList {
+    display  : flex;
+    flex-flow: row wrap;
+}
+
+.item {
+    width     : 100px;
+    height    : 100px;
+    margin    : 8px 6px;
+    background: #bebebe;
+}
