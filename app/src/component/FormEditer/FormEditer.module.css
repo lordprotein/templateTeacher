@@ -80,10 +80,30 @@
     border    : 1px solid #C9C9C9;
     width     : 45px;
     height    : 35px;
-    background: #6750A4;
+    background: #6750A4 center/45% no-repeat;
     cursor    : pointer;
 }
 
 .panel button:hover {
-    background: rgb(133, 106, 207);
+    background-color: rgb(133, 106, 207);
+}
+
+.panel_bold {
+    background-image: url('../../img/editPanel/bold.svg');
+}
+
+.panel_italic {
+    background-image: url('../../img/editPanel/italic.svg');
+}
+
+.panel_link {
+    background-image: url('../../img/editPanel/link.svg');
+}
+
+.panel_img {
+    background-image: url('../../img/editPanel/picture.svg');
+}
+
+.panel_file {
+    background-image: url('../../img/editPanel/folder.svg');
 }
