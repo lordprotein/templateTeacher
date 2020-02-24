@@ -7,6 +7,7 @@ import { selectors } from '../../redux/reducer';
 import dbService from '../../service/service';
 import { FormEditer } from '../../component/FormEditer/FormEditer';
 import * as actions from '../../redux/actions';
+import FileListContainer from '../formDownloadFile/FileListContainer';
 
 
 class FormEditerContainer extends Component {
@@ -75,7 +76,7 @@ class FormEditerContainer extends Component {
 
 
    render() {
-      const { toReset, postData } = this.props;
+      const { isActiveDFF, toReset, postData } = this.props;
       const { title, content } = this;
 
       let ID;
@@ -87,15 +88,27 @@ class FormEditerContainer extends Component {
          handleSend: (e) => this.handleSend(e),
       }
 
-      return (
-         <FormEditer
-            title={title}
-            content={content}
-            postID={ID}
-            actions={actions}
-            toReset={toReset}
-         />
-      );
+      if (!isActiveDFF) {
+         return (
+
+            <FormEditer
+               title={title}
+               content={content}
+               postID={ID}
+               actions={actions}
+               toReset={toReset}
+            />
+         );
+      }
+      else {
+         return (
+            <FileListContainer
+
+            />
+         );
+      }
+
+
    }
 }
 
@@ -105,7 +118,7 @@ const mapStateToProps = state => {
    return {
       loginData: selectors.loginData(state),
       postList: selectors.getPostList(state),
-
+      isActiveDFF: selectors.isActiveDFF(state),
    };
 }
 
