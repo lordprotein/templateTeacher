@@ -60,6 +60,24 @@ const reducer = (state = initState, action = {}) => {
             // };
         }
         //END UPDATES
+        case 'TOGGLE_IS_DOWNLOAD_FILES_FORM': {
+            let { downloadFilesForm, downloadFilesForm: { isActive } } = state;
+            let isToggle = action.value;
+
+            if (isToggle === undefined) {
+                isToggle = !isActive;
+            }
+
+
+            return {
+                ...state,
+                downloadFilesForm: {
+                    ...downloadFilesForm,
+                    isActive: isToggle
+                }
+            };
+        }
+
         default: return state;
     }
 }
@@ -77,6 +95,9 @@ class Selectors {
     }
     loginData = ({ logIn }) => {
         return { login: logIn.login, password: logIn.password }
+    }
+    isActiveDFF = ({ downloadFilesForm }) => {
+        return downloadFilesForm.isActive;
     }
 }
 
