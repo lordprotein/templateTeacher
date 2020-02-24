@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './FormEditer.module.css';
 import { FormDownloadFile } from '../formDownloadFile/FormDownloadFiles/FormDownloadFile';
+import FormEditerButtonContainer from '../../container/FormEditer/FormEditerButtonContainer';
 
 
 export const FormEditer = ({ postID, title, content, actions, toReset }) => {
 	const { onChangeTitleInput, onChangeContentInput, handleSend } = actions;
-	
+
 	return (
 		<div className={styles.editWrap}>
 			<div className={styles.section}>
@@ -20,16 +21,24 @@ export const FormEditer = ({ postID, title, content, actions, toReset }) => {
 					autoFocus={true}
 					spellCheck={true}
 					tabIndex="1"
-
 				/>
 			</div>
 			<div className={styles.section}>
 				<h2 className={styles.section_title}>Содержание</h2>
 
 				<div className={styles.panel}>
-					<button className={styles.panel_bold} />
-					<button className={styles.panel_italic} />
-					<button className={styles.panel_link} />
+					<FormEditerButtonContainer
+						btnName="bold"
+						styleClass={styles.panel_bold}
+					/>
+					<FormEditerButtonContainer
+						btnName="italic"
+						styleClass={styles.panel_italic}
+					/>
+					<FormEditerButtonContainer
+						btnName="link"
+						styleClass={styles.panel_link}
+					/>
 					<button className={styles.panel_img} />
 					<button className={styles.panel_file} />
 				</div>
@@ -37,9 +46,11 @@ export const FormEditer = ({ postID, title, content, actions, toReset }) => {
 				<textarea //content
 					placeholder="Введите текст"
 					onChange={onChangeContentInput}
-					defaultValue={content}
+					defaultValue="Lorem alert go together besides"
+					// defaultValue={content}
 					className={styles.contentInput}
 					spellCheck={true}
+					id="form_editer"
 					tabIndex="2"
 				/>
 			</div>
