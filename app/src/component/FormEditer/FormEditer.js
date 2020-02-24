@@ -39,7 +39,10 @@ export const FormEditer = ({ postID, title, content, actions, toReset }) => {
 						btnName="link"
 						styleClass={styles.panel_link}
 					/>
-					<button className={styles.panel_img} />
+					<FormEditerButtonContainer
+						btnName="image"
+						styleClass={styles.panel_img}
+					/>
 					<button className={styles.panel_file} />
 				</div>
 
