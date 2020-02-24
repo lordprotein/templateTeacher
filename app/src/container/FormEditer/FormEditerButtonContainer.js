@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../redux/actions';
+import { selectors } from '../../redux/reducer';
 
 
-export default class FormEditerButtonContainer extends Component {
+class FormEditerButtonContainer extends Component {
     constructor(props) {
         super(props);
         this.action = null;
@@ -24,6 +28,10 @@ export default class FormEditerButtonContainer extends Component {
                 this.action = this._getLink;
                 return;
             }
+            case 'image': {
+                this.action = this._getImage;
+                return;
+            }
 
             default: return;
         }
@@ -38,7 +46,7 @@ export default class FormEditerButtonContainer extends Component {
         if (!start && !end) return;
 
         if (!closeTag) closeTag = openTag;
-        
+
         const selection = textarea.value.slice(start, end);
 
         textarea.setRangeText(` <${openTag}>${selection}</${closeTag}> `);
@@ -47,25 +55,50 @@ export default class FormEditerButtonContainer extends Component {
     _getBold = () => this._getWrapTag('b');
 
     _getItalic = () => this._getWrapTag('i');
-    
+
     _getLink = () => {
         const link = prompt('Введите ссылку');
-        
+
         if (!link) return;
 
         this._getWrapTag(`a href="${link}"`, 'a');
     }
-    
+
+    _getImage = () => {
+        const { a_toggleDownloadFilesForm, a_setTypeFiles, btnName } = this.props;
+        a_toggleDownloadFilesForm(true);
+        a_setTypeFiles(btnName);
+    }
+
 
     render() {
         const { styleClass } = this.props;
         const { action } = this;
+
 
         return (
             <button className={styleClass} onClick={action} />
         );
     }
 }
+
+
+
+const mapStateToProps = state => {
+    return {
+        isDownloadForm: selectors.isActiveDFF(state),
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    const { a_toggleDownloadFilesForm, a_setTypeFiles } = bindActionCreators(actions, dispatch);
+    return {
+        a_toggleDownloadFilesForm,
+        a_setTypeFiles
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormEditerButtonContainer);
 
 FormEditerButtonContainer.propTypes = {
     btnName: PropTypes.string.isRequired,
