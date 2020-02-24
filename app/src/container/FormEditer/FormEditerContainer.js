@@ -81,18 +81,18 @@ class FormEditerContainer extends Component {
       let ID;
       if (postData) ID = postData.ID;
 
+      const actions = {
+         onChangeTitleInput: (e) => this.onChangeTitleInput(e),
+         onChangeContentInput: (e) => this.onChangeContentInput(e),
+         handleSend: (e) => this.handleSend(e),
+      }
+
       return (
          <FormEditer
             title={title}
             content={content}
             postID={ID}
-            actions={
-               {
-                  onChangeTitleInput: (e) => this.onChangeTitleInput(e),
-                  onChangeContentInput: (e) => this.onChangeContentInput(e),
-                  handleSend: (e) => this.handleSend(e),
-               }
-            }
+            actions={actions}
             toReset={toReset}
          />
       );
