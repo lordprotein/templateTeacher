@@ -78,6 +78,21 @@ const reducer = (state = initState, action = {}) => {
             };
         }
 
+        case 'SET_TYPE_FILES': {
+            const { downloadFilesForm } = state;
+            const newType = action.value;
+
+            if (!newType) return;
+
+            return {
+                ...state,
+                downloadFilesForm: {
+                    ...downloadFilesForm,
+                    typeFiles: newType
+                }
+            }
+        }
+
         default: return state;
     }
 }
@@ -98,6 +113,9 @@ class Selectors {
     }
     isActiveDFF = ({ downloadFilesForm }) => {
         return downloadFilesForm.isActive;
+    }
+    getTypeFiles = ({ downloadFilesForm }) => {
+        return downloadFilesForm.typeFiles;
     }
 }
 
