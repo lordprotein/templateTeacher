@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './FormEditer.module.css';
-import { FormDownloadFile } from '../formDownloadFile/FormDownloadFiles/FormDownloadFile';
 import FormEditerButtonContainer from '../../container/FormEditer/FormEditerButtonContainer';
+import { FormDownloadFiles } from '../formDownloadFile/FormDownloadFiles/FormDownloadFiles';
 
 
 export const FormEditer = ({ postID, title, content, actions, toReset }) => {
@@ -64,7 +64,7 @@ export const FormEditer = ({ postID, title, content, actions, toReset }) => {
 					Сохранить
 				</button>
 			</div>
-			<FormDownloadFile postID={postID} />
+			<FormDownloadFiles postID={postID} />
 		</div >
 	);
 }

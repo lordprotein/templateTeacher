@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const FormDownloadFile = ({ postID }) => {
+export const FormDownloadFiles = ({ postID }) => {
 
     return (
         <form action={`http://localhost:3333/upload/${postID}`} method="post" encType="multipart/form-data">
