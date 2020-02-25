@@ -6,9 +6,7 @@
 
 .left,
 .rigth {
-    /* margin: 30px 35px; */
-    padding  : 30px 28px;
-
+    padding: 30px 28px;
 }
 
 .left {
@@ -17,13 +15,6 @@
 
 .rigth {
     width: 65%;
-}
-
-.inputWrap {
-    margin-bottom: 30px;
-    padding      : 15px;
-    border       : 1px solid #888888;
-    border-radius: 3px;
 }
 
 .inputWrap:hover {
@@ -37,13 +28,7 @@
     margin-bottom: 16px;
 }
 
-.btnDownload {
-    color : white;
-    cursor: pointer;
-}
-
 .itemList {
     display  : flex;
     flex-flow: row wrap;
 }
-

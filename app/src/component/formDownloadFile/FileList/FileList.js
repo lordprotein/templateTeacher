@@ -1,23 +1,18 @@
 import React from 'react';
 import styles from './FileList.module.css';
 import stylesFormEditer from '../../FormEditer/FormEditer.module.css';
+import FormDownloadFilesContainer from '../../../container/formDownloadFile/FormDownloadFilesContainer';
 
 
 export const FileList = ({ title, toBack, children }) => {
     return (
         <div className={styles.fileDownload}>
             <div className={styles.left}>
-                <div className={styles.inputWrap}>
-                    <h3 className={styles.title}>Загрузить с <br /> компьютера</h3>
-                    <input type="file" className={styles.btnDownload} />
-                </div>
-                <div className={styles.inputWrap}>
-                    <h3 className={styles.title}>Загрузить с <br /> Интернета</h3>
-                    <input type="file" className={styles.btnDownload} />
-                </div>
+                <FormDownloadFilesContainer downloadFrom="local" />
+                <FormDownloadFilesContainer downloadFrom="url" />
                 <div>
                     <button className={stylesFormEditer.btnFalse} onClick={toBack}>Закрыть</button>
-                    <button className={stylesFormEditer.btnTrue}>Подтвердить</button>
+                    {/* <button className={stylesFormEditer.btnTrue}>Загрузить</button> */}
                 </div>
             </div>
             <div className={styles.rigth}>
