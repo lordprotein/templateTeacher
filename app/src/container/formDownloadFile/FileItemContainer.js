@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 
 export default class FileItemContainer extends Component {
     render() {
-        const { fileData: { fileType, path } } = this.props;
+        const { fileData: { type, path } } = this.props;
 
         return (
             <FileItem
-                fileType={fileType}
+                type={type}
                 path={path}
             />
         );
