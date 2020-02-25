@@ -49,8 +49,7 @@ export const FormEditer = ({ postID, title, content, actions, toReset }) => {
 				<textarea //content
 					placeholder="Введите текст"
 					onChange={onChangeContentInput}
-					defaultValue="Lorem alert go together besides"
-					// defaultValue={content}
+					defaultValue={content}
 					className={styles.contentInput}
 					spellCheck={true}
 					id="form_editer"
