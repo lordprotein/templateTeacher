@@ -10,9 +10,10 @@ class FormEditerButtonContainer extends Component {
     constructor(props) {
         super(props);
         this.action = null;
+        this.init();
     }
 
-    componentWillMount = () => {
+    init = () => {
         const { btnName } = this.props;
 
         switch (btnName) {
