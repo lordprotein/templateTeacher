@@ -52,6 +52,13 @@ export default class dbService {
         return this.methodDoResourse('/login', data, 'POST');
     }
 
+    getFiles(postId, type = false) {
+        let link = `/post/${postId}/files`;
+        if (type) link += `/${type}`;
+
+        return this.getResource(link);
+    }
+
 
 
 
