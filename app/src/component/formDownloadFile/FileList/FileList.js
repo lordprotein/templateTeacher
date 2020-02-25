@@ -24,15 +24,6 @@ export const FileList = ({ title, toBack, children }) => {
                 <h3 className={styles.title}>{title}</h3>
                 <div className={styles.itemList}>
                     {children}
-                    <div className={styles.item}></div>
-                    <div className={styles.item}></div>
-                    <div className={styles.item}></div>
-                    <div className={styles.item}></div>
-                    <div className={styles.item}></div>
-                    <div className={styles.item}></div>
-                    <div className={styles.item}></div>
-                    <div className={styles.item}></div>
-
                 </div>
             </div>
         </div>
