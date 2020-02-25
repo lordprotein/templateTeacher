@@ -103,7 +103,7 @@ class FormEditerContainer extends Component {
       else {
          return (
             <FileListContainer
-
+               postID={ID}
             />
          );
       }
