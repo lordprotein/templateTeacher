@@ -2,21 +2,38 @@ import React from 'react';
 import styles from './FormDownloadFiles.module.css';
 
 
-export const FormDownloadFiles = ({ titleEnd, downloadFrom }) => {
+export const FormDownloadFiles = ({ titleEnd, downloadFrom, onSubmit, handleInputValue }) => {
     let input;
-
+    console.log(onSubmit)
     if (downloadFrom === 'url') {
-        input = <input type="text" placeholder="url"/>;
+        input = (
+            <input
+                type="text"
+                name="filedata"
+                id="download_url"
+                placeholder="url"
+                onChange={handleInputValue}
+            />
+        );
     }
     if (downloadFrom === 'local') {
-        input = <input type="file" className={styles.btnDownload} />;
+        input = (
+            <input
+                type="file"
+                name="filedata"
+                id="download_local"
+                accept="image/*"
+                className={styles.btnDownload}
+                onChange={handleInputValue}
+            />
+        );
     }
 
     return (
         <div className={styles.inputWrap}>
             <h3 className={styles.title}>Загрузить с <br /> {titleEnd}</h3>
             {input}
-            <button className={styles.btnTrue}>Загрузить</button>
+            <button className={styles.btnTrue} onClick={onSubmit}>Загрузить</button>
         </div>
     )
     // return (
