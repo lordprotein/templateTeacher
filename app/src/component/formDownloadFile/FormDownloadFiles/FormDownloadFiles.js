@@ -4,29 +4,25 @@ import styles from './FormDownloadFiles.module.css';
 
 export const FormDownloadFiles = ({ titleEnd, downloadFrom, onSubmit, handleInputValue }) => {
     let input;
-    console.log(onSubmit)
+    
     if (downloadFrom === 'url') {
-        input = (
-            <input
-                type="text"
-                name="filedata"
-                id="download_url"
-                placeholder="url"
-                onChange={handleInputValue}
-            />
-        );
+        input = <input
+            type="text"
+            name="filedata"
+            id="download_url"
+            placeholder="url"
+            onChange={handleInputValue}
+        />
     }
     if (downloadFrom === 'local') {
-        input = (
-            <input
-                type="file"
-                name="filedata"
-                id="download_local"
-                accept="image/*"
-                className={styles.btnDownload}
-                onChange={handleInputValue}
-            />
-        );
+        input = <input
+            type="file"
+            name="filedata"
+            id="download_local"
+            accept="image/*"
+            className={styles.btnDownload}
+            onChange={handleInputValue}
+        />
     }
 
     return (
