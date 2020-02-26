@@ -29,7 +29,7 @@ class FileListContainer extends Component {
         a_toggleDownloadFilesForm(false);
     }
 
-    getItemList = () => {
+    _getItemList = () => {
         const { fileList } = this.props;
 
         return fileList.map(itemData => {
@@ -51,7 +51,7 @@ class FileListContainer extends Component {
                 toBack={() => this.toBack()}
                 postID={postID}
             >
-                {this.getItemList()}
+                {this._getItemList()}
             </FileList>
         );
     }
