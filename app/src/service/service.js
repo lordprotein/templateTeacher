@@ -59,6 +59,26 @@ export default class dbService {
         return this.getResource(link);
     }
 
+    async addFile(url = '', data) {
+
+        const formData = new FormData();
+        formData.append('filedata', data);
+
+
+        const response = await fetch(`${this._link}${url}`, {
+            method: 'POST',
+            body: formData,
+        });
+        if (!response.ok) {
+            throw new Error('Error: file is not send');
+        }
+
+        return await response.json();
+    }
+
+    downloadImg = (postID, data) => {
+        return this.addFile(`/upload/image/${postID}`, data);
+    }
 
 
 
