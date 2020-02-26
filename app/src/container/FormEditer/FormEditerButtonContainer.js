@@ -66,9 +66,9 @@ class FormEditerButtonContainer extends Component {
     }
 
     _getImage = () => {
-        const { a_toggleDownloadFilesForm, a_setTypeFiles, btnName } = this.props;
+        const { a_toggleDownloadFilesForm, a_setTypeFiles } = this.props;
         a_toggleDownloadFilesForm(true);
-        a_setTypeFiles(btnName);
+        a_setTypeFiles('image');
     }
 
 
