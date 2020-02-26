@@ -4,12 +4,18 @@ import stylesFormEditer from '../../FormEditer/FormEditer.module.css';
 import FormDownloadFilesContainer from '../../../container/formDownloadFile/FormDownloadFilesContainer';
 
 
-export const FileList = ({ title, toBack, children }) => {
+export const FileList = ({ title, toBack, postID, children }) => {
     return (
         <div className={styles.fileDownload}>
             <div className={styles.left}>
-                <FormDownloadFilesContainer downloadFrom="local" />
-                <FormDownloadFilesContainer downloadFrom="url" />
+                <FormDownloadFilesContainer
+                    downloadFrom="local"
+                    postID={postID}
+                />
+                <FormDownloadFilesContainer
+                    downloadFrom="url"
+                    postID={postID}
+                />
                 <div>
                     <button className={stylesFormEditer.btnFalse} onClick={toBack}>Закрыть</button>
                     {/* <button className={stylesFormEditer.btnTrue}>Загрузить</button> */}
