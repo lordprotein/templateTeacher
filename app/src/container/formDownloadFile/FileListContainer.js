@@ -11,21 +11,17 @@ import FileItemContainer from './FileItemContainer';
 
 
 class FileListContainer extends Component {
-    state = {
-        items: [],
-        typeFiles: '',
-    }
-
     componentDidMount = () => {
-        const { getTypeFiles, postID } = this.props;
+        const { getTypeFiles, postID, a_setFileList } = this.props;
         const db = new dbService();
 
         db.getFiles(postID, getTypeFiles)
             .then(itemList => {
                 if (!itemList.length) return console.log('Haven`t files');
-                
-                this.setState({ items: itemList, typeFiles: itemList[0].type });
-            }, error => console.log(error))
+
+                a_setFileList(itemList)
+
+            });
     }
 
     toBack = () => {
@@ -34,9 +30,9 @@ class FileListContainer extends Component {
     }
 
     getItemList = () => {
-        const { items } = this.state;
+        const { fileList } = this.props;
 
-        return items.map(itemData => {
+        return fileList.map(itemData => {
             return (
                 <FileItemContainer
                     fileData={itemData}
@@ -47,12 +43,11 @@ class FileListContainer extends Component {
     }
 
     render() {
-        const { typeFiles } = this.state;
-        const { postID } = this.props;
+        const { postID, getTypeFiles } = this.props;
 
         return (
             <FileList
-                title={typeFiles}
+                title={getTypeFiles}
                 toBack={() => this.toBack()}
                 postID={postID}
             >
@@ -64,13 +59,17 @@ class FileListContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        getTypeFiles: selectors.getTypeFiles(state), // To delete
+        getTypeFiles: selectors.getTypeFiles(state),
+        fileList: selectors.getFileList(state),
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_toggleDownloadFilesForm } = bindActionCreators(actions, dispatch);
-    return { a_toggleDownloadFilesForm };
+    const { a_toggleDownloadFilesForm, a_setFileList } = bindActionCreators(actions, dispatch);
+    return {
+        a_toggleDownloadFilesForm,
+        a_setFileList
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FileListContainer)
