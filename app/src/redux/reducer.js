@@ -44,20 +44,6 @@ const reducer = (state = initState, action = {}) => {
                     postList
                 }
             };
-            // const { api, api: { menu } } = state;
-            // const { ID_MENU, postList } = action.value;
-
-            // const num = menu.findIndex(({ ID }) => ID === ID_MENU);
-
-            // menu[num].postList = postList;
-
-            // return {
-            //     ...state,
-            //     api: {
-            //         ...api,
-            //         postList: menu
-            //     }
-            // };
         }
         //END UPDATES
         case 'TOGGLE_IS_DOWNLOAD_FILES_FORM': {
@@ -67,7 +53,6 @@ const reducer = (state = initState, action = {}) => {
             if (isToggle === undefined) {
                 isToggle = !isActive;
             }
-
 
             return {
                 ...state,
@@ -89,6 +74,19 @@ const reducer = (state = initState, action = {}) => {
                 downloadFilesForm: {
                     ...downloadFilesForm,
                     typeFiles: newType
+                }
+            }
+        }
+
+        case 'SET_FILE_LIST': {
+            const { downloadFilesForm } = state;
+            const fileList = action.value;
+
+            return {
+                ...state,
+                downloadFilesForm: {
+                    ...downloadFilesForm,
+                    fileList
                 }
             }
         }
@@ -116,6 +114,9 @@ class Selectors {
     }
     getTypeFiles = ({ downloadFilesForm }) => {
         return downloadFilesForm.typeFiles;
+    }
+    getFileList = ({ downloadFilesForm }) => {
+        return downloadFilesForm.fileList;
     }
 }
 
