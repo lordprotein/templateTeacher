@@ -20,12 +20,12 @@ class FileListContainer extends Component {
         const { getTypeFiles, postID } = this.props;
         const db = new dbService();
 
-        console.log(postID, getTypeFiles)
         db.getFiles(postID, getTypeFiles)
             .then(itemList => {
-                console.log(itemList);
+                if (!itemList.length) return console.log('Haven`t files');
+                
                 this.setState({ items: itemList, typeFiles: itemList[0].type });
-            })
+            }, error => console.log(error))
     }
 
     toBack = () => {
@@ -48,11 +48,13 @@ class FileListContainer extends Component {
 
     render() {
         const { typeFiles } = this.state;
+        const { postID } = this.props;
 
         return (
             <FileList
                 title={typeFiles}
                 toBack={() => this.toBack()}
+                postID={postID}
             >
                 {this.getItemList()}
             </FileList>
