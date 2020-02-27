@@ -41,11 +41,12 @@ class PageContainer extends Component {
 
 
    getPostList = () => {
-      const { postList } = this.props;
+      const { postList, ID_MENU } = this.props;
 
       return postList.map((postData) => {
          return (
             <PageItemContainer
+               ID_MENU={ID_MENU}
                postData={postData}
                key={postData.ID}
             />
