@@ -5,13 +5,24 @@ import PropTypes from 'prop-types';
 
 export const FileItem = ({ type, path }) => {
     let link = `http://localhost:3333`;
+    let block;
 
     switch (type) {
         case 'image': {
-            return (<img src={`${link}/${path}`} className={styles.item} alt="img" />);
+            block = (<img src={`${link}/${path}`} className={styles.item} alt="img" />);
+            break;
         }
-        default: return (<div className={styles.item}></div>);
+        default: {
+            block = (<div className={styles.item}></div>);
+            break;
+        }
     }
+
+    return (
+        <div>
+            {block}
+        </div>
+    )
 }
 
 FileItem.propTypes = {

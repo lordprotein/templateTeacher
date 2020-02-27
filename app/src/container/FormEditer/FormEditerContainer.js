@@ -88,27 +88,17 @@ class FormEditerContainer extends Component {
          handleSend: (e) => this.handleSend(e),
       }
 
-      if (!isActiveDFF) {
-         return (
-
-            <FormEditer
-               title={title}
-               content={content}
-               postID={ID}
-               actions={actions}
-               toReset={toReset}
-            />
-         );
-      }
-      else {
-         return (
-            <FileListContainer
-               postID={ID}
-            />
-         );
-      }
-
-
+      return (
+         <FormEditer
+            title={title}
+            content={content}
+            postID={ID}
+            actions={actions}
+            toReset={toReset}
+         >
+            {isActiveDFF && <FileListContainer postID={ID} />}
+         </FormEditer>
+      );
    }
 }
 

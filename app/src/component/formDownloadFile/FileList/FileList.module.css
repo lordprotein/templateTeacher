@@ -1,7 +1,14 @@
 .fileDownload {
     display       : flex;
     flex-direction: row;
-    background    : #656565;
+    position      : absolute;
+    left          : 0;
+    top           : 0;
+    width         : calc(100% - 40px);
+    height        : calc(100% - 40px);
+    margin        : 20px;
+    background    : #292929;
+    opacity       : 0.93;
 }
 
 .left,

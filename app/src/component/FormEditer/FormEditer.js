@@ -5,11 +5,12 @@ import FormEditerButtonContainer from '../../container/FormEditer/FormEditerButt
 // import { FormDownloadFiles } from '../formDownloadFile/FormDownloadFiles/FormDownloadFiles';
 
 
-export const FormEditer = ({ postID, title, content, actions, toReset }) => {
+export const FormEditer = ({ postID, title, content, actions, toReset, children }) => {
 	const { onChangeTitleInput, onChangeContentInput, handleSend } = actions;
 
 	return (
 		<div className={styles.editWrap}>
+			{children}
 			<div className={styles.section}>
 				<h2 className={styles.section_title}>Заголовок</h2>
 				<input // title 

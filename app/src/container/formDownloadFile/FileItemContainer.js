@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 
 
 export default class FileItemContainer extends Component {
+    _remove = () => {
+
+    }
+
     render() {
         const { fileData: { type, path } } = this.props;
 

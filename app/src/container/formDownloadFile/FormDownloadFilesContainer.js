@@ -34,7 +34,7 @@ class FormDownloadFilesContainer extends Component {
     handleSubmitForLocal = () => {
         let { value } = this;
         const { postID, getTypeFiles, a_setFileList } = this.props;
-        
+
         if (!value) return console.log('Haven`t a value');
         value = value.files[0];
 
@@ -60,12 +60,14 @@ class FormDownloadFilesContainer extends Component {
         const { titleEnd } = this;
         const { downloadFrom } = this.props;
 
-        return <FormDownloadFiles
-            titleEnd={titleEnd}
-            downloadFrom={downloadFrom}
-            handleInputValue={e => this.handleInputValue(e)}
-            onSubmit={() => this.action()}
-        />
+        return (
+            <FormDownloadFiles
+                titleEnd={titleEnd}
+                downloadFrom={downloadFrom}
+                handleInputValue={e => this.handleInputValue(e)}
+                onSubmit={() => this.action()}
+            />
+        )
     }
 }
 
