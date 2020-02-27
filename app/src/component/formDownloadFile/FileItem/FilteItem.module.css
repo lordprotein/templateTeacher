@@ -1,6 +1,42 @@
 .item {
+    position  : relative;
     width     : 100px;
     height    : 100px;
-    margin    : 8px 6px;
+    margin    : 8px 10px;
     background: #bebebe;
+}
+
+.item>img {
+    width : inherit;
+    height: inherit;
+}
+
+.remove {
+    position     : absolute;
+    top          : -7px;
+    right        : -7px;
+    width        : 20px;
+    height       : 20px;
+    border-radius: 50%;
+    background   : #ffffff;
+    outline      : none;
+    border       : none;
+    transition   : width 0.2s, height 0.2s, background 0.2s;
+    cursor       : pointer;
+}
+
+.remove::after {
+    content    : '\00D7';
+    font-size  : 18px;
+    font-weight: normal;
+    color      : #404040;
+    line-height: 20px;
+    text-align : center;
+}
+
+.remove:hover {
+    width     : 22px;
+    height    : 22px;
+    background: #e7e7e7;
+    transition: width 0.2s, height 0.2s, background 0.2s;
 }

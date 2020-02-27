@@ -3,23 +3,23 @@ import styles from './FilteItem.module.css';
 import PropTypes from 'prop-types';
 
 
-export const FileItem = ({ type, path }) => {
+export const FileItem = ({ type, path, onRemove }) => {
     let link = `http://localhost:3333`;
     let block;
 
     switch (type) {
         case 'image': {
-            block = (<img src={`${link}/${path}`} className={styles.item} alt="img" />);
+            block = (<img src={`${link}/${path}`} alt="img" />);
             break;
         }
         default: {
-            block = (<div className={styles.item}></div>);
             break;
         }
     }
 
     return (
-        <div>
+        <div className={styles.item}>
+            <button className={styles.remove} onClick={onRemove}></button>
             {block}
         </div>
     )

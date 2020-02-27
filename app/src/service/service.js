@@ -80,6 +80,10 @@ export default class dbService {
         return this.addFile(`/upload/image/${postID}`, data);
     }
 
+    removeFile = data => {
+        return this.methodDoResourse('/remove/file', data, 'POST');
+    }
+
 
 
     addPost(data) {
