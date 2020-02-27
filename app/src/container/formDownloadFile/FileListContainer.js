@@ -12,7 +12,9 @@ import FileItemContainer from './FileItemContainer';
 
 class FileListContainer extends Component {
     componentDidMount = () => {
+        console.log('open')
         const { getTypeFiles, postID, a_setFileList } = this.props;
+
         const db = new dbService();
 
         db.getFiles(postID, getTypeFiles)
@@ -20,8 +22,12 @@ class FileListContainer extends Component {
                 if (!itemList.length) return console.log('Haven`t files');
 
                 a_setFileList(itemList)
-
             });
+    }
+    
+    componentWillUnmount = () => {
+        const { a_setFileList } = this.props;
+        a_setFileList([]);
     }
 
     toBack = () => {
