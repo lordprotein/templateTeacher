@@ -22,14 +22,14 @@ class PageItemContainer extends Component {
     toToggleEdit = isToggle => this.setState({ isEdit: isToggle });
 
     handleDeletePost = () => {
-        const { loginData, postData: { ID }, postList, a_updateContent } = this.props;
+        const { postData: { ID }, postList, a_updateContent } = this.props;
+        const { db } = this;
 
         const ask = window.confirm(`Подтвердите удаление`);
         if (!ask) return;
 
-        const data = { ...loginData, ID };
 
-        this.db.deletePost(data)
+        db.deletePost(ID)
             .then(() => {
                 const newPostList = postList.filter(elem => elem.ID !== ID);
                 a_updateContent(newPostList);

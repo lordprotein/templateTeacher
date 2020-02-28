@@ -19,12 +19,13 @@ class FileListContainer extends Component {
 
         db.getFiles(postID, getTypeFiles)
             .then(itemList => {
+                console.log(itemList)
                 if (!itemList.length) return console.log('Haven`t files');
 
                 a_setFileList(itemList)
             });
     }
-    
+
     componentWillUnmount = () => {
         const { a_setFileList } = this.props;
         a_setFileList([]);

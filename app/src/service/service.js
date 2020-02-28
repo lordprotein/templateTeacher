@@ -45,7 +45,7 @@ export default class dbService {
     }
 
     getContentList(id = '') {
-        return this.getResource(`/menu/${id}/content`);
+        return this.getResource(`/menu/${id}/posts`);
     }
 
     checkLogin(data) {
@@ -55,7 +55,7 @@ export default class dbService {
     getFiles(postId, type = false) {
         let link = `/post/${postId}/files`;
         if (type) link += `/${type}`;
-
+        console.log(link)
         return this.getResource(link);
     }
 
@@ -76,8 +76,8 @@ export default class dbService {
         return await response.json();
     }
 
-    downloadImg = (postID, data) => {
-        return this.addFile(`/upload/image/${postID}`, data);
+    downloadImg = (postID, type, data) => {
+        return this.addFile(`/upload/${type}/${postID}`, data);
     }
 
     removeFile = data => {
@@ -92,8 +92,8 @@ export default class dbService {
     editPost(data) {
         return this.methodDoResourse('/post-edit', data, 'POST');
     }
-    deletePost(data) {
-        return this.methodDoResourse('/post-delete', data, 'POST');
+    deletePost(id = '') {
+        return this.getResource(`/post-delete/${id}`);
     }
 
 
@@ -101,10 +101,10 @@ export default class dbService {
         return this.methodDoResourse('/menu-add', data, 'POST');
     }
     editMenu(data) {
-        return this.methodDoResourse('/menu-edit', data, 'POST');
+        return this.methodDoResourse('/menu-update', data, 'POST');
     }
-    deleteMenu(data) {
-        return this.methodDoResourse('/menu-delete', data, 'POST');
+    deleteMenu(id = '') {
+        return this.getResource(`/menu-delete/${id}`);
     }
 
 

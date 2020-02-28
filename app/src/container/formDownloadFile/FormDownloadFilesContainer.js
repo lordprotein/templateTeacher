@@ -40,7 +40,7 @@ class FormDownloadFilesContainer extends Component {
 
         const db = new dbService();
 
-        db.downloadImg(postID, value)
+        db.downloadImg(postID, getTypeFiles, value)
             .then(res => {
                 db.getFiles(postID, getTypeFiles)
                     .then(itemList => {

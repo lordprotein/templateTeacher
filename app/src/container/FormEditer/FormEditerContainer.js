@@ -25,14 +25,13 @@ class FormEditerContainer extends Component {
    handleSend = e => {
       e.preventDefault();
 
-      const { loginData, action, toReset, postList, a_updateContent } = this.props;
+      const { action, toReset, postList, a_updateContent } = this.props;
       const { postData } = this.props;
 
       if (!this.title && !this.content) return toReset();
 
 
       const data = {
-         ...loginData,
          title: this.title,
          content: this.content
       };
@@ -106,7 +105,6 @@ class FormEditerContainer extends Component {
 
 const mapStateToProps = state => {
    return {
-      loginData: selectors.loginData(state),
       postList: selectors.getPostList(state),
       isActiveDFF: selectors.isActiveDFF(state),
    };

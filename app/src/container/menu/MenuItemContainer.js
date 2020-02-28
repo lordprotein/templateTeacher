@@ -30,13 +30,12 @@ class MenuItemContainer extends Component {
         this.disableDomActions(e);
 
         const { db } = this;
-        const { a_updateMenu, loginData, menuItemData: { ID }, menuList } = this.props;
+        const { a_updateMenu, menuItemData: { ID }, menuList } = this.props;
 
         // const ask = window.confirm(`Подтвердите удаление`);
         // if (!ask) return;
-        const data = { ...loginData, ID };
 
-        db.deleteMenu(data)
+        db.deleteMenu(ID)
             .then(() => {
                 const newList = menuList.filter(elem => elem.ID !== ID);
                 a_updateMenu({ menuList: newList });
@@ -48,13 +47,13 @@ class MenuItemContainer extends Component {
         this.disableDomActions(e);
 
         const { db } = this,
-            { a_updateMenu, loginData, menuItemData: { title, ID }, menuList } = this.props;
+            { a_updateMenu,  menuItemData: { title, ID }, menuList } = this.props;
 
         let inputTitle = this.input_text;
 
         if (!inputTitle) inputTitle = title;
 
-        const data = { ...loginData, ID, title: inputTitle };
+        const data = { ID, title: inputTitle };
 
         // const ask = window.confirm(`Подтвердите редактирование`);
 
@@ -167,7 +166,6 @@ class MenuItemContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        loginData: selectors.loginData(state),
         menuList: selectors.getMenuList(state),
     }
 }

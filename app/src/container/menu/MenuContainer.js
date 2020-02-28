@@ -39,12 +39,12 @@ class MenuContainer extends Component {
     onAddMenuItem = (title, submenu = false) => { //add new menu elem
         if (title === undefined) return;
 
-        const { a_updateMenu, loginData, position } = this.props,
+        const { a_updateMenu, position } = this.props,
             link = (`/${(cyrillicToTranslit().transform(title, '_')).toLowerCase()}`),
             data = { title, position, link, submenu },
             db = new dbService();
 
-        db.addMenu({ ...loginData, ...data })
+        db.addMenu(data)
             .then(() => {
                 db.getMenuList()
                     .then(menuList => {
@@ -138,7 +138,6 @@ const mapStateToProps = state => {
     return {
         menuList: selectors.getMenuList(state),
         isLogIn: selectors.isLogIn(state),
-        loginData: selectors.loginData(state),
     };
 }
 
