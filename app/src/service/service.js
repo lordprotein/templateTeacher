@@ -87,24 +87,24 @@ export default class dbService {
 
 
     addPost(data) {
-        return this.methodDoResourse('/post-add', data, 'POST');
+        return this.methodDoResourse('/post', data, 'POST');
     }
     editPost(data) {
-        return this.methodDoResourse('/post-edit', data, 'POST');
+        return this.methodDoResourse('/post', data, 'PUT');
     }
-    deletePost(id = '') {
-        return this.getResource(`/post-delete/${id}`);
+    deletePost(data) {
+        return this.methodDoResourse('/post', data, 'DELETE');
     }
 
 
     addMenu(data) {
-        return this.methodDoResourse('/menu-add', data, 'POST');
+        return this.methodDoResourse('/menu', data, 'POST');
     }
     editMenu(data) {
-        return this.methodDoResourse('/menu-update', data, 'POST');
+        return this.methodDoResourse('/menu', data, 'PUT');
     }
-    deleteMenu(id = '') {
-        return this.getResource(`/menu-delete/${id}`);
+    deleteMenu(data) {
+        return this.methodDoResourse(`/menu`, data, 'DELETE');
     }
 
 

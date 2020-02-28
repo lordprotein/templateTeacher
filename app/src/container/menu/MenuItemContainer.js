@@ -35,7 +35,7 @@ class MenuItemContainer extends Component {
         const ask = window.confirm(`Подтвердите удаление`);
         if (!ask) return;
 
-        db.deleteMenu(ID)
+        db.deleteMenu({ ID })
             .then(() => {
                 const newList = menuList.filter(elem => elem.ID !== ID);
                 a_updateMenu({ menuList: newList });

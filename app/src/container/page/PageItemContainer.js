@@ -29,7 +29,7 @@ class PageItemContainer extends Component {
         if (!ask) return;
 
 
-        db.deletePost(ID)
+        db.deletePost({ ID })
             .then(() => {
                 const newPostList = postList.filter(elem => elem.ID !== ID);
                 a_updateContent(newPostList);
