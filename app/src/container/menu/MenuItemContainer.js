@@ -32,8 +32,8 @@ class MenuItemContainer extends Component {
         const { db } = this;
         const { a_updateMenu, menuItemData: { ID }, menuList } = this.props;
 
-        // const ask = window.confirm(`Подтвердите удаление`);
-        // if (!ask) return;
+        const ask = window.confirm(`Подтвердите удаление`);
+        if (!ask) return;
 
         db.deleteMenu(ID)
             .then(() => {
@@ -47,7 +47,7 @@ class MenuItemContainer extends Component {
         this.disableDomActions(e);
 
         const { db } = this,
-            { a_updateMenu,  menuItemData: { title, ID }, menuList } = this.props;
+            { a_updateMenu, menuItemData: { title, ID }, menuList } = this.props;
 
         let inputTitle = this.input_text;
 
@@ -55,16 +55,17 @@ class MenuItemContainer extends Component {
 
         const data = { ID, title: inputTitle };
 
-        // const ask = window.confirm(`Подтвердите редактирование`);
+        const ask = window.confirm(`Подтвердите редактирование`);
+        if (!ask) return;
 
-        // if (!ask) return;
+        let newMenuList = [...menuList];
+        const numEditElem = newMenuList.findIndex(elem => elem.ID === ID);
+        newMenuList[numEditElem] = { ...menuList[numEditElem], title: inputTitle };
 
-        const numEditElem = menuList.findIndex(elem => elem.ID === ID);
-        menuList[numEditElem] = { ...menuList[numEditElem], title: inputTitle };
 
         db.editMenu(data)
             .then(() => {
-                a_updateMenu({ menuList });
+                a_updateMenu({ menuList: newMenuList });
                 this.onEdit(false);
             });
     }
