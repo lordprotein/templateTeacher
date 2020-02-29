@@ -7,8 +7,8 @@ import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { Menu } from '../../component/menu/Menu/Menu';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
-import cyrillicToTranslit from 'cyrillic-to-translit-js';
 import { MenuEditer } from '../../component/menu/MenuEditer/MenuEditer';
+import linker from '../../service/linker';
 
 
 class MenuContainer extends Component {
@@ -40,7 +40,7 @@ class MenuContainer extends Component {
         if (title === undefined) return;
 
         const { a_updateMenu, position } = this.props,
-            link = (`/${(cyrillicToTranslit().transform(title, '_')).toLowerCase()}`),
+            link = linker(title),
             data = { title, position, link, submenu },
             db = new dbService();
 

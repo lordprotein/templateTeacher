@@ -9,6 +9,7 @@ import { ButtonWithLogIn } from '../../component/button/Button/Button';
 import PropTypes from 'prop-types';
 import btnStyles from '../../component/button/Button/Button.module.css';
 import { MenuEditer } from '../../component/menu/MenuEditer/MenuEditer';
+import linker from '../../service/linker';
 
 
 class MenuItemContainer extends Component {
@@ -50,17 +51,29 @@ class MenuItemContainer extends Component {
             { a_updateMenu, menuItemData: { title, ID }, menuList } = this.props;
 
         let inputTitle = this.input_text;
-
         if (!inputTitle) inputTitle = title;
 
-        const data = { ID, title: inputTitle };
+        const newLink = linker(inputTitle);
+
+        const data = {
+            ID,
+            title: inputTitle,
+            link: newLink
+        };
 
         const ask = window.confirm(`Подтвердите редактирование`);
         if (!ask) return;
 
+
         let newMenuList = [...menuList];
+
         const numEditElem = newMenuList.findIndex(elem => elem.ID === ID);
-        newMenuList[numEditElem] = { ...menuList[numEditElem], title: inputTitle };
+
+        newMenuList[numEditElem] = {
+            ...menuList[numEditElem],
+            title: inputTitle,
+            link: newLink
+        };
 
 
         db.editMenu(data)
