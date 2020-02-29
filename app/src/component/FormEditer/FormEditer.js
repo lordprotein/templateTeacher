@@ -2,21 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './FormEditer.module.css';
 import FormEditerButtonContainer from '../../container/FormEditer/FormEditerButtonContainer';
+import { FormEditerButtonList } from '../FormEditerButtonList/FormEditerButtonList';
 // import { FormDownloadFiles } from '../formDownloadFile/FormDownloadFiles/FormDownloadFiles';
 
 
-export const FormEditer = ({ postID, title, content, actions, toReset, children }) => {
-	const { onChangeTitleInput, onChangeContentInput, handleSend } = actions;
+export const FormEditer = ({ title, content, actions, isEditMode, FileListContainer }) => {
+	const { handleInputTitle, handleInputContent, onSave, toReset } = actions;
 
 	return (
 		<div className={styles.editWrap}>
-			{children}
+			{FileListContainer}
+
 			<div className={styles.section}>
 				<h2 className={styles.section_title}>Заголовок</h2>
 				<input // title 
 					type="text"
 					placeholder="Введите заголовок"
-					onChange={onChangeTitleInput}
+					onChange={handleInputTitle}
 					defaultValue={title}
 					className={styles.titleInput}
 					autoFocus={true}
@@ -27,29 +29,11 @@ export const FormEditer = ({ postID, title, content, actions, toReset, children 
 			<div className={styles.section}>
 				<h2 className={styles.section_title}>Содержание</h2>
 
-				<div className={styles.panel}>
-					<FormEditerButtonContainer
-						btnName="bold"
-						styleClass={styles.panel_bold}
-					/>
-					<FormEditerButtonContainer
-						btnName="italic"
-						styleClass={styles.panel_italic}
-					/>
-					<FormEditerButtonContainer
-						btnName="link"
-						styleClass={styles.panel_link}
-					/>
-					<FormEditerButtonContainer
-						btnName="image"
-						styleClass={styles.panel_img}
-					/>
-					<button className={styles.panel_file} />
-				</div>
+				{isEditMode || <FormEditerButtonList />}
 
 				<textarea //content
 					placeholder="Введите текст"
-					onChange={onChangeContentInput}
+					onChange={handleInputContent}
 					defaultValue={content}
 					className={styles.contentInput}
 					spellCheck={true}
@@ -61,11 +45,10 @@ export const FormEditer = ({ postID, title, content, actions, toReset, children 
 				<button onClick={toReset} className={styles.btnFalse}>
 					Отмена
             	</button>
-				<button onClick={handleSend} className={styles.btnTrue}>
+				<button onClick={onSave} className={styles.btnTrue}>
 					Сохранить
 				</button>
 			</div>
-			{/* <FormDownloadFiles postID={postID} /> */}
 		</div >
 	);
 }
@@ -74,5 +57,5 @@ FormEditer.propTypes = {
 	title: PropTypes.string.isRequired,
 	content: PropTypes.string.isRequired,
 	actions: PropTypes.object.isRequired,
-	toReset: PropTypes.func.isRequired,
+	// FileListContainer,
 }

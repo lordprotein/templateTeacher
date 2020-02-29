@@ -18,11 +18,11 @@ class FormEditerContainer extends Component {
       this.content = this.props.postData ? this.props.postData.content : '';
    }
 
-   onChangeTitleInput = e => this.title = e.target.value;
+   handleInputTitle = e => this.title = e.target.value;
 
-   onChangeContentInput = e => this.content = e.target.value;
+   handleInputContent = e => this.content = e.target.value;
 
-   handleSend = e => {
+   onSave = e => {
       e.preventDefault();
 
       const { action, toReset, postList, a_updateContent } = this.props;
@@ -75,28 +75,29 @@ class FormEditerContainer extends Component {
 
 
    render() {
-      const { isActiveDFF, toReset, postData } = this.props;
+      const { isActiveDFF, toReset, postData, action } = this.props;
       const { title, content } = this;
 
       let ID;
       if (postData) ID = postData.ID;
 
+      const isEditMode = (action === 'add' && true);
+
       const actions = {
-         onChangeTitleInput: (e) => this.onChangeTitleInput(e),
-         onChangeContentInput: (e) => this.onChangeContentInput(e),
-         handleSend: (e) => this.handleSend(e),
+         handleInputTitle: e => this.handleInputTitle(e),
+         handleInputContent: e => this.handleInputContent(e),
+         onSave: e => this.onSave(e),
+         toReset
       }
 
       return (
          <FormEditer
             title={title}
             content={content}
-            postID={ID}
             actions={actions}
-            toReset={toReset}
-         >
-            {isActiveDFF && <FileListContainer postID={ID} />}
-         </FormEditer>
+            isEditMode={isEditMode}
+            FileListContainer={isActiveDFF && <FileListContainer postID={ID} />}
+         />
       );
    }
 }

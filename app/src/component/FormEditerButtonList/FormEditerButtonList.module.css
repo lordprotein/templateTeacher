@@ -1,0 +1,73 @@
+
+.btnWrap {
+    display        : flex;
+    flex-direction : row;
+    justify-content: flex-end;
+}
+
+.btnTrue,
+.btnFalse {
+    outline      : none;
+    border       : none;
+    margin-left  : 6px;
+    padding      : 8px 10px;
+    border-radius: 5px;
+    text-align   : center;
+    color        : #fff;
+    cursor       : pointer;
+}
+
+.btnTrue {
+    background: #5890B1;
+}
+
+.btnTrue:hover {
+    background: rgb(109, 171, 207);
+
+}
+
+.btnFalse {
+    background: #e45d7e;
+}
+
+.btnFalse:hover {
+    background: #f77f9d;
+
+}
+
+.panel_bold,
+.panel_italic,
+.panel_link,
+.panel_img,
+.panel_file {
+    outline   : none;
+    border    : 1px solid #C9C9C9;
+    width     : 45px;
+    height    : 35px;
+    background: #6750A4 center/45% no-repeat;
+    cursor    : pointer;
+}
+
+.panel button:hover {
+    background-color: rgb(133, 106, 207);
+}
+
+.panel_bold {
+    background-image: url('../../img/editPanel/bold.svg');
+}
+
+.panel_italic {
+    background-image: url('../../img/editPanel/italic.svg');
+}
+
+.panel_link {
+    background-image: url('../../img/editPanel/link.svg');
+}
+
+.panel_img {
+    background-image: url('../../img/editPanel/picture.svg');
+}
+
+.panel_file {
+    background-image: url('../../img/editPanel/folder.svg');
+}
