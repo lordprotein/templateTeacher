@@ -77,24 +77,18 @@ class FormEditerContainer extends Component {
    render() {
       const { isActiveDFF, toReset, postData, action } = this.props;
       const { title, content } = this;
+      const { handleInputTitle, handleInputContent, onSave } = this;
 
       let ID;
       if (postData) ID = postData.ID;
 
       const isEditMode = (action === 'add' && true);
 
-      const actions = {
-         handleInputTitle: e => this.handleInputTitle(e),
-         handleInputContent: e => this.handleInputContent(e),
-         onSave: e => this.onSave(e),
-         toReset
-      }
-
       return (
          <FormEditer
             title={title}
             content={content}
-            actions={actions}
+            actions={{ handleInputTitle, handleInputContent, onSave, toReset }}
             isEditMode={isEditMode}
             FileListContainer={isActiveDFF && <FileListContainer postID={ID} />}
          />
