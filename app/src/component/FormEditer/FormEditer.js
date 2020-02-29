@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './FormEditer.module.css';
-import FormEditerButtonContainer from '../../container/FormEditer/FormEditerButtonContainer';
 import { FormEditerButtonList } from '../FormEditerButtonList/FormEditerButtonList';
-// import { FormDownloadFiles } from '../formDownloadFile/FormDownloadFiles/FormDownloadFiles';
 
 
 export const FormEditer = ({ title, content, actions, isEditMode, FileListContainer }) => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './FormEditerButtonList.module.css';
 import FormEditerButtonContainer from '../../container/FormEditer/FormEditerButtonContainer';
 
