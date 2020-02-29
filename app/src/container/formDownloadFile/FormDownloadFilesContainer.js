@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { selectors } from '../../redux/reducer';
 import * as actions from '../../redux/actions';
 
+
 class FormDownloadFilesContainer extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +18,7 @@ class FormDownloadFilesContainer extends Component {
         const { downloadFrom } = this.props;
 
         if (downloadFrom === 'local') {
-            this.action = this.handleSubmitForLocal;
+            this.action = this.createFileForLocal;
             return "компьютера";
         };
         if (downloadFrom === 'url') {
@@ -30,25 +31,29 @@ class FormDownloadFilesContainer extends Component {
         this.value = e.target;
     }
 
+    createFileForLocal = () => {
+        const { postID, getTypeFiles, a_setFileList, fileList } = this.props;
 
-    handleSubmitForLocal = () => {
-        let { value } = this;
-        const { postID, getTypeFiles, a_setFileList } = this.props;
-
-        if (!value) return console.log('Haven`t a value');
-        value = value.files[0];
+        const file = this.value.files[0];
+        if (!file) return console.log('Haven`t a value');
 
         const db = new dbService();
 
-        db.downloadImg(postID, getTypeFiles, value)
-            .then(res => {
-                db.getFiles(postID, getTypeFiles)
-                    .then(itemList => {
-                        if (!itemList.length) return console.log('Haven`t files');
+        db.downloadImg(postID, getTypeFiles, file)
+            .then(({ ID, path, filename }) => {
+                const newFile = {
+                    ID,
+                    ID_CONTENT: postID,
+                    name: filename,
+                    path,
+                    type: getTypeFiles
+                }
 
-                        a_setFileList(itemList)
-                    });
-                console.log(res);
+                const newFileList = [...fileList];
+                newFileList.push(newFile)
+                
+                a_setFileList(newFileList);
+
             })
     }
 

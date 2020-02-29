@@ -8,6 +8,7 @@ import dbService from '../../service/service';
 import { FormEditer } from '../../component/FormEditer/FormEditer';
 import * as actions from '../../redux/actions';
 import FileListContainer from '../formDownloadFile/FileListContainer';
+import { v4 as uuidv4 } from 'uuid';
 
 
 class FormEditerContainer extends Component {
@@ -40,28 +41,30 @@ class FormEditerContainer extends Component {
 
       switch (action) {
          case 'add': {
-            const { ID_MENU } = this.props;
+            const { ID_MENU } = this.props,
+               ID = uuidv4(),
+               post = { ID, ...data, ID_MENU };
 
-            db.addPost({ ...data, ID_MENU })
+            db.addPost(post)
                .then(() => {
-                  db.updatePostList(ID_MENU, resPostList => {
-                     a_updateContent(resPostList);
-                     toReset();
-                  })
+                  const newPostList = [...postList];
+                  newPostList.push(post);
+                  toReset();
+                  a_updateContent(newPostList);
                });
             break;
          }
          case 'edit': {
-            db.editPost({ ...postData, ...data })
+            const post = { ...postData, ...data };
+            db.editPost(post)
                .then(() => {
                   const num = postList.findIndex(elem => elem.ID === postData.ID)
 
-                  let newPostList = postList.slice(0);
+                  let newPostList = [...postList];
 
                   newPostList[num] = {
                      ...newPostList[num],
-                     title: this.title,
-                     content: this.content
+                     ...data
                   }
 
                   a_updateContent(newPostList)
@@ -122,13 +125,13 @@ FormEditerContainer.propTypes = {
    postData: PropTypes.shape({
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
-      ID: PropTypes.number.isRequired,
-      ID_MENU: PropTypes.number,
+      ID: PropTypes.string.isRequired,
+      ID_MENU: PropTypes.string,
    }),
 
    action: PropTypes.string.isRequired,
 
    toReset: PropTypes.func.isRequired,
 
-   ID_MENU: PropTypes.number,
+   ID_MENU: PropTypes.string,
 }

@@ -9,6 +9,7 @@ import { Menu } from '../../component/menu/Menu/Menu';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
 import cyrillicToTranslit from 'cyrillic-to-translit-js';
 import { MenuEditer } from '../../component/menu/MenuEditer/MenuEditer';
+import { v4 as uuidv4 } from 'uuid';
 
 
 class MenuContainer extends Component {
@@ -36,21 +37,23 @@ class MenuContainer extends Component {
 
     onAddMenu = () => this.onToggleShow(true);
 
-    onAddMenuItem = (title, submenu = false) => { //add new menu elem
+    createMenuItem = (title, submenu = false) => { //add new menu elem
         if (title === undefined) return;
-
-        const { a_updateMenu, position } = this.props,
+        console.log()
+        const { a_updateMenu, position, menuList } = this.props,
             link = (`/${(cyrillicToTranslit().transform(title, '_')).toLowerCase()}`),
-            data = { title, position, link, submenu },
+            ID = uuidv4(),
+            data = { ID, title, position, link, submenu },
             db = new dbService();
+
 
         db.addMenu(data)
             .then(() => {
-                db.getMenuList()
-                    .then(menuList => {
-                        a_updateMenu({ menuList });
-                        this.onToggleShow(false);
-                    });
+                let newMenuList = [...menuList];
+                newMenuList.push(data)
+
+                a_updateMenu({ menuList: newMenuList });
+                this.onToggleShow(false);
             });
     }
 
@@ -60,7 +63,7 @@ class MenuContainer extends Component {
         if (isModeAddMenu) {
             const actions = {
                 toReset: () => this.onToggleShow(false),
-                toSubmit: () => this.onAddMenuItem(this.input_text),
+                toSubmit: () => this.createMenuItem(this.input_text),
                 handleChange: (e) => this.onChangeInput(e)
             }
 
@@ -88,7 +91,7 @@ class MenuContainer extends Component {
             const menu_item = (
                 <MenuItemContainer
                     menuItemData={menu_elem}
-                    addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
+                    addSubmenuItem={(title, submenu) => this.createMenuItem(title, submenu)}
                     key={i} //Probably wrong
                 >
                     {this.getRecursionSubmenuList(menu_elem, menuList)}
@@ -111,7 +114,7 @@ class MenuContainer extends Component {
             return (
                 <MenuItemContainer
                     menuItemData={menuItemData}
-                    addSubmenuItem={(title, submenu) => this.onAddMenuItem(title, submenu)}
+                    addSubmenuItem={(title, submenu) => this.createMenuItem(title, submenu)}
                     key={key}
                 >
                     {submenu_items.length && submenu_items}
