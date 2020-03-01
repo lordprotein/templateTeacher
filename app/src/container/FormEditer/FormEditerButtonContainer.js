@@ -14,7 +14,7 @@ class FormEditerButtonContainer extends Component {
     }
 
     init = () => {
-        const { btnName, a_setAcceptAttr } = this.props;
+        const { btnName } = this.props;
 
         switch (btnName) {
             case 'bold': {
