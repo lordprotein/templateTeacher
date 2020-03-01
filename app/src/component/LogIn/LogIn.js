@@ -1,10 +1,12 @@
 import React from 'react';
+import styles from './LogIn.module.css';
+
 
 export const LogIn = (props) => {
     const { onChangeInputLogin, onChangeInputPassword, handleSend } = props;
 
     return (
-        <form>
+        <form className={styles.loginForm}>
             <label>
                 Логин
                     <input
