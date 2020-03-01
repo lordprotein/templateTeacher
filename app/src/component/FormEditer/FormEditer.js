@@ -5,7 +5,7 @@ import { FormEditerButtonList } from '../FormEditerButtonList/FormEditerButtonLi
 
 
 export const FormEditer = ({ title, content, actions, isEditMode, FileListContainer }) => {
-	const { handleInputTitle, handleInputContent, onSave, toReset } = actions;
+	const { handleInputTitle, onSave, toReset } = actions;
 
 	return (
 		<div className={styles.editWrap}>
@@ -31,7 +31,6 @@ export const FormEditer = ({ title, content, actions, isEditMode, FileListContai
 
 				<textarea //content
 					placeholder="Введите текст"
-					onChange={handleInputContent}
 					defaultValue={content}
 					className={styles.contentInput}
 					spellCheck={true}

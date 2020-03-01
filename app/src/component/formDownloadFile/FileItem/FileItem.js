@@ -3,7 +3,7 @@ import styles from './FilteItem.module.css';
 import PropTypes from 'prop-types';
 
 
-export const FileItem = ({ type, path, onRemove }) => {
+export const FileItem = ({ type, path, onRemove, onPast }) => {
     let link = `http://localhost:3333`;
     let block;
 
@@ -21,6 +21,7 @@ export const FileItem = ({ type, path, onRemove }) => {
         <div className={styles.item}>
             <button className={styles.remove} onClick={onRemove}></button>
             {block}
+            <button onClick={onPast}>Использовать</button>
         </div>
     )
 }

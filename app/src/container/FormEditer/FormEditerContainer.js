@@ -20,7 +20,7 @@ class FormEditerContainer extends Component {
 
    handleInputTitle = e => this.title = e.target.value;
 
-   handleInputContent = e => this.content = e.target.value;
+   // handleInputContent = e => this.content = e.target.value;
 
    onSave = e => {
       e.preventDefault();
@@ -28,12 +28,12 @@ class FormEditerContainer extends Component {
       const { action, toReset, postList, a_updateContent } = this.props;
       const { postData } = this.props;
 
-      if (!this.title && !this.content) return toReset();
+      // if (!this.title && !this.content) return toReset();
 
 
       const data = {
          title: this.title,
-         content: this.content
+         content: document.getElementById('form_editer').value,
       };
 
       const db = new dbService();
@@ -61,7 +61,7 @@ class FormEditerContainer extends Component {
                   newPostList[num] = {
                      ...newPostList[num],
                      title: this.title,
-                     content: this.content
+                     content: document.getElementById('form_editer').value
                   }
 
                   a_updateContent(newPostList)
@@ -77,7 +77,7 @@ class FormEditerContainer extends Component {
    render() {
       const { isActiveDFF, toReset, postData, action } = this.props;
       const { title, content } = this;
-      const { handleInputTitle, handleInputContent, onSave } = this;
+      const { handleInputTitle,  onSave } = this;
 
       let ID;
       if (postData) ID = postData.ID;
@@ -88,7 +88,7 @@ class FormEditerContainer extends Component {
          <FormEditer
             title={title}
             content={content}
-            actions={{ handleInputTitle, handleInputContent, onSave, toReset }}
+            actions={{ handleInputTitle, onSave, toReset }}
             isEditMode={isEditMode}
             FileListContainer={isActiveDFF && <FileListContainer postID={ID} />}
          />
