@@ -25,3 +25,8 @@
     color         : #26242C;
     text-indent   : 50px;
 }
+
+img {
+    max-width: 100%;
+    float    : left;
+}

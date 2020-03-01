@@ -31,60 +31,36 @@ class FileItemContainer extends Component {
     }
 
     onPast = () => {
-        const { fileData: { type, path, name } } = this.props;
-
         const formEditer = document.getElementById('form_editer');
 
-        const selected = this._getSelectedText(formEditer);
+        const elem = this._getLink();
 
-        let elem;
-
-        switch (type) {
-            case 'image': {
-                elem = `<img src="${this.domain}/${path}" alt="${name}" />`;
-                break;
-            }
-            case 'document': {
-                elem = `<a href="${this.domain}/${path}" target="_blank" >Скачать ${name}</a>`;
-                break;
-            }
-
-            default: break;
-        }
-        // const elem = (typeof (past) === 'string' ? );
         formEditer.setRangeText(elem);
+
         this.onBack();
     }
 
+    
+    _getLink = () => {
+        const { fileData: { type, path, name } } = this.props;
 
-    _getSelectedText = formEditer => {
-        let start = formEditer.selectionStart,
-            end = formEditer.selectionEnd;
+        switch (type) {
+            case 'image': {
+                return `<img src="${this.domain}/${path}" alt="${name}" />`;
+            }
+            case 'document': {
+                return `<a href="${this.domain}/${path}" target="_blank">Скачать ${name}</a>`;
+            }
+            case 'video': {
+                return `<video controls><source src="${this.domain}/${path}"></video> `;
+            }
+            case 'audio': {
+                return `<audio controls><source src="${this.domain}/${path}"></audio>`;
+            }
 
-        // if(!start && !end) {
-        //     start = 
-        // }
-
-        return formEditer.value.slice(start, end);
+            default: return false;
+        }
     }
-
-    // _getPosCaret = formEditer => {
-    //     let caretPos = 0;
-
-    //     if (document.selection) {
-    //         formEditer.focus();
-    //         const Sel = document.selection.createRange();
-    //         Sel.moveStart('character', -formEditer.value.length);
-    //         caretPos = Sel.text.length;
-    //     }
-    //     else
-    //         if (formEditer.selectionStart || formEditer.selectionStart === '0') {
-    //             caretPos = formEditer.selectionStart;
-    //         }
-
-    //     return caretPos;
-    // }
-
 
     render() {
         const { fileData: { type, path } } = this.props;
