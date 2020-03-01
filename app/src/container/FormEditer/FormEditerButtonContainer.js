@@ -14,7 +14,7 @@ class FormEditerButtonContainer extends Component {
     }
 
     init = () => {
-        const { btnName } = this.props;
+        const { btnName, a_setAcceptAttr } = this.props;
 
         switch (btnName) {
             case 'bold': {
@@ -31,6 +31,18 @@ class FormEditerButtonContainer extends Component {
             }
             case 'image': {
                 this.action = this._getImage;
+                return;
+            }
+            case 'document': {
+                this.action = this._getDocument;
+                return;
+            }
+            case 'video': {
+                this.action = this._getVideo;
+                return;
+            }
+            case 'audio': {
+                this.action = this._getAudio;
                 return;
             }
 
@@ -66,9 +78,35 @@ class FormEditerButtonContainer extends Component {
     }
 
     _getImage = () => {
-        const { a_toggleDownloadFilesForm, a_setTypeFiles } = this.props;
+        const { a_toggleDownloadFilesForm, a_setTypeFiles, a_setAcceptAttr, btnName } = this.props;
         a_toggleDownloadFilesForm(true);
-        a_setTypeFiles('image');
+        a_setTypeFiles(btnName);
+        a_setAcceptAttr('image/*');
+
+    }
+
+    _getDocument = () => {
+        const { a_toggleDownloadFilesForm, a_setTypeFiles, a_setAcceptAttr, btnName } = this.props;
+
+        a_toggleDownloadFilesForm(true);
+        a_setTypeFiles(btnName);
+        a_setAcceptAttr('application/*, text/*');
+    }
+
+    _getVideo = () => {
+        const { a_toggleDownloadFilesForm, a_setTypeFiles, a_setAcceptAttr, btnName } = this.props;
+
+        a_toggleDownloadFilesForm(true);
+        a_setTypeFiles(btnName);
+        a_setAcceptAttr('video/*');
+    }
+
+    _getAudio = () => {
+        const { a_toggleDownloadFilesForm, a_setTypeFiles, a_setAcceptAttr, btnName } = this.props;
+
+        a_toggleDownloadFilesForm(true);
+        a_setTypeFiles(btnName);
+        a_setAcceptAttr('audio/*');
     }
 
 
@@ -92,10 +130,11 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_toggleDownloadFilesForm, a_setTypeFiles } = bindActionCreators(actions, dispatch);
+    const { a_toggleDownloadFilesForm, a_setTypeFiles, a_setAcceptAttr } = bindActionCreators(actions, dispatch);
     return {
         a_toggleDownloadFilesForm,
-        a_setTypeFiles
+        a_setTypeFiles,
+        a_setAcceptAttr
     };
 }
 

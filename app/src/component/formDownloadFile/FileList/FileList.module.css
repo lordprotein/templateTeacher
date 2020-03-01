@@ -21,7 +21,8 @@
 }
 
 .rigth {
-    width: 65%;
+    width     : 65%;
+    overflow-y: auto;
 }
 
 .inputWrap:hover {

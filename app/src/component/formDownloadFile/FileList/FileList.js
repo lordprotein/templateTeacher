@@ -12,10 +12,10 @@ export const FileList = ({ title, toBack, postID, children }) => {
                     downloadFrom="local"
                     postID={postID}
                 />
-                <FormDownloadFilesContainer
+                {/* <FormDownloadFilesContainer
                     downloadFrom="url"
                     postID={postID}
-                />
+                /> */}
                 <div>
                     <button className={stylesFormEditer.btnFalse} onClick={toBack}>Закрыть</button>
                     {/* <button className={stylesFormEditer.btnTrue}>Загрузить</button> */}

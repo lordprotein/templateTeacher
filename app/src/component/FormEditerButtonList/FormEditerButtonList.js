@@ -23,6 +23,18 @@ export const FormEditerButtonList = () => {
 				btnName="image"
 				styleClass={styles.panel_img}
 			/>
+			<FormEditerButtonContainer
+				btnName="document"
+				styleClass={styles.panel_document}
+			/>
+			<FormEditerButtonContainer
+				btnName="video"
+				styleClass={styles.panel_video}
+			/>
+			<FormEditerButtonContainer
+				btnName="audio"
+				styleClass={styles.panel_audio}
+			/>
 		</div>
 	);
 }

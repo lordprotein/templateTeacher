@@ -1,4 +1,3 @@
-
 .btnWrap {
     display        : flex;
     flex-direction : row;
@@ -39,7 +38,9 @@
 .panel_italic,
 .panel_link,
 .panel_img,
-.panel_file {
+.panel_document,
+.panel_video,
+.panel_audio {
     outline   : none;
     border    : 1px solid #C9C9C9;
     width     : 45px;
@@ -68,6 +69,14 @@
     background-image: url('../../img/editPanel/picture.svg');
 }
 
-.panel_file {
-    background-image: url('../../img/editPanel/folder.svg');
+.panel_document {
+    background-image: url('../../img/editPanel/document.svg');
+}
+
+.panel_video {
+    background-image: url('../../img/editPanel/video.svg');
+}
+
+.panel_audio {
+    background-image: url('../../img/editPanel/audio.svg');
 }

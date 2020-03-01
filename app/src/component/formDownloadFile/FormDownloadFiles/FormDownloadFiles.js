@@ -2,14 +2,14 @@ import React from 'react';
 import styles from './FormDownloadFiles.module.css';
 
 
-export const FormDownloadFiles = ({ titleEnd, downloadFrom, onSubmit, handleInputValue }) => {
+export const FormDownloadFiles = ({ titleEnd, downloadFrom, onSubmit, handleInputValue, acceptAttr }) => {
     let input;
-    
+
     if (downloadFrom === 'url') {
         input = <input
             type="text"
             name="filedata"
-            id="download_url"
+            // id="download_url"
             placeholder="url"
             onChange={handleInputValue}
         />
@@ -18,9 +18,8 @@ export const FormDownloadFiles = ({ titleEnd, downloadFrom, onSubmit, handleInpu
         input = <input
             type="file"
             name="filedata"
-            id="download_local"
-            accept="image/*"
-            className={styles.btnDownload}
+            // id="download_local"
+            accept={acceptAttr}
             onChange={handleInputValue}
         />
     }

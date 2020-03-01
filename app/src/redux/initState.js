@@ -11,6 +11,7 @@ const initState = {
     downloadFilesForm: {
         isActive: false,
         typeFiles: '',
+        inputAttr: '',
         fileList: [],
     }
 }

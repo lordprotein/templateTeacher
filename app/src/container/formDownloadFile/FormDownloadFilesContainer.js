@@ -39,8 +39,12 @@ class FormDownloadFilesContainer extends Component {
         value = value.files[0];
 
         const db = new dbService();
+        const data = {
+            file: value,
+            type: getTypeFiles
+        }
 
-        db.downloadImg(postID, getTypeFiles, value)
+        db.downloadFile(postID, getTypeFiles, data)
             .then(res => {
                 db.getFiles(postID, getTypeFiles)
                     .then(itemList => {
@@ -56,9 +60,10 @@ class FormDownloadFilesContainer extends Component {
         console.log('url func')
     }
 
+
     render() {
         const { titleEnd } = this;
-        const { downloadFrom } = this.props;
+        const { downloadFrom, getAcceptAttr } = this.props;
 
         return (
             <FormDownloadFiles
@@ -66,6 +71,7 @@ class FormDownloadFilesContainer extends Component {
                 downloadFrom={downloadFrom}
                 handleInputValue={e => this.handleInputValue(e)}
                 onSubmit={() => this.action()}
+                acceptAttr={getAcceptAttr}
             />
         )
     }
@@ -73,7 +79,8 @@ class FormDownloadFilesContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        getTypeFiles: selectors.getTypeFiles(state), // To delete
+        getTypeFiles: selectors.getTypeFiles(state),
+        getAcceptAttr: selectors.getAcceptAttr(state),
         fileList: selectors.getFileList(state),
     }
 }

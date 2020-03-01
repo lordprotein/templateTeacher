@@ -62,7 +62,8 @@ export default class dbService {
     async addFile(url = '', data) {
 
         const formData = new FormData();
-        formData.append('filedata', data);
+        formData.append('filedata', data.file);
+        formData.append('type', data.type);
 
 
         const response = await fetch(`${this._link}${url}`, {
@@ -76,7 +77,7 @@ export default class dbService {
         return await response.json();
     }
 
-    downloadImg = (postID, type, data) => {
+    downloadFile = (postID, type, data) => {
         return this.addFile(`/upload/${type}/${postID}`, data);
     }
 

@@ -12,11 +12,10 @@ import FileItemContainer from './FileItemContainer';
 
 class FileListContainer extends Component {
     componentDidMount = () => {
-        console.log('open')
         const { getTypeFiles, postID, a_setFileList } = this.props;
 
         const db = new dbService();
-
+        console.log(`File type: ${getTypeFiles}`)
         db.getFiles(postID, getTypeFiles)
             .then(itemList => {
                 console.log(itemList)
@@ -27,8 +26,10 @@ class FileListContainer extends Component {
     }
 
     componentWillUnmount = () => {
-        const { a_setFileList } = this.props;
+        const { a_setFileList, a_setTypeFiles, a_setAcceptAttr } = this.props;
         a_setFileList([]);
+        a_setTypeFiles('');
+        a_setAcceptAttr('');
     }
 
     toBack = () => {
@@ -72,10 +73,12 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_toggleDownloadFilesForm, a_setFileList } = bindActionCreators(actions, dispatch);
+    const { a_toggleDownloadFilesForm, a_setFileList, a_setTypeFiles, a_setAcceptAttr } = bindActionCreators(actions, dispatch);
     return {
         a_toggleDownloadFilesForm,
-        a_setFileList
+        a_setFileList,
+        a_setTypeFiles,
+        a_setAcceptAttr
     };
 }
 

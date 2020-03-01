@@ -67,7 +67,6 @@ const reducer = (state = initState, action = {}) => {
             const { downloadFilesForm } = state;
             const newType = action.value;
 
-            if (!newType) return;
 
             return {
                 ...state,
@@ -87,6 +86,19 @@ const reducer = (state = initState, action = {}) => {
                 downloadFilesForm: {
                     ...downloadFilesForm,
                     fileList
+                }
+            }
+        }
+
+        case 'SET_ACCEPT_ATTR': {
+            const { downloadFilesForm } = state;
+            const inputAttr = action.value;
+
+            return {
+                ...state,
+                downloadFilesForm: {
+                    ...downloadFilesForm,
+                    inputAttr
                 }
             }
         }
@@ -117,6 +129,9 @@ class Selectors {
     }
     getFileList = ({ downloadFilesForm }) => {
         return downloadFilesForm.fileList;
+    }
+    getAcceptAttr = ({ downloadFilesForm }) => {
+        return downloadFilesForm.inputAttr;
     }
 }
 
