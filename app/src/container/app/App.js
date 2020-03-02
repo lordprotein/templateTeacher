@@ -5,15 +5,27 @@ import Sidebar from '../../component/Sidebar/Sidebar';
 import { selectors } from '../../redux/reducer';
 import { PageListWithRoutes } from '../../component/page/PageList/PageList';
 import styles from './App.module.css';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../redux/actions';
+import { myCookieUser } from '../../service/myCookie';
 
 
 class App extends Component {
+    componentDidMount = () => {
+        const { a_set_login } = this.props;
+
+        const cookieUser = myCookieUser.get();
+
+        console.log(myCookieUser.get())
+        if (cookieUser) a_set_login(true);
+    }
+
     render() {
-        const { isLogIn } = this.props;
+        const { isLogged } = this.props;
 
         return (
             <div className={styles.main}>
-                <Header isLogIn={isLogIn} />
+                <Header isLogIn={isLogged} />
                 <Sidebar />
                 <PageListWithRoutes />
             </div>
@@ -22,11 +34,16 @@ class App extends Component {
 }
 
 
-
 const mapStateToProps = state => {
     return {
-        isLogIn: selectors.isLogIn(state)
+        isLogged: selectors.isLogged(state)
     };
 }
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = dispatch => {
+    const { a_set_login } = bindActionCreators(actions, dispatch);
+
+    return { a_set_login };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

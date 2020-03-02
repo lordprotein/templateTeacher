@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './LogIn.module.css';
+import dbService from '../../service/service';
 
 
 export const LogIn = (props) => {
@@ -11,7 +12,7 @@ export const LogIn = (props) => {
                 Логин
                     <input
                     type="text"
-                    name="auth-login"
+                    name="username"
                     defaultValue="admin"
                     onChange={onChangeInputLogin}
                 />
@@ -20,7 +21,7 @@ export const LogIn = (props) => {
                 Пароль
                     <input
                     type="text"
-                    name="auth-password"
+                    name="password"
                     defaultValue="1234"
                     onChange={onChangeInputPassword}
                 />

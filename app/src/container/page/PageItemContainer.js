@@ -77,8 +77,7 @@ class PageItemContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        loginData: selectors.loginData(state),
-        isLogIn: selectors.isLogIn(state),
+        isLogged: selectors.isLogged(state),
         postList: selectors.getPostList(state),
 
     }

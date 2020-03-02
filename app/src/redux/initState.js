@@ -3,10 +3,8 @@ const initState = {
         menu: [],
         postList: []
     },
-    logIn: {
-        status: true,
-        login: 'admin',
-        password: '1234',
+    isLogged: {
+        status: false,
     },
     downloadFilesForm: {
         isActive: false,

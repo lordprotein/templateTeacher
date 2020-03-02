@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { LogIn } from '../../component/LogIn/LogIn';
+import { setCookie, getCookie, myCookieUser } from '../../service/myCookie';
 
 
 
@@ -26,15 +27,21 @@ class LogInContainer extends Component {
         e.preventDefault();
 
         const { login, password } = this,
-            data = { login, password },
+            data = { login: 'admin', password: '1234' },
+            // data = { login, password },
             db = new dbService();
 
 
-        db.checkLogin(data)
-            .then(({ access }) => {
-                console.log(access)
-                if (access) return this.props.a_setLogIn(data);
-            });
+        db.loginAuthorization(data)
+            .then(({ ID }) => {
+                // console.log(access)
+                // console.log(ID)
+                if (!ID) return console.log('Haven\'t this user');
+                console.log(ID)
+                myCookieUser.set(ID);
+                return this.props.a_set_login(true)
+
+            }, err => console.log(err));
     }
 
     render() {
@@ -50,8 +57,8 @@ class LogInContainer extends Component {
 
 
 const mapDispatchToProps = dispatch => {
-    const { a_setLogIn } = bindActionCreators(actions, dispatch);
-    return { a_setLogIn };
+    const { a_set_login } = bindActionCreators(actions, dispatch);
+    return { a_set_login };
 }
 
 

@@ -2,17 +2,13 @@ import initState from './initState';
 
 const reducer = (state = initState, action = {}) => {
     switch (action.type) {
-        case 'SET_LOGIN': {
-            let { logIn: { status, login, password } } = state;
-
-            status = true;
-            login = action.value.login;
-            password = action.value.password;
-
+        case 'IS_LOGGED': {
+            const { isLogged } = state;
+            const status = action.value;
             return {
                 ...state,
-                logIn: {
-                    status, login, password
+                isLogged: {
+                    ...isLogged, status
                 }
             };
         }
@@ -115,11 +111,8 @@ class Selectors {
     getPostList = ({ api }) => {
         return api.postList;
     }
-    isLogIn = ({ logIn }) => {
-        return logIn.status;
-    }
-    loginData = ({ logIn }) => {
-        return { login: logIn.login, password: logIn.password }
+    isLogged = ({ isLogged }) => {
+        return isLogged.status;
     }
     isActiveDFF = ({ downloadFilesForm }) => {
         return downloadFilesForm.isActive;

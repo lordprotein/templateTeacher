@@ -9,6 +9,7 @@ import { Menu } from '../../component/menu/Menu/Menu';
 import { ButtonWithLogIn } from '../../component/button/Button/Button';
 import { MenuEditer } from '../../component/menu/MenuEditer/MenuEditer';
 import linker from '../../service/linker';
+import { myCookieUser } from '../../service/myCookie';
 
 
 class MenuContainer extends Component {
@@ -43,6 +44,8 @@ class MenuContainer extends Component {
             link = linker(title),
             data = { title, position, link, submenu },
             db = new dbService();
+
+
 
         db.addMenu(data)
             .then(() => {
@@ -120,15 +123,34 @@ class MenuContainer extends Component {
         });
     }
 
+    logOut = () => {
+        const { a_set_login } = this.props;
+        const check = window.confirm('Вы уверены, что хотите выйти?');
+
+        if (!check) return;
+
+        myCookieUser.remove();
+        a_set_login(false);
+    }
+
+
+
     render() {
         const { position } = this.props;
 
-        return (
-            <Menu
-                addingPanel={this.getFormAdd()}
-                menuList={this.renderMenuList()}
-                stylePos={position}
+        const btnLogOut = (
+            <ButtonWithLogIn
+                title="выйти"
+                onClick={this.logOut}
             />
+        )
+
+        return (
+            <Menu stylePos={position}>
+                {this.getFormAdd()}
+                {this.renderMenuList()}
+                {position === 'top' && btnLogOut}
+            </Menu>
         );
     }
 
@@ -137,14 +159,13 @@ class MenuContainer extends Component {
 const mapStateToProps = state => {
     return {
         menuList: selectors.getMenuList(state),
-        isLogIn: selectors.isLogIn(state),
     };
 }
 
 const mapDispatchToProps = dispatch => {
-    const { a_updateMenu } = bindActionCreators(actions, dispatch);
+    const { a_updateMenu, a_set_login } = bindActionCreators(actions, dispatch);
 
-    return { a_updateMenu }
+    return { a_updateMenu, a_set_login }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuContainer);

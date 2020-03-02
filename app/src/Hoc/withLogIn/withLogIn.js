@@ -6,7 +6,7 @@ export const withLogIn = WrappedComponent => {
         constructor(props) {
             super(props);
             this.state = {
-                isLogIn: store.getState().logIn.status
+                isLogged: store.getState().isLogged.status
             }
             this.reduxSubscribe(this.updateStatus);
         }
@@ -14,17 +14,17 @@ export const withLogIn = WrappedComponent => {
         reduxSubscribe = () => store.subscribe(this.updateStatus);
 
         updateStatus = () => {
-            const isLogInRedux = store.getState().logIn.status;
-            const { isLogIn } = this.state;
+            const isLogedRedux = store.getState().isLogged.status;
+            const { isLogged } = this.state;
 
-            if (isLogInRedux === isLogIn) return;
+            if (isLogedRedux === isLogged) return;
 
-            this.setState({ isLogIn: isLogInRedux });
+            this.setState({ isLogged: isLogedRedux });
         }
 
         checkLogin = () => {
-            const { isLogIn } = this.state;
-            if (!isLogIn) return false;
+            const { isLogged } = this.state;
+            if (!isLogged) return false;
 
             return true;
         }

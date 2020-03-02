@@ -1,3 +1,5 @@
+import { myCookieUser } from "./myCookie";
+
 // import generateMenuList from '../generateMenuList/generateMenuList';
 
 export default class dbService {
@@ -17,6 +19,11 @@ export default class dbService {
     }
 
     async methodDoResourse(url = '', data, method) {
+        const ID_USER = myCookieUser.get();
+        if (!ID_USER && !url === '/login') return console.log('Haven\'t cookie USER');
+
+        data = { ...data, ID_USER, };
+        console.log()
         const postData = await fetch(`${this._link}${url}`, {
             method: method,
             body: JSON.stringify(data),
@@ -48,23 +55,25 @@ export default class dbService {
         return this.getResource(`/menu/${id}/posts`);
     }
 
-    checkLogin(data) {
+    loginAuthorization(data) {
         return this.methodDoResourse('/login', data, 'POST');
     }
 
     getFiles(postId, type = false) {
         let link = `/post/${postId}/files`;
         if (type) link += `/${type}`;
-        console.log(link)
+
         return this.getResource(link);
     }
 
     async addFile(url = '', data) {
+        const ID_USER = myCookieUser.get();
+        if (!ID_USER) return;
 
         const formData = new FormData();
         formData.append('filedata', data.file);
         formData.append('type', data.type);
-
+        formData.append('ID_USER', ID_USER);
 
         const response = await fetch(`${this._link}${url}`, {
             method: 'POST',
@@ -82,7 +91,7 @@ export default class dbService {
     }
 
     removeFile = data => {
-        return this.methodDoResourse('/remove/file', data, 'POST');
+        return this.methodDoResourse('/remove/file', data, 'DELETE');
     }
 
 
