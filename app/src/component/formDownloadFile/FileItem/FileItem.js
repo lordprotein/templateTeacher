@@ -3,13 +3,17 @@ import styles from './FilteItem.module.css';
 import PropTypes from 'prop-types';
 
 
-export const FileItem = ({ type, path, onRemove, onPast }) => {
+export const FileItem = ({ type, path, name, onRemove, onPast }) => {
     let link = `http://localhost:3333`;
     let block;
 
     switch (type) {
         case 'image': {
             block = (<img src={`${link}/${path}`} alt="img" />);
+            break;
+        }
+        case 'document': {
+            block = (<div>{name}</div>);
             break;
         }
         default: {

@@ -40,15 +40,16 @@ class FileItemContainer extends Component {
         this.onBack();
     }
 
-    
     _getLink = () => {
-        const { fileData: { type, path, name } } = this.props;
+        const { fileData: { type, name } } = this.props;
+        let { fileData: { path } } = this.props;
 
         switch (type) {
             case 'image': {
                 return `\n \n <img src="${this.domain}/${path}" alt="${name}" />\n \n`;
             }
             case 'document': {
+                path = path.replace('downloads', 'download');
                 return `\n \n <a href="${this.domain}/${path}" target="_blank">Скачать ${name}</a>\n \n`;
             }
             case 'video': {
@@ -63,12 +64,12 @@ class FileItemContainer extends Component {
     }
 
     render() {
-        const { fileData: { type, path } } = this.props;
-
+        const { fileData: { type, path, name } } = this.props;
         return (
             <FileItem
                 type={type}
                 path={path}
+                name={name}
                 onRemove={this.onRemove}
                 onPast={this.onPast}
             />
