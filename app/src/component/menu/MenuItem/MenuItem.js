@@ -7,9 +7,9 @@ export const MenuItem = ({ menuItemData, childrens, getAddSubmenuPanel, getButto
     const { title, link, position } = menuItemData;
     const formAddPanel = getAddSubmenuPanel();
 
-    const itemStyle = position !== 'top' ? styles.item : (styles.item + ' ' + styles.item_line);
-    const linkStyle = position !== 'top' ? styles.link : (styles.link + ' ' + styles.link_line);
-    const subStyle = position !== 'top' ? styles.sub : (styles.sub + ' ' + styles.sub_line);
+    const itemStyle = position !== 'top' ? (`${styles.item}`) : (`${styles.item} ${styles.item_line}`);
+    const linkStyle = position !== 'top' ? styles.link : (`${styles.link} ${styles.link_line} ${styles.arrowDown}`);
+    const subStyle = position !== 'top' ? styles.sub : (`${styles.sub} ${styles.sub_line}`);
 
     return (
         <div className={itemStyle}>

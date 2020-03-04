@@ -10,20 +10,27 @@
     margin-bottom  : 40px;
 }
 
+.content::before {
+    content      : '';
+    display      : block;
+    margin-bottom: 40px;
+    height       : 1px;
+    border-bottom: 1px solid #DADADA;
+}
+
 .title {
-    font-weight   : 500;
-    font-size     : 30px;
-    font-weight   : 600;
-    letter-spacing: 0.03em;
-    color         : #39266C;
+    /* font-family   : Montserrat; */
+    font-style       : normal;
+    font-weight      : 500;
+    font-size        : 36px;
 }
 
 .content {
+    font-style    : normal;
+    font-weight   : normal;
     font-size     : 18px;
-    line-height   : 26px;
-    letter-spacing: 0.03em;
-    color         : #26242C;
-    text-indent   : 50px;
+    line-height   : 32px;
+    color: #525252;
 }
 
 img {

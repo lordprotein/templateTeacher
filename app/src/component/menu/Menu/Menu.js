@@ -4,10 +4,18 @@ import styles from './Menu.module.css';
 
 export const Menu = ({ children, stylePos }) => {
     let menuStyles = styles.menu;
-    if (stylePos === 'top') menuStyles = `${menuStyles} ${styles.menuInline}`;
+    let titleStyles;
+    if (stylePos === 'top') {
+        menuStyles = `${menuStyles} ${styles.menuInline}`;
+    }
+    if (stylePos === 'left') {
+        titleStyles = (<h2 className={styles.title}>Главное меню</h2>);
+
+    }
 
     return (
         <nav className={menuStyles}>
+            {titleStyles}
             {children}
         </nav>
     );

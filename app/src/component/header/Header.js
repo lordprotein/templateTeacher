@@ -9,6 +9,7 @@ const Header = () => {
             {/* <h1 className="header__title">
                 title
             </h1> */}
+            <h1 className={styles.title}>Виноградова</h1>
             <MenuContainer
                 position='top'
             />

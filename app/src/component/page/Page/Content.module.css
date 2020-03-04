@@ -2,9 +2,7 @@
     width        : calc(100% - 350px);
     min-height   : 100vh;
     margin-left  : auto;
-    /* margin-right : 50px; */
-    padding      : 55px 80px;
+    padding      : 0 80px 55px 80px;
     background   : #FFF;
-    border       : 1px solid #EADDDD;
     border-radius: 3px;
 }

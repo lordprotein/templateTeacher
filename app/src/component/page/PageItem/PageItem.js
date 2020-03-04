@@ -10,9 +10,7 @@ export const PageItem = ({ children, title, content }) => {
                 <h2 className={styles.title}>{title}</h2>
                 <div>{children}</div>
             </div>
-            <p className={styles.content} dangerouslySetInnerHTML={{ __html: content }}>
-                {/* {content} */}
-            </p>
+            <p className={styles.content} dangerouslySetInnerHTML={{ __html: content }}></p>
         </div>
     )
 }

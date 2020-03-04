@@ -2,15 +2,21 @@
     padding      : 8px 16px;
     outline      : none;
     border       : none;
-    background   : #4C3786;
+    background   : #FF6161;
     color        : #fff;
     border-radius: 5px;
     font-weight  : 400;
     cursor       : pointer;
+    transition   : background-color 0.1s;
 }
 
 .btn:focus {
-    box-shadow: -4px 4px 6px #9D8BCE;
+    box-shadow: -4px 4px 6px #db4848;
+}
+
+.btn:hover {
+    background-color: #db4848;
+    transition      : background-color 0.1s;
 }
 
 .add,
@@ -48,12 +54,6 @@
     width          : 30px;
     height         : 30px;
     background-size: 60%;
+    border         : 1px solid rgb(255, 152, 152);
 }
 
-.remove_post {
-    background-color: #ea3461;
-}
-
-.edit_post {
-    background-color: #5890B1;
-}

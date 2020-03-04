@@ -2,13 +2,13 @@
     display       : flex;
     flex-direction: row;
     height        : 50px;
-    margin        : 5px 10px 5px 0;
+    margin        : -1px 10px -1px 0;
 }
 
 .item_line {
     flex-direction: column;
-    max-width     : 200px;
-    min-width     : 200px;
+    min-width     : 160px;
+    max-width     : 160px;
     margin        : 0 0 0 10px;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .item:hover>.sub .link:hover {
-    background: rgb(139, 125, 204);
+    /* background: rgb(139, 125, 204); */
 }
 
 .item_line:hover>.sub {
@@ -39,30 +39,40 @@
 /*link*/
 
 .link {
-    min-width      : 270px;
-    display        : flex;
-    flex-direction : row;
-    justify-content: space-between;
-    padding        : 14px 30px;
-    text-decoration: none;
-    color          : #F8F8F8;
-    background     : #8376BB;
-    border-radius  : 4px;
-    transition     : transform 0.2s;
+    min-width         : 270px;
+    display           : flex;
+    flex-direction    : row;
+    justify-content   : space-between;
+    padding           : 14px 30px;
+    text-decoration   : none;
+    color             : #737373;
+    transition        : transform 0.2s;
+    border            : 1px solid #DDDDDD;
+    /* background     : #8376BB; */
+    /* border-radius  : 4px; */
 
 }
 
 .link:hover {
-    background: rgb(108, 96, 161);
-    transform : translateX(5px);
-    transition: transform 0.1s;
+    /* background: rgb(108, 96, 161); */
+    transform    : translateX(5px);
+    transition   : transform 0.1s;
 }
 
 
 .link_line {
-    min-width: auto;
-    max-width: 200px;
-    min-width: 200px;
+    flex-direction : column;
+    justify-content: flex-start;
+    align-items    : center;
+    min-width      : auto;
+    width          : 100%;
+    /* max-width   : 200px; */
+    /* min-width   : 200px; */
+    border         : none;
+}
+
+.link_line:hover {
+    transform: none;
 }
 
 /*End link*/
@@ -79,9 +89,9 @@
 /*for items of submenu*/
 
 .sub .item {
-    height : calc(50px + 5px);
-    margin : 0;
-    padding: 0 0 5px 6px;
+    height      : calc(50px);
+    margin      : 0 0 -1px -1px;
+    padding-left: 6px;
 }
 
 .item_line .sub .item {
@@ -93,5 +103,5 @@
 
 
 .sub .item .link {
-    background: #635896;
+    /* background: #635896; */
 }

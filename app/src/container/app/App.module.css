@@ -1,7 +1,11 @@
 .main {
-    background: #F8F7FF;
-    min-height: 100vh;
-    padding   : 0 50px 0 10px;
+    /* background   : #F8F7FF; */
+    min-height      : 100vh;
+    /* padding      : 0 50px 0 10px; */
+    max-width       : 1600px;
+    margin          : 0 auto;
+    padding         : 0 30px;
+    background-color: white;
 }
 
 * {
