@@ -70,11 +70,15 @@ class FormEditerButtonContainer extends Component {
     _getItalic = () => this._getWrapTag('i');
 
     _getLink = () => {
-        const link = prompt('Введите ссылку');
+        let link = prompt('Введите ссылку');
+        const http = 'http://';
+        const https = 'https://';
 
         if (!link) return;
 
-        this._getWrapTag(`a href="${link}"`, 'a');
+        if (!link.includes(http) && !link.includes(https)) link = `${http}${link}`;
+
+        this._getWrapTag(`a href="${link}" target="_blank"`, 'a');
     }
 
     _getImage = () => {
