@@ -46,16 +46,16 @@ class FileItemContainer extends Component {
 
         switch (type) {
             case 'image': {
-                return `<img src="${this.domain}/${path}" alt="${name}" />`;
+                return `\n \n <img src="${this.domain}/${path}" alt="${name}" />\n \n`;
             }
             case 'document': {
-                return `<a href="${this.domain}/${path}" target="_blank">Скачать ${name}</a>`;
+                return `\n \n <a href="${this.domain}/${path}" target="_blank">Скачать ${name}</a>\n \n`;
             }
             case 'video': {
-                return `<video controls><source src="${this.domain}/${path}"></video> `;
+                return `\n \n <video controls><source src="${this.domain}/${path}"></video> \n \n`;
             }
             case 'audio': {
-                return `<audio controls><source src="${this.domain}/${path}"></audio>`;
+                return `\n \n <audio controls><source src="${this.domain}/${path}"></audio>\n \n`;
             }
 
             default: return false;
