@@ -13,7 +13,6 @@ export const LogIn = (props) => {
                     <input
                     type="text"
                     name="username"
-                    defaultValue="admin"
                     onChange={onChangeInputLogin}
                 />
             </label>
@@ -22,7 +21,6 @@ export const LogIn = (props) => {
                     <input
                     type="text"
                     name="password"
-                    defaultValue="1234"
                     onChange={onChangeInputPassword}
                 />
             </label>
