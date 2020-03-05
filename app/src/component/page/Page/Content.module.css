@@ -6,3 +6,11 @@
     background   : #FFF;
     border-radius: 3px;
 }
+
+.title {
+    margin-bottom: 80px;
+    font-style   : normal;
+    font-weight  : 500;
+    font-size    : 46px;
+    color        : #525252;
+}
