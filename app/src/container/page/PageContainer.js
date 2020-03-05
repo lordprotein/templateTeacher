@@ -56,9 +56,10 @@ class PageContainer extends Component {
 
    render() {
       const { isEdit } = this.state;
+      const { titlePage } = this.props;
 
       return (
-         <Page>
+         <Page titlePage={titlePage}>
             {
                isEdit
                   ? this.getFormEditer()
