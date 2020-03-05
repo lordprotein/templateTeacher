@@ -27,8 +27,8 @@ class LogInContainer extends Component {
         e.preventDefault();
 
         const { login, password } = this,
-            data = { login: 'admin', password: '1234' },
-            // data = { login, password },
+            // data = { login: 'admin', password: '1234' },
+            data = { login, password },
             db = new dbService();
 
 
@@ -37,7 +37,7 @@ class LogInContainer extends Component {
                 // console.log(access)
                 // console.log(ID)
                 if (!ID) return console.log('Haven\'t this user');
-                console.log(ID)
+                
                 myCookieUser.set(ID);
                 return this.props.a_set_login(true)
 
