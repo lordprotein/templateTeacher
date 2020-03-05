@@ -140,7 +140,7 @@ class MenuContainer extends Component {
 
         const btnLogOut = (
             <ButtonWithLogIn
-                title="выйти"
+                title="Выйти"
                 onClick={this.logOut}
             />
         )
