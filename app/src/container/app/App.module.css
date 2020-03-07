@@ -8,6 +8,11 @@
     background-color: white;
 }
 
+.wrap {
+    display       : flex;
+    flex-direction: row;
+}
+
 * {
     font-family: 'Roboto', sans-serif;
 }

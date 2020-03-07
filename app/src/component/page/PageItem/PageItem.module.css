@@ -26,14 +26,17 @@
 }
 
 .content {
-    font-style    : normal;
-    font-weight   : normal;
-    font-size     : 18px;
-    line-height   : 32px;
-    color: #525252;
+    font-style : normal;
+    font-weight: normal;
+    font-size  : 18px;
+    line-height: 32px;
+    color      : #525252;
+    overflow   : hidden;
 }
 
-img {
+img,
+video {
+    margin   : 10px;
     max-width: 100%;
     float    : left;
 }

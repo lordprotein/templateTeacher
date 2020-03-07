@@ -19,7 +19,7 @@ export const LogIn = (props) => {
             <label>
                 Пароль
                     <input
-                    type="text"
+                    type="password"
                     name="password"
                     onChange={onChangeInputPassword}
                 />

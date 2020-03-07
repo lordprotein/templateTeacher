@@ -20,6 +20,7 @@ export const FormDownloadFiles = ({ titleEnd, downloadFrom, onSubmit, handleInpu
             name="filedata"
             // id="download_local"
             accept={acceptAttr}
+            className={styles.formDownload}
             onChange={handleInputValue}
         />
     }

@@ -2,7 +2,7 @@
     padding      : 8px 16px;
     outline      : none;
     border       : none;
-    background   : #FF6161;
+    background   : #45cac5;
     color        : #fff;
     border-radius: 5px;
     font-weight  : 400;
@@ -56,4 +56,3 @@
     background-size: 60%;
     border         : 1px solid rgb(255, 152, 152);
 }
-

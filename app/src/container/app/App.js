@@ -26,8 +26,10 @@ class App extends Component {
         return (
             <div className={styles.main}>
                 <Header isLogIn={isLogged} />
-                <Sidebar />
-                <PageListWithRoutes />
+                <div className={styles.wrap}>
+                    <Sidebar />
+                    <PageListWithRoutes />
+                </div>
             </div>
         );
     }
