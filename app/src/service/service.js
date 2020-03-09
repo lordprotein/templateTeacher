@@ -19,11 +19,10 @@ export default class dbService {
     }
 
     async methodDoResourse(url = '', data, method) {
-        const ID_USER = myCookieUser.get();
-        if (!ID_USER && !url === '/login') return console.log('Haven\'t cookie USER');
+        // const ID_USER = myCookieUser.get();
+        // if (!ID_USER && !url === '/login') return console.log('Haven\'t cookie USER');
 
-        data = { ...data, ID_USER, };
-        console.log()
+        // data = { ...data, ID_USER, };
         const postData = await fetch(`${this._link}${url}`, {
             method: method,
             body: JSON.stringify(data),
