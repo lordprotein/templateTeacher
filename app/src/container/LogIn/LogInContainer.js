@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { LogIn } from '../../component/LogIn/LogIn';
-import { setCookie, getCookie, myCookieUser } from '../../service/myCookie';
+import {  myCookieUser } from '../../service/myCookie';
 
 
 
