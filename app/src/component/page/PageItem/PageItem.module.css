@@ -1,11 +1,13 @@
 .post {
-    margin-top: 50px;
+    display       : flex;
+    flex-direction: row;
+    margin-top    : 50px;
 }
 
 .wrapTitle {
     display        : flex;
     flex-direction : row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items    : center;
     margin-bottom  : 40px;
 }

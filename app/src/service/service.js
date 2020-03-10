@@ -102,6 +102,9 @@ export default class dbService {
     editPost(data) {
         return this.methodDoResourse('/post', data, 'PUT');
     }
+    sequencePost(data) {
+        return this.methodDoResourse('/post/sequence', data, 'PUT');
+    }
     deletePost(data) {
         return this.methodDoResourse('/post', data, 'DELETE');
     }

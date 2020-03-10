@@ -52,7 +52,7 @@ class PageItemContainer extends Component {
 
         return (
             <PageItem
-                postData={postData}
+                postID={postData.ID}
                 title={title}
                 content={content}
             >
