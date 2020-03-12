@@ -1,20 +1,24 @@
 .item {
     display       : flex;
     flex-direction: row;
-    height        : 50px;
+    height        : 55px;
     margin        : -1px 10px -1px 0;
 }
 
 .item_line {
     flex-direction: column;
-    min-width     : 160px;
-    max-width     : 160px;
+    min-width     : 200px;
+    max-width     : 200px;
     margin        : 0 0 0 10px;
 }
 
+.item_line a {
+    min-width: 200px;
+}
 
 .sub .item_line {
     flex-direction: row;
+    padding       : 0;
 }
 
 /*Hover item*/
@@ -39,25 +43,19 @@
 /*link*/
 
 .link {
-    min-width         : 270px;
-    display           : flex;
-    flex-direction    : row;
-    justify-content   : space-between;
-    padding           : 14px 30px;
-    text-decoration   : none;
-    color             : #737373;
-    transition        : transform 0.2s;
-    border            : 1px solid #DDDDDD;
-    /* background     : #8376BB; */
-    /* border-radius  : 4px; */
-
+    min-width      : 300px;
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    align-items    : center;
+    padding        : 8px 20px;
+    text-decoration: none;
+    color          : #737373;
+    border         : 1px solid #DDDDDD;
+    background     : #FFFFFF;
 }
 
-.link:hover {
-    /* background: rgb(108, 96, 161); */
-    transform    : translateX(5px);
-    transition   : transform 0.1s;
-}
+
 
 
 .link_line {
@@ -96,12 +94,12 @@
 
 .item_line .sub .item {
     padding: 4px 0 0 0;
+    /* border : 1px solid #DDDDDD; */
 }
 
 /*End for items of submenu*/
 
-
-
-.sub .item .link {
-    /* background: #635896; */
+.btnPanel {
+    min-width: 90px;
+    max-width: 90px;
 }
