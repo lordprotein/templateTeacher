@@ -18,7 +18,9 @@ export const MenuItem = ({ menuItemData, childrens, getAddSubmenuPanel, getButto
                 className={linkStyle}
             >
                 {title}
-                {getButtonsPanel()}
+                <div className={styles.btnPanel}>
+                    {getButtonsPanel()}
+                </div>
             </Link>
             {
                 childrens
