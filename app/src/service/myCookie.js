@@ -13,7 +13,7 @@ class MyCookie {
     set = (value, options = {}) => {
         options = {
             path: '/',
-            'max-age': 60 * 60,
+            'max-age': 60 * 60 * 12,
             ...options
         };
 
