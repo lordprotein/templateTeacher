@@ -1,15 +1,13 @@
 import { myCookieUser } from "./myCookie";
 
-// import generateMenuList from '../generateMenuList/generateMenuList';
 
 export default class dbService {
     constructor() {
-        this._link = 'http://localhost:3333';
-        // this._link = 'http://77.222.63.195:3333';
+        this.domain = 'http://localhost:3333';
     }
 
     async getResource(url = '') {
-        const getData = await fetch(`${this._link}${url}`);
+        const getData = await fetch(`${this.domain}${url}`);
 
         if (!getData.ok) {
             throw new Error('Error: data is dont get');
@@ -24,7 +22,7 @@ export default class dbService {
 
         data = { ...data, ID_USER, };
         console.log()
-        const postData = await fetch(`${this._link}${url}`, {
+        const postData = await fetch(`${this.domain}${url}`, {
             method: method,
             body: JSON.stringify(data),
             headers: {
@@ -99,7 +97,7 @@ export default class dbService {
                 return resolve(xhr.response);
             }
 
-            xhr.open('POST', `${this._link}${url}`);
+            xhr.open('POST', `${this.domain}${url}`);
             xhr.send(formData);
         });
     }
