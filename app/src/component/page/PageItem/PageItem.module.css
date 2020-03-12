@@ -36,7 +36,7 @@
     overflow   : hidden;
 }
 
-img,
+.content img,
 video {
     margin   : 10px;
     max-width: 100%;

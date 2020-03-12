@@ -5,6 +5,9 @@ import FormDownloadFilesContainer from '../../../container/formDownloadFile/Form
 
 
 export const FileList = ({ title, toBack, postID, children }) => {
+    console.log(children)
+    console.log(children)
+    console.log(children)
     return (
         <div className={styles.fileDownload}>
             <div className={styles.left}>
@@ -24,7 +27,7 @@ export const FileList = ({ title, toBack, postID, children }) => {
             <div className={styles.rigth}>
                 <h3 className={styles.title}>{title}</h3>
                 <div className={styles.itemList}>
-                    {children}
+                    {children.length ? children : <div>Нет файлов</div>}
                 </div>
             </div>
         </div>

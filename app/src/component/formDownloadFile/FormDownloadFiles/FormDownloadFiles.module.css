@@ -25,6 +25,24 @@
 }
 
 .lineDownload_progress {
-    height       : 100%;
-    background   : #45cac5;
+    height    : 100%;
+    background: #45cac5;
+}
+
+.btnDownload {
+    width        : 120px;
+    height       : 35px;
+    margin-top   : 10px;
+    padding-left : 40px;
+    background   : #F25454 url('../../../img/upload.svg') 4% center/20% no-repeat;
+    border       : none;
+    border-radius: 3px;
+    text-align   : left;
+    color        : white;
+    outline      : none;
+    cursor       : pointer;
+}
+
+.btnDownload:hover {
+    background-color: #b43333;
 }

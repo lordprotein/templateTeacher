@@ -46,7 +46,9 @@ class FileItemContainer extends Component {
 
         switch (type) {
             case 'image': {
-                return `\n \n <img src="${this.domain}/${path}" alt="${name}" />\n \n`;
+                const { radioImg } = this;
+
+                return `\n \n <img src="${this.domain}/${path}" class="${radioImg}" alt="${name}" />\n \n`;
             }
             case 'document': {
                 path = path.replace('downloads', 'download');
@@ -63,6 +65,11 @@ class FileItemContainer extends Component {
         }
     }
 
+    handleRadio = value => {
+        this.radioImg = value;
+        console.log(this.radioImg);
+    }
+
     render() {
         const { fileData: { type, path, name } } = this.props;
         return (
@@ -72,6 +79,7 @@ class FileItemContainer extends Component {
                 name={name}
                 onRemove={this.onRemove}
                 onPast={this.onPast}
+                handleRadio={value => this.handleRadio(value)}
             />
         );
     }

@@ -30,7 +30,7 @@ export const FormDownloadFiles = ({ titleEnd, downloadFrom, onSubmit, handleInpu
         <div className={styles.inputWrap}>
             <h3 className={styles.title}>Загрузить с <br /> {titleEnd}</h3>
             {input}
-            <button className={styles.btnTrue} onClick={onSubmit}>Загрузить</button>
+            <button className={styles.btnDownload} onClick={onSubmit}>Загрузить</button>
             {progressDownload &&
                 (
                     <div className={styles.lineDownload}>

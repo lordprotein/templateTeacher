@@ -1,9 +1,11 @@
 .item {
     position  : relative;
-    width     : 100px;
-    height    : 100px;
+    width     : 120px;
+    height    : 120px;
     margin    : 8px 10px;
     background: #bebebe;
+    word-break: break-all;
+    z-index   : 5;
 }
 
 .item>img {
@@ -23,6 +25,7 @@
     border       : none;
     transition   : width 0.2s, height 0.2s, background 0.2s;
     cursor       : pointer;
+    z-index      : 10;
 }
 
 .remove::after {
@@ -39,4 +42,53 @@
     height    : 22px;
     background: #e7e7e7;
     transition: width 0.2s, height 0.2s, background 0.2s;
+}
+
+.settings {
+    width     : 100%;
+    height    : 100%;
+    padding   : 5px;
+    position  : absolute;
+    left      : 0;
+    top       : 0;
+    background: rgba(0, 0, 0, 0.4);
+    font-size : 15px;
+    color     : white;
+}
+
+
+.settings label {
+    display: block;
+    margin : 5px 0;
+    cursor : pointer;
+}
+
+.smallImg {
+    width: 33%;
+}
+
+.middleImg {
+    width: 66%;
+}
+
+.largeImg {
+    width: 100%;
+}
+
+.btnUse {
+    position  : absolute;
+    bottom    : 0;
+    left      : 0;
+    width     : 100%;
+    background: #3aafaa;
+    color     : white;
+    border    : none;
+    padding   : 3px;
+    cursor    : pointer;
+    transition: background 0.1s;
+}
+
+.btnUse:hover {
+    background: #288682;
+    transition: background 0.1s;
 }

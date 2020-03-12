@@ -15,10 +15,9 @@ class FileListContainer extends Component {
         const { getTypeFiles, postID, a_setFileList } = this.props;
 
         const db = new dbService();
-        console.log(`File type: ${getTypeFiles}`)
+
         db.getFiles(postID, getTypeFiles)
             .then(itemList => {
-                console.log(itemList)
                 if (!itemList.length) return console.log('Haven`t files');
 
                 a_setFileList(itemList)
@@ -50,6 +49,8 @@ class FileListContainer extends Component {
         })
     }
 
+    
+    
     render() {
         const { postID, getTypeFiles } = this.props;
 

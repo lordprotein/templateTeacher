@@ -39,4 +39,5 @@
 .itemList {
     display  : flex;
     flex-flow: row wrap;
+    color    : white;
 }
