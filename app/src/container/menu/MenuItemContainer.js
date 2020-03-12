@@ -136,7 +136,7 @@ class MenuItemContainer extends Component {
 
     getButtonsPanel = () => {
         return (
-            <div>
+            <>
                 <ButtonWithLogIn
                     title="Подменю"
                     onClick={e => this.onAddSubmenu(true, e)}
@@ -155,7 +155,7 @@ class MenuItemContainer extends Component {
                     className={btnStyles.remove}
                     hint="Удалить меню"
                 />
-            </div>
+            </>
         );
     }
 
