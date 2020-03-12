@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './FormDownloadFiles.module.css';
 
 
-export const FormDownloadFiles = ({ titleEnd, downloadFrom, onSubmit, handleInputValue, acceptAttr }) => {
+export const FormDownloadFiles = ({ titleEnd, downloadFrom, onSubmit, handleInputValue, acceptAttr, progressDownload }) => {
     let input;
 
     if (downloadFrom === 'url') {
@@ -25,18 +25,22 @@ export const FormDownloadFiles = ({ titleEnd, downloadFrom, onSubmit, handleInpu
         />
     }
 
+
     return (
         <div className={styles.inputWrap}>
             <h3 className={styles.title}>Загрузить с <br /> {titleEnd}</h3>
             {input}
             <button className={styles.btnTrue} onClick={onSubmit}>Загрузить</button>
+            {progressDownload &&
+                (
+                    <div className={styles.lineDownload}>
+                        <div className={styles.lineDownload_progress} style={{ width: `${progressDownload}%` }}>
+                            {progressDownload}%
+                        </div>
+                    </div>
+                )
+            }
+
         </div>
     )
-    // return (
-    // <form action={`http://localhost:3333/upload/${postID}`} method="post" encType="multipart/form-data">
-    //     <label>Файл</label><br /><br />
-    //     <input type="file" name="filedata" /><br /><br />
-    //     <input type="submit" value="Send" />
-    // </form>
-    // );
 }

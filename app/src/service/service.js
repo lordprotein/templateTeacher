@@ -66,28 +66,46 @@ export default class dbService {
         return this.getResource(link);
     }
 
-    async addFile(url = '', data) {
-        const ID_USER = myCookieUser.get();
-        if (!ID_USER) return;
+    addFile(url = '', data, xhrFunc) {
 
-        const formData = new FormData();
-        formData.append('filedata', data.file);
-        formData.append('type', data.type);
-        formData.append('ID_USER', ID_USER);
 
-        const response = await fetch(`${this._link}${url}`, {
-            method: 'POST',
-            body: formData,
+        return new Promise((resolve, reject) => {
+
+            const ID_USER = myCookieUser.get();
+            if (!ID_USER) return;
+
+            const formData = new FormData();
+            formData.append('filedata', data.file);
+            formData.append('type', data.type);
+            formData.append('ID_USER', ID_USER);
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.upload.onprogress = event => {
+                const progress = Math.round((100 * +event.loaded) / +event.total);
+
+                const breakDownload = () => {
+                    xhr.abort();
+                }
+
+                xhrFunc(progress, breakDownload);
+            }
+
+            xhr.onloadend = () => {
+                if (xhr.status !== 200) {
+                    return reject(xhr.status);
+                }
+
+                return resolve(xhr.response);
+            }
+
+            xhr.open('POST', `${this._link}${url}`);
+            xhr.send(formData);
         });
-        if (!response.ok) {
-            throw new Error('Error: file is not send');
-        }
-
-        return await response.json();
     }
 
-    downloadFile = (postID, type, data) => {
-        return this.addFile(`/upload/${type}/${postID}`, data);
+    downloadFile = (postID, type, data, xhrFunc) => {
+        return this.addFile(`/upload/${type}/${postID}`, data, xhrFunc);
     }
 
     removeFile = data => {

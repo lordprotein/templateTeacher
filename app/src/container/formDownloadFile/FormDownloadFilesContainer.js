@@ -11,6 +11,18 @@ class FormDownloadFilesContainer extends Component {
         super(props);
         this.action = null;
         this.titleEnd = this.getSwitchForm();
+        this.abortDownload = null;
+        this.state = { progressDownload: 0 };
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+      }
+    
+    componentWillUnmount = () => {
+        this._isMounted = false;
+        if (this.abortDownload) this.abortDownload();
+
     }
 
     getSwitchForm = () => {
@@ -30,6 +42,10 @@ class FormDownloadFilesContainer extends Component {
         this.value = e.target;
     }
 
+    toggleDownload = (abortDownload, progressDownload) => {
+        if (this._isMounted) this.setState({ progressDownload });
+        this.abortDownload = abortDownload;
+    }
 
     handleSubmitForLocal = () => {
         let { value } = this;
@@ -44,16 +60,22 @@ class FormDownloadFilesContainer extends Component {
             type: getTypeFiles
         }
 
-        db.downloadFile(postID, getTypeFiles, data)
+        const xhrFunc = (progressDownload, breakDownload) => {
+            this.toggleDownload(breakDownload, progressDownload)
+        }
+
+        db.downloadFile(postID, getTypeFiles, data, xhrFunc)
             .then(res => {
+                this.toggleDownload(null, 0);
+
                 db.getFiles(postID, getTypeFiles)
                     .then(itemList => {
                         if (!itemList.length) return console.log('Haven`t files');
 
                         a_setFileList(itemList)
                     });
-                console.log(res);
-            })
+            },
+                err => this.toggleDownload(null, 0))
     }
 
     handleSubmitForUrl = () => {
@@ -64,6 +86,7 @@ class FormDownloadFilesContainer extends Component {
     render() {
         const { titleEnd } = this;
         const { downloadFrom, getAcceptAttr } = this.props;
+        const { progressDownload } = this.state;
 
         return (
             <FormDownloadFiles
@@ -72,6 +95,7 @@ class FormDownloadFilesContainer extends Component {
                 handleInputValue={e => this.handleInputValue(e)}
                 onSubmit={() => this.action()}
                 acceptAttr={getAcceptAttr}
+                progressDownload={progressDownload}
             />
         )
     }
