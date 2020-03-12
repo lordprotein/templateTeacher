@@ -1,10 +1,12 @@
 import React from 'react';
 import styles from './FilteItem.module.css';
 import PropTypes from 'prop-types';
+import dbService from '../../../service/service';
 
 
 export const FileItem = ({ type, path, name, onRemove, onPast, handleRadio }) => {
-    let link = `http://localhost:3333`;
+    const db = new dbService();
+    let link = db.domain;
     let block, blockSettings;
 
     switch (type) {

@@ -11,7 +11,8 @@ import dbService from '../../service/service';
 class FileItemContainer extends Component {
     constructor(props) {
         super(props);
-        this.domain = 'http://localhost:3333';
+        this.db = new dbService();
+        this.domain = this.db.domain;
     }
 
     onRemove = () => {
