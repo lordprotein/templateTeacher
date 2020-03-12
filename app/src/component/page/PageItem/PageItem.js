@@ -9,7 +9,10 @@ export const PageItem = ({ children, title, content, postID }) => {
         <div className={styles.post}>
             <div className={styles.wrap}>
                 <div className={styles.wrapTitle}>
-                    <PositionControlContainer postID={postID} />
+                    <PositionControlContainer
+                        itemID={postID}
+                        itemName="post"
+                    />
                     <h2 className={styles.title}>{title}</h2>
                     <div>{children}</div>
                 </div>

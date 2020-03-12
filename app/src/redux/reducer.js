@@ -12,7 +12,7 @@ const reducer = (state = initState, action = {}) => {
                 }
             };
         }
-        //UPDATES
+
         case 'UPDATE_MENU': {
             const { api, api: { menu } } = state;
             const { isOldMenu } = action.value;
@@ -41,7 +41,55 @@ const reducer = (state = initState, action = {}) => {
                 }
             };
         }
-        //END UPDATES
+
+        case 'TO_SEQUENCE_POST_LIST': {
+            const { api, api: { postList } } = state;
+            const { numCurrentItem, numSwitchItem } = action.value;
+            console.log(numCurrentItem, numSwitchItem);
+            const newPostList = [...postList];
+
+            newPostList[numCurrentItem] = {
+                ...postList[numSwitchItem],
+                sequence: postList[numCurrentItem].sequence
+            };
+            newPostList[numSwitchItem] = {
+                ...postList[numCurrentItem],
+                sequence: postList[numSwitchItem].sequence
+            }
+
+            return {
+                ...state,
+                api: {
+                    ...api,
+                    postList: newPostList
+                }
+            };
+        }
+
+        // case 'TO_SEQUENCE_MENU_LIST': {
+        //     const { api, api: { menu } } = state;
+        //     const { numCurrentItem, numSwitchItem } = action.value;
+
+        //     const newMenuList = [...menu];
+            
+        //     newMenuList[numCurrentItem] = {
+        //         ...menu[numSwitchItem],
+        //         sequence: menu[numCurrentItem].sequence
+        //     };
+        //     newMenuList[numSwitchItem] = {
+        //         ...menu[numCurrentItem],
+        //         sequence: menu[numSwitchItem].sequence
+        //     }
+
+        //     return {
+        //         ...state,
+        //         api: {
+        //             ...api,
+        //             menu: newMenuList
+        //         }
+        //     };
+        // }
+
         case 'TOGGLE_IS_DOWNLOAD_FILES_FORM': {
             let { downloadFilesForm, downloadFilesForm: { isActive } } = state;
             let isToggle = action.value;

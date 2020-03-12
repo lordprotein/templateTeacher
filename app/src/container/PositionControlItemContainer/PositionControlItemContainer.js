@@ -21,11 +21,17 @@ class PositionControlItemContainer extends Component {
 
         switch (direction) {
             case 'up': {
-                this.handleClick = () => this.toUpPost();
+                this.handleClick = (e) => {
+                    e.preventDefault();
+                    this.toUpPost()
+                };
                 return
             }
             case 'down': {
-                this.handleClick = () => this.toDownPost();
+                this.handleClick = (e) => {
+                    e.preventDefault();
+                    this.toDownPost()
+                };
                 return
             }
             default: return;
@@ -45,52 +51,43 @@ class PositionControlItemContainer extends Component {
     }
 
     _getNearbyPost = () => {
-        const { direction, postList, postID, a_updateContent } = this.props;
+        const { direction, itemList, itemID, updateList, downloadToSever } = this.props;
+        const numCurrentItem = itemList.findIndex(item => item.ID === itemID);
 
-        const numCurrentPost = postList.findIndex(item => item.ID === postID);
-
-
-
-        let numSwitchPost = numCurrentPost;
+        let numSwitchItem = numCurrentItem;
 
         if (direction === 'up') {
-            numSwitchPost -= 1;
-            if (numSwitchPost < 0) return console.log(`Can\'t ${numSwitchPost}`);
+            numSwitchItem -= 1;
+            if (numSwitchItem < 0) return console.log(`Can\'t ${numSwitchItem}`);
         }
         if (direction === 'down') {
-            numSwitchPost += 1;
-            if (numSwitchPost >= postList.length) return console.log(`Can\'t ${numSwitchPost}`);
+            numSwitchItem += 1;
+            if (numSwitchItem >= itemList.length) return console.log(`Can\'t ${numSwitchItem}`);
         }
 
-        let newPostList = [...postList];
-
-        newPostList[numCurrentPost] = {
-            ...postList[numSwitchPost],
-            sequence: postList[numCurrentPost].sequence
-        };
-        newPostList[numSwitchPost] = {
-            ...postList[numCurrentPost],
-            sequence: postList[numSwitchPost].sequence
-        }
+        console.log(numCurrentItem, numSwitchItem);
 
 
-        a_updateContent(newPostList);
 
-        const db = new dbService();
         const data = {
             current: {
-                sequence: postList[numCurrentPost].sequence,
-                ID: postList[numCurrentPost].ID
+                sequence: itemList[numCurrentItem].sequence,
+                ID: itemList[numCurrentItem].ID
             },
             updated: {
-                sequence: postList[numSwitchPost].sequence,
-                ID: postList[numSwitchPost].ID
+                sequence: itemList[numSwitchItem].sequence,
+                ID: itemList[numSwitchItem].ID
             }
         }
 
-        db.sequencePost(data)
-            .then(res => console.log(res),
-                err => console.log(err));
+        downloadToSever(data)
+            .then(
+                (res) => {
+                    console.log(res)
+                    updateList({ numCurrentItem, numSwitchItem })
+                },
+                (err) => console.log(err)
+            );
     }
 
     render() {
@@ -104,19 +101,8 @@ class PositionControlItemContainer extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        postList: selectors.getPostList(state),
-    }
-}
 
-const mapDispatchToPros = dispatch => {
-    const { a_updateContent } = bindActionCreators(actions, dispatch);
-    return { a_updateContent }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToPros)(PositionControlItemContainer);
+export default PositionControlItemContainer;
 
 
 // PositionControlContainer.propTypes = {

@@ -105,6 +105,7 @@ export default class dbService {
     sequencePost(data) {
         return this.methodDoResourse('/post/sequence', data, 'PUT');
     }
+
     deletePost(data) {
         return this.methodDoResourse('/post', data, 'DELETE');
     }
@@ -115,6 +116,9 @@ export default class dbService {
     }
     editMenu(data) {
         return this.methodDoResourse('/menu', data, 'PUT');
+    }
+    sequenceMenu(data) {
+        return this.methodDoResourse('/menu/sequence', data, 'PUT');
     }
     deleteMenu(data) {
         return this.methodDoResourse(`/menu`, data, 'DELETE');
