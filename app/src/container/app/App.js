@@ -12,6 +12,10 @@ import { myCookieUser } from '../../service/myCookie';
 
 class App extends Component {
     componentDidMount = () => {
+        this._setCookie();
+    }
+
+    _setCookie = () => {
         const { a_set_login } = this.props;
 
         const cookieUser = myCookieUser.get();
