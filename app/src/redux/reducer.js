@@ -71,7 +71,7 @@ const reducer = (state = initState, action = {}) => {
         //     const { numCurrentItem, numSwitchItem } = action.value;
 
         //     const newMenuList = [...menu];
-            
+
         //     newMenuList[numCurrentItem] = {
         //         ...menu[numSwitchItem],
         //         sequence: menu[numCurrentItem].sequence
@@ -147,6 +147,46 @@ const reducer = (state = initState, action = {}) => {
             }
         }
 
+
+        case 'SET_SETTINGS_SITE_NAME': {
+            const { settings } = state;
+            const siteName = action.value;
+
+            return {
+                ...state,
+                settings: {
+                    ...settings,
+                    siteName
+                }
+            }
+        }
+
+        case 'SET_SETTINGS_COLOR': {
+            const { settings } = state;
+            const color = action.value;
+
+            return {
+                ...state,
+                settings: {
+                    ...settings,
+                    color
+                }
+            }
+        }
+
+        case 'SET_SETTINGS_MAIN_IMG': {
+            const { settings } = state;
+            const mainImg = action.value;
+
+            return {
+                ...state,
+                settings: {
+                    ...settings,
+                    mainImg
+                }
+            }
+        }
+
         default: return state;
     }
 }
@@ -173,6 +213,15 @@ class Selectors {
     }
     getAcceptAttr = ({ downloadFilesForm }) => {
         return downloadFilesForm.inputAttr;
+    }
+    getSettingsSiteName = ({ settings }) => {
+        return settings.siteName;
+    }
+    getSettingsColor = ({ settings }) => {
+        return settings.color;
+    }
+    getSettingsMainImg = ({ settings }) => {
+        return settings.mainImg;
     }
 }
 

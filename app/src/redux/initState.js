@@ -11,6 +11,11 @@ const initState = {
         typeFiles: '',
         inputAttr: '',
         fileList: [],
+    },
+    settings: {
+        siteName: 'default',
+        color: 'red',
+        mainImg: ''
     }
 }
 
