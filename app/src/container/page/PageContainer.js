@@ -21,9 +21,12 @@ class PageContainer extends Component {
    }
 
    componentDidMount = () => {
-      const { ID_MENU, a_updateContent } = this.props;
+      const { ID_MENU, a_updateContent, titlePage } = this.props;
       this.db.getContentList(ID_MENU)
-         .then(res => a_updateContent(res));
+         .then(res => {
+            document.title = titlePage;
+            a_updateContent(res);
+         });
    }
 
    setModeAddPost = isToggle => this.setState({ isEdit: isToggle });
