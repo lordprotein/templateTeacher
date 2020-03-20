@@ -14,15 +14,15 @@ export const FileItem = ({ type, path, name, onRemove, onPast, handleRadio }) =>
             blockSettings = (
                 <div className={styles.settings}>
                     <label onClick={() => handleRadio(styles.smallImg)}>
-                        <input type="radio" name="baze_img_size" />
+                        <input type="radio" name={`radio_${name}`} />
                     Маленький
                 </label>
                     <label onClick={() => handleRadio(styles.middleImg)}>
-                        <input type="radio" name="baze_img_size" />
+                        <input type="radio" name={`radio_${name}`} />
                     Средний
                 </label>
                     <label onClick={() => handleRadio(styles.largeImg)}>
-                        <input type="radio" name="baze_img_size" />
+                        <input type="radio" name={`radio_${name}`} />
                     Большой
                 </label>
                 </div>
