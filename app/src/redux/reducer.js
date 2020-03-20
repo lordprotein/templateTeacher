@@ -214,6 +214,9 @@ class Selectors {
     getAcceptAttr = ({ downloadFilesForm }) => {
         return downloadFilesForm.inputAttr;
     }
+    getSettingsList = ({ settings }) => {
+        return settings;
+    }
     getSettingsSiteName = ({ settings }) => {
         return settings.siteName;
     }

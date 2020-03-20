@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import PositionControl from '../../component/PositionControl/PositionControl';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { selectors } from '../../redux/reducer';
-import { connect } from 'react-redux';
-import * as actions from '../../redux/actions';
 import PositionControlItem from '../../component/PositionControlItem/PositionControlItem';
-import dbService from '../../service/service';
 
 
 class PositionControlItemContainer extends Component {
@@ -58,11 +51,11 @@ class PositionControlItemContainer extends Component {
 
         if (direction === 'up') {
             numSwitchItem -= 1;
-            if (numSwitchItem < 0) return console.log(`Can\'t ${numSwitchItem}`);
+            if (numSwitchItem < 0) return console.log(`Can't ${numSwitchItem}`);
         }
         if (direction === 'down') {
             numSwitchItem += 1;
-            if (numSwitchItem >= itemList.length) return console.log(`Can\'t ${numSwitchItem}`);
+            if (numSwitchItem >= itemList.length) return console.log(`Can't ${numSwitchItem}`);
         }
 
         console.log(numCurrentItem, numSwitchItem);

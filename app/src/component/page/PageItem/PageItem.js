@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './PageItem.module.css';
-import PositionControlContainer, { PositionControlContainerWithLogin } from '../../../container/PositionControlContainer/PositionControlContainer';
+import PositionControlContainer from '../../../container/PositionControlContainer/PositionControlContainer';
 
 
 export const PageItem = ({ children, title, content, postID }) => {

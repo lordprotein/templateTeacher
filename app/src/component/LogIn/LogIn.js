@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './LogIn.module.css';
-import dbService from '../../service/service';
 
 
 export const LogIn = (props) => {

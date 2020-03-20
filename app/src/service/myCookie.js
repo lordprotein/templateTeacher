@@ -5,7 +5,7 @@ class MyCookie {
 
     get = () => {
         let matches = document.cookie.match(new RegExp(
-            "(?:^|; )" + this.name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            `(?:^|; )${this.name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`
         ));
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }

@@ -1,33 +1,36 @@
 .header {
-    display           : flex;
-    flex-direction    : row;
-    justify-content   : space-between;
-    align-items       : center;
-    width             : 100%;
-    margin-bottom     : 90px;
-    border-bottom     : 1px solid #DADADA;
-    /* box-shadow     : 0px 6px 15px #F4F4F4; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 90px;
+    border-bottom: 1px solid #dadada
 }
 
 .title {
-    font-style    : 400;
-    font-weight   : 300;
-    font-size     : 28px;
+    font-style: 400;
+    font-weight: 300;
+    font-size: 28px;
     text-transform: uppercase;
-    color         : #3C3C3C;
+    color: #3c3c3c
 }
 
 .title:first-letter {
-    color: #FF6161;
+    color: #ff6161
 }
 
-.mainImage {
-    /* width           : 100%; */
-    width              : 100%;
-    height             : 360px;
-    margin             : 20px 0;
-    background         : #DADADA;
+.imgWrap {
+    overflow: hidden;
+    width: 100%;
+    height: 360px;
+    margin: 20px 0;
+    background: #dadada;
     background-position: bottom center;
-    border-radius      : 5px;
-    box-shadow         : 0 4px 10px #e7e7e7;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px #e7e7e7
+}
+
+.img {
+    width: 100%
 }

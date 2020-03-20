@@ -20,8 +20,7 @@ export default class dbService {
         const ID_USER = myCookieUser.get();
         if (!ID_USER && !url === '/login') return console.log('Haven\'t cookie USER');
 
-        data = { ...data, ID_USER, };
-        console.log()
+        data = {...data, ID_USER, };
         const postData = await fetch(`${this.domain}${url}`, {
             method: method,
             body: JSON.stringify(data),
@@ -65,8 +64,6 @@ export default class dbService {
     }
 
     addFile(url = '', data, xhrFunc) {
-
-
         return new Promise((resolve, reject) => {
 
             const ID_USER = myCookieUser.get();
@@ -74,7 +71,7 @@ export default class dbService {
 
             const formData = new FormData();
             formData.append('filedata', data.file);
-            formData.append('type', data.type);
+            if (data.type) formData.append('type', data.type);
             formData.append('ID_USER', ID_USER);
 
             let xhr = new XMLHttpRequest();
@@ -86,17 +83,17 @@ export default class dbService {
                     xhr.abort();
                 }
 
-                xhrFunc(progress, breakDownload);
+                if (xhrFunc) xhrFunc(progress, breakDownload);
             }
 
             xhr.onloadend = () => {
-                if (xhr.status !== 200) {
-                    return reject(xhr.status);
+                    if (xhr.status !== 200) {
+                        return reject(xhr.status);
+                    }
+
+                    return resolve(xhr.response);
                 }
-
-                return resolve(xhr.response);
-            }
-
+                // console.log(data)
             xhr.open('POST', `${this.domain}${url}`);
             xhr.send(formData);
         });
@@ -109,6 +106,7 @@ export default class dbService {
     removeFile = data => {
         return this.methodDoResourse('/remove/file', data, 'DELETE');
     }
+
 
 
 
@@ -141,6 +139,16 @@ export default class dbService {
     }
 
 
+    getSettings = (name = '') => {
+        return this.getResource(`/settings/${name}`);
+    }
+    updateSettings = (data) => {
+        return this.methodDoResourse('/settings', data, 'PUT');
+    }
+    updateMainImage = (data, xhrFunc = false) => {
+        return this.addFile('/settings/download/image', data, xhrFunc);
+        // return this.methodDoResourse('/settings/download/image', data, 'PUT');
+    }
 
 
     updatePostList = (id, callback) => {
@@ -152,7 +160,7 @@ export default class dbService {
 
     updateMenuList = (position, callback) => {
         this.getMenuPositionList(position)
-            .then(async () => {
+            .then(async() => {
                 const res = await this.generateMenuList()
                 callback(res);
             });

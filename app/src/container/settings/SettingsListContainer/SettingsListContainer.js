@@ -3,6 +3,7 @@ import SettingsList from '../../../component/settings/SettingsList/SettingsList'
 import SettingsMainImgContainer from '../SettingsMainImgContainer/SettingsMainImgContainer';
 import SettingsColorContainer from '../SettingsColorContainer/SettingsColorContainer';
 import SettingsNameSiteContainer from '../SettingsNameSiteContainer/SettingsNameSiteContainer';
+import { connect } from 'react-redux';
 
 class SettingsListContainer extends Component {
     render() {
@@ -16,4 +17,12 @@ class SettingsListContainer extends Component {
     }
 }
 
-export default SettingsListContainer;
+const mapStateToProps = state => {
+
+}
+
+const mapDispatchToProps = dispatch => {
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsListContainer);

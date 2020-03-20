@@ -3,15 +3,14 @@ import MenuContainer from '../../container/menu/MenuContainer';
 import styles from './Header.module.css';
 
 
-const Header = () => {
+const Header = ({ title, imgLink }) => {
     return (
         <>
-            <div className={styles.mainImage}></div>
+            <div className={styles.imgWrap}>
+                <img src={imgLink} alt="banner" className={styles.img} />
+            </div>
             <header className={styles.header}>
-                {/* <h1 className="header__title">
-                title
-            </h1> */}
-                <h1 className={styles.title}>Виноградова</h1>
+                <h1 className={styles.title}>{title}</h1>
                 <MenuContainer
                     position='top'
                 />

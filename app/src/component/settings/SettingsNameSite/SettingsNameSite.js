@@ -1,12 +1,13 @@
 import React from 'react';
 
-const SettingsNameSite = () => {
+const SettingsNameSite = ({ setName, handleInput, siteName }) => {
+    console.log(siteName)
     return (
         <>
             <h2>Название сайта</h2>
             <div>
-                <input type="text" placeholder="Введите название" />
-                <button>Сохранить</button>
+                <input type="text" placeholder={siteName} onChange={handleInput} />
+                <button onClick={setName}>Сохранить</button>
             </div>
         </>
     );
