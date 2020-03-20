@@ -44,6 +44,7 @@
 
 .link {
     min-width      : 300px;
+    width: 300px;
     display        : flex;
     flex-direction : row;
     justify-content: space-between;
@@ -87,7 +88,7 @@
 /*for items of submenu*/
 
 .sub .item {
-    height      : calc(50px);
+    height      : 55px;
     margin      : 0 0 -1px -1px;
     padding-left: 6px;
 }
