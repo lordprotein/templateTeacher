@@ -27,10 +27,6 @@
     display: block;
 }
 
-.item:hover>.sub .link:hover {
-    /* background: rgb(139, 125, 204); */
-}
-
 .item_line:hover>.sub {
     /* display       : flex; */
     flex-direction   : column;
