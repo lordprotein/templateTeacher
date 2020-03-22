@@ -66,29 +66,29 @@ const reducer = (state = initState, action = {}) => {
             };
         }
 
-        // case 'TO_SEQUENCE_MENU_LIST': {
-        //     const { api, api: { menu } } = state;
-        //     const { numCurrentItem, numSwitchItem } = action.value;
+        case 'TO_SEQUENCE_MENU_LIST': {
+            const { api, api: { menu } } = state;
+            const { numCurrentItem, numSwitchItem } = action.value;
 
-        //     const newMenuList = [...menu];
+            const newMenuList = [...menu];
 
-        //     newMenuList[numCurrentItem] = {
-        //         ...menu[numSwitchItem],
-        //         sequence: menu[numCurrentItem].sequence
-        //     };
-        //     newMenuList[numSwitchItem] = {
-        //         ...menu[numCurrentItem],
-        //         sequence: menu[numSwitchItem].sequence
-        //     }
+            newMenuList[numCurrentItem] = {
+                ...menu[numSwitchItem],
+                sequence: menu[numCurrentItem].sequence
+            };
+            newMenuList[numSwitchItem] = {
+                ...menu[numCurrentItem],
+                sequence: menu[numSwitchItem].sequence
+            }
 
-        //     return {
-        //         ...state,
-        //         api: {
-        //             ...api,
-        //             menu: newMenuList
-        //         }
-        //     };
-        // }
+            return {
+                ...state,
+                api: {
+                    ...api,
+                    menu: newMenuList
+                }
+            };
+        }
 
         case 'TOGGLE_IS_DOWNLOAD_FILES_FORM': {
             let { downloadFilesForm, downloadFilesForm: { isActive } } = state;
