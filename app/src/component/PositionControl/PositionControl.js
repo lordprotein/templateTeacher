@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './PositionControl.module.css';
 
 const PositionControl = ({ children }) => {
     return (
-        <div>
+        <div className={styles.sequence}>
             {children}
         </div>
     )

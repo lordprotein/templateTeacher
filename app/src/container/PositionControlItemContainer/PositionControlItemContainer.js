@@ -45,20 +45,48 @@ class PositionControlItemContainer extends Component {
 
     _getNearbyPost = () => {
         const { direction, itemList, itemID, updateList, downloadToSever } = this.props;
+        // console.log(itemList)
+
         const numCurrentItem = itemList.findIndex(item => item.ID === itemID);
 
         let numSwitchItem = numCurrentItem;
+        const isCheckSubmenu = itemList[0].submenu,
+            currItemSubmenu = itemList[numCurrentItem].submenu,
+            currItemPosition = itemList[numCurrentItem].position;
 
         if (direction === 'up') {
-            numSwitchItem -= 1;
-            if (numSwitchItem < 0) return console.log(`Can't ${numSwitchItem}`);
+
+            if (isCheckSubmenu !== undefined) {
+
+                do {
+                    numSwitchItem -= 1;
+                    if (numSwitchItem === 0 || currItemPosition !== itemList[numSwitchItem].position) return console.log('no');
+                } while (currItemSubmenu !== itemList[numSwitchItem].submenu)
+                console.log(numCurrentItem, numSwitchItem)
+            }
+            else {
+                numSwitchItem -= 1;
+                if (numSwitchItem < 0) return console.log(`Can't ${numSwitchItem}`);
+            }
         }
         if (direction === 'down') {
-            numSwitchItem += 1;
-            if (numSwitchItem >= itemList.length) return console.log(`Can't ${numSwitchItem}`);
+
+            if (isCheckSubmenu !== undefined) {
+
+                do {
+                    numSwitchItem += 1;
+                    if (numSwitchItem === itemList.length || currItemPosition !== itemList[numSwitchItem].position) return console.log('no');
+                } while (currItemSubmenu !== itemList[numSwitchItem].submenu);
+
+                console.log(numCurrentItem, numSwitchItem)
+            }
+            else {
+                numSwitchItem += 1;
+                if (numSwitchItem === itemList.length) return console.log(`Can't ${numSwitchItem}`);
+            }
         }
 
-        console.log(numCurrentItem, numSwitchItem);
+        // console.log(numCurrentItem, numSwitchItem);
 
 
 

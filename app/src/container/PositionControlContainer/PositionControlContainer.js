@@ -26,15 +26,15 @@ class PositionControlContainer extends Component {
         }
     }
 
-    // _getForMenu = () => {
-    //     const { menuList, a_toSequenceMenu } = this.props;
+    _getForMenu = () => {
+        const { menuList, a_toSequenceMenu } = this.props;
 
-    //     return {
-    //         itemList: menuList,
-    //         updateList: value => a_toSequenceMenu(value),
-    //         downloadToSever: data => this.db.sequenceMenu(data),
-    //     }
-    // }
+        return {
+            itemList: menuList,
+            updateList: value => a_toSequenceMenu(value),
+            downloadToSever: data => this.db.sequenceMenu(data),
+        }
+    }
 
 
     render() {
@@ -43,6 +43,7 @@ class PositionControlContainer extends Component {
         let propsItem = null;
 
         if (itemName === 'post') propsItem = this._getForPost();
+        if (itemName === 'menu') propsItem = this._getForMenu();
 
         return (
             <PositionControl>
@@ -69,8 +70,14 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToPros = dispatch => {
-    const { a_toSequenceContent, a_toSequenceMenu } = bindActionCreators(actions, dispatch);
-    return { a_toSequenceContent, a_toSequenceMenu }
+    const {
+        a_toSequenceContent,
+        a_toSequenceMenu
+    } = bindActionCreators(actions, dispatch);
+    return {
+        a_toSequenceContent,
+        a_toSequenceMenu
+    }
 }
 
 export const PositionControlContainerWithLogin = withLogIn(PositionControlContainer);

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './MenuItem.module.css';
+import PositionControlContainer from '../../../container/PositionControlContainer/PositionControlContainer';
 
 
 export const MenuItem = ({ menuItemData, childrens, getAddSubmenuPanel, getButtonsPanel }) => {
-    const { title, link, position } = menuItemData;
+    const { title, link, position, ID } = menuItemData;
     const formAddPanel = getAddSubmenuPanel();
 
     const itemStyle = position !== 'top' ? (`${styles.item}`) : (`${styles.item} ${styles.item_line}`);
@@ -18,6 +19,10 @@ export const MenuItem = ({ menuItemData, childrens, getAddSubmenuPanel, getButto
                 className={linkStyle}
             >
                 {title}
+                <PositionControlContainer
+                    itemID={ID}
+                    itemName="menu"
+                />
                 <div className={styles.btnPanel}>
                     {getButtonsPanel()}
                 </div>
