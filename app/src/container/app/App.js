@@ -22,7 +22,6 @@ class App extends Component {
 
         const cookieUser = myCookieUser.get();
 
-        console.log(myCookieUser.get())
         if (cookieUser) a_set_login(true);
     }
 
