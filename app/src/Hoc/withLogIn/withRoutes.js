@@ -32,21 +32,23 @@ export const withRoutes = WrappedComponent => {
                 />
             )
 
-            const home_router = (
-                <Route
-                    exact
-                    path='/'
-                    render={() => <PageContainer ID_MENU={menuList[0].ID} titlePage={menuList[0].title} />}
-                    key={1}
-                />
-            )
-
             const settings_router = (
                 <Route
                     exact
                     path='/settings'
                     render={() => <SettingsListContainerWithLogin />}
                     key={2}
+                />
+            )
+
+            if (!menuList.length) return <Switch>{[first_route, settings_router]}</Switch>
+
+            const home_router = (
+                <Route
+                    exact
+                    path='/'
+                    render={() => <PageContainer ID_MENU={menuList[0].ID} titlePage={menuList[0].title} />}
+                    key={1}
                 />
             )
 
