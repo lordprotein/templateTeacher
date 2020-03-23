@@ -45,7 +45,6 @@ class PositionControlItemContainer extends Component {
 
     _getNearbyPost = () => {
         const { direction, itemList, itemID, updateList, downloadToSever } = this.props;
-        // console.log(itemList)
 
         const numCurrentItem = itemList.findIndex(item => item.ID === itemID);
 
@@ -62,7 +61,6 @@ class PositionControlItemContainer extends Component {
                     numSwitchItem -= 1;
                     if (numSwitchItem === 0 || currItemPosition !== itemList[numSwitchItem].position) return console.log('no');
                 } while (currItemSubmenu !== itemList[numSwitchItem].submenu)
-                console.log(numCurrentItem, numSwitchItem)
             }
             else {
                 numSwitchItem -= 1;
@@ -86,10 +84,6 @@ class PositionControlItemContainer extends Component {
             }
         }
 
-        // console.log(numCurrentItem, numSwitchItem);
-
-
-
         const data = {
             current: {
                 sequence: itemList[numCurrentItem].sequence,
@@ -103,10 +97,7 @@ class PositionControlItemContainer extends Component {
 
         downloadToSever(data)
             .then(
-                (res) => {
-                    console.log(res)
-                    updateList({ numCurrentItem, numSwitchItem })
-                },
+                (res) => updateList({ numCurrentItem, numSwitchItem }),
                 (err) => console.log(err)
             );
     }

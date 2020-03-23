@@ -17,12 +17,5 @@ class SettingsListContainer extends Component {
     }
 }
 
-const mapStateToProps = state => {
 
-}
-
-const mapDispatchToProps = dispatch => {
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsListContainer);
+export default connect()(SettingsListContainer);

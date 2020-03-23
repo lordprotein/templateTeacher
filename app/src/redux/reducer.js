@@ -45,7 +45,6 @@ const reducer = (state = initState, action = {}) => {
         case 'TO_SEQUENCE_POST_LIST': {
             const { api, api: { postList } } = state;
             const { numCurrentItem, numSwitchItem } = action.value;
-            console.log(numCurrentItem, numSwitchItem);
             const newPostList = [...postList];
 
             newPostList[numCurrentItem] = {

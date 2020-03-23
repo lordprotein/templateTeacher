@@ -17,11 +17,8 @@ class SettingsNameSiteContainer extends Component {
             name: 'site_name',
             value: name
         }
-        console.log('--- ' + this.props.siteName)
         db.updateSettings(data)
-            .then(() => {
-                a_setSettingsSiteName(name);
-            })
+            .then(() => a_setSettingsSiteName(name));
 
     }
 
@@ -30,7 +27,6 @@ class SettingsNameSiteContainer extends Component {
     }
 
     render() {
-        console.log(this.props.siteName)
         const { siteName } = this.props;
         return (
             <SettingsNameSite

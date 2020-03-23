@@ -29,13 +29,10 @@ class SettingsColorContainer extends Component {
     }
 }
 
-const mapStateToProps = state => {
-
-}
 
 const mapDispatchToProps = dispatch => {
     const { a_setSettingsColor } = bindActionCreators(actions, dispatch);
     return { a_setSettingsColor };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsColorContainer);
+export default connect(null, mapDispatchToProps)(SettingsColorContainer);

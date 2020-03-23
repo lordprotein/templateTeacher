@@ -1,7 +1,6 @@
 import React from 'react';
 
 const SettingsNameSite = ({ setName, handleInput, siteName }) => {
-    console.log(siteName)
     return (
         <>
             <h2>Название сайта</h2>

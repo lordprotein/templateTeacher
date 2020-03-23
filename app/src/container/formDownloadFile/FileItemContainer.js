@@ -68,7 +68,6 @@ class FileItemContainer extends Component {
 
     handleRadio = value => {
         this.radioImg = value;
-        console.log(this.radioImg);
     }
 
     render() {

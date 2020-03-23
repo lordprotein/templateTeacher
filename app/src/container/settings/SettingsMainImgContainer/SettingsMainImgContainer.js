@@ -35,13 +35,10 @@ class SettingsMainImgContainer extends Component {
     }
 }
 
-const mapStateToProps = state => {
-
-}
 
 const mapDispatchToProps = dispatch => {
     const { a_setSettingsMainImg } = bindActionCreators(actions, dispatch);
     return { a_setSettingsMainImg };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsMainImgContainer);
+export default connect(null, mapDispatchToProps)(SettingsMainImgContainer);

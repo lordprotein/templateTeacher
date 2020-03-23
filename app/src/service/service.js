@@ -93,7 +93,7 @@ export default class dbService {
 
                     return resolve(xhr.response);
                 }
-                // console.log(data)
+                
             xhr.open('POST', `${this.domain}${url}`);
             xhr.send(formData);
         });
