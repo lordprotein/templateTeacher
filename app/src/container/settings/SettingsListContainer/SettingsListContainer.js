@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import SettingsList from '../../../component/settings/SettingsList/SettingsList';
 import SettingsMainImgContainer from '../SettingsMainImgContainer/SettingsMainImgContainer';
-import SettingsColorContainer from '../SettingsColorContainer/SettingsColorContainer';
 import SettingsNameSiteContainer from '../SettingsNameSiteContainer/SettingsNameSiteContainer';
 import { connect } from 'react-redux';
+// import SettingsColorContainer from '../SettingsColorContainer/SettingsColorContainer';
 
 class SettingsListContainer extends Component {
     render() {
@@ -11,7 +11,7 @@ class SettingsListContainer extends Component {
             <SettingsList>
                 <SettingsNameSiteContainer />
                 <SettingsMainImgContainer />
-                <SettingsColorContainer />
+                {/* <SettingsColorContainer /> */}
             </SettingsList>
         );
     }
