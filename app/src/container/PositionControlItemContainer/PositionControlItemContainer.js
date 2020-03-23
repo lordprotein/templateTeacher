@@ -47,7 +47,7 @@ class PositionControlItemContainer extends Component {
         const { direction, itemList, itemID, updateList, downloadToSever } = this.props;
 
         const numCurrentItem = itemList.findIndex(item => item.ID === itemID);
-        
+
         let numSwitchItem = numCurrentItem;
         const isCheckSubmenu = itemList[0].submenu,
             currItemSubmenu = itemList[numCurrentItem].submenu,
@@ -75,8 +75,6 @@ class PositionControlItemContainer extends Component {
                     numSwitchItem += 1;
                     if (numSwitchItem === itemList.length || currItemPosition !== itemList[numSwitchItem].position) return console.log('no');
                 } while (currItemSubmenu !== itemList[numSwitchItem].submenu);
-
-                console.log(numCurrentItem, numSwitchItem)
             }
             else {
                 numSwitchItem += 1;
