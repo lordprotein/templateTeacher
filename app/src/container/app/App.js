@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Sidebar from '../../component/Sidebar/Sidebar';
+import Sidebar from '../../component/sidebar/Sidebar';
 import { selectors } from '../../redux/reducer';
 import { PageListWithRoutes } from '../../component/page/PageList/PageList';
 import styles from './App.module.css';
