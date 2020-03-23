@@ -4,6 +4,8 @@ import LogInContainer from '../../container/LogIn/LogInContainer';
 import { store } from '../../redux/store';
 import PageContainer from '../../container/page/PageContainer';
 import SettingsListContainer from '../../container/settings/SettingsListContainer/SettingsListContainer';
+import { withLogIn } from './withLogIn';
+const SettingsListContainerWithLogin = withLogIn(SettingsListContainer);
 
 
 export const withRoutes = WrappedComponent => {
@@ -21,8 +23,6 @@ export const withRoutes = WrappedComponent => {
 
         getRoutes = () => {
             const { menuList } = this.state;
-
-            if (!menuList.length) return false;
 
             const first_route = (
                 <Route
@@ -45,7 +45,7 @@ export const withRoutes = WrappedComponent => {
                 <Route
                     exact
                     path='/settings'
-                    render={() => <SettingsListContainer />}
+                    render={() => <SettingsListContainerWithLogin />}
                     key={2}
                 />
             )
