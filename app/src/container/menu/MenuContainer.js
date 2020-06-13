@@ -122,12 +122,13 @@ class MenuContainer extends Component {
         });
     }
 
-    logOut = () => {
+    logOut = (history) => {
         const { a_set_login } = this.props;
         const check = window.confirm('Вы уверены, что хотите выйти?');
 
         if (!check) return;
 
+        history.push('/login');
         myCookieUser.remove();
         a_set_login(false);
     }

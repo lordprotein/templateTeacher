@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../redux/actions';
 import dbService from '../../service/service';
 import { LogIn } from '../../component/LogIn/LogIn';
-import {  myCookieUser } from '../../service/myCookie';
+import { myCookieUser } from '../../service/myCookie';
 
 
 
@@ -23,7 +23,7 @@ class LogInContainer extends Component {
         return this.password = e.target.value;
     }
 
-    handleSend = e => {
+    handleSend = (e, history) => {
         e.preventDefault();
 
         const { login, password } = this,
@@ -34,9 +34,10 @@ class LogInContainer extends Component {
         db.loginAuthorization(data)
             .then(({ ID }) => {
                 if (!ID) return console.log('Haven\'t this user');
-                
+
                 myCookieUser.set(ID);
-                return this.props.a_set_login(true)
+                this.props.a_set_login(true);
+                history.push('/');
 
             }, err => console.log(err));
     }
@@ -44,9 +45,9 @@ class LogInContainer extends Component {
     render() {
         return (
             <LogIn
-                onChangeInputLogin={e => this.onChangeInputLogin(e)}
-                onChangeInputPassword={e => this.onChangeInputPassword(e)}
-                handleSend={e => this.handleSend(e)}
+                onChangeInputLogin={this.onChangeInputLogin}
+                onChangeInputPassword={this.onChangeInputPassword}
+                handleSend={this.handleSend}
             />
         );
     }

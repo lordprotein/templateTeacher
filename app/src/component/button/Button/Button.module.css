@@ -10,10 +10,6 @@
     transition   : background-color 0.1s;
 }
 
-.btn:focus {
-    box-shadow: -4px 4px 6px #db4848;
-}
-
 .btn:hover {
     background-color: #db4848;
     transition      : background-color 0.1s;
