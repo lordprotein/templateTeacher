@@ -19,10 +19,13 @@ export const MenuItem = ({ menuItemData, childrens, getAddSubmenuPanel, getButto
                 className={linkStyle}
             >
                 {title}
+                <div className={styles.navBtnCenter}>
                 <PositionControlContainer
                     itemID={ID}
                     itemName="menu"
                 />
+                </div>
+                
                 <div className={styles.btnPanel}>
                     {getButtonsPanel()}
                 </div>

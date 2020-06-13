@@ -21,6 +21,7 @@
 }
 
 .title {
+    margin: 0 20px;
     /* font-family   : Montserrat; */
     font-style       : normal;
     font-weight      : 500;

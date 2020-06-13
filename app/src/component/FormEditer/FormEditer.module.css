@@ -5,7 +5,7 @@
     margin        : 40px 0 90px 0;
     border        : 1px dashed #cec9da;
     padding       : 20px;
-    background    : #fdfcff;
+    background    : #f3f3f3;
     overflow      : hidden;
 }
 
@@ -29,12 +29,14 @@
     border       : 1px solid #C9C9C9;
     border-radius: 3px;
     color        : #232323;
+    outline-color: #cc3f3f;
 }
 
 .contentInput {
     max-width : 100%;
     min-width : 100%;
     min-height: 350px;
+    line-height: 180%;
 }
 
 .btnWrap {

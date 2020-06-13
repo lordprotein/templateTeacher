@@ -45,12 +45,12 @@
     border    : 1px solid #C9C9C9;
     width     : 45px;
     height    : 35px;
-    background: #6750A4 center/45% no-repeat;
+    background: #f16464 center/45% no-repeat;
     cursor    : pointer;
 }
 
 .panel button:hover {
-    background-color: rgb(133, 106, 207);
+    background-color: #cc3f3f;
 }
 
 .panel_bold {

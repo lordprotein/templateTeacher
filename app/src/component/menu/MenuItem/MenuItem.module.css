@@ -64,6 +64,7 @@
     /* max-width   : 200px; */
     /* min-width   : 200px; */
     border         : none;
+    background: transparent;
 }
 
 .link_line:hover {
@@ -99,4 +100,14 @@
 .btnPanel {
     min-width: 90px;
     max-width: 90px;
+}
+
+.navBtnCenter {
+    flex-grow: 1;
+    align-items: flex-end;
+}
+
+.navBtnCenter > * {
+    align-items: flex-end;
+
 }
