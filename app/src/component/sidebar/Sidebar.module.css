@@ -1,7 +1,5 @@
 .sidebar {
-    /* position  : fixed; */
     width : 300px;
     min-height: 100vh;
-    /* background: #F8F7FF; */
-
+    margin-right: 30px;
 }

@@ -10,6 +10,7 @@ import { ButtonWithLogIn } from '../../component/button/Button/Button';
 import { MenuEditer } from '../../component/menu/MenuEditer/MenuEditer';
 import linker from '../../service/linker';
 import { myCookieUser } from '../../service/myCookie';
+import { Link } from 'react-router-dom';
 
 
 class MenuContainer extends Component {
@@ -122,13 +123,12 @@ class MenuContainer extends Component {
         });
     }
 
-    logOut = (history) => {
+    logOut = () => {
         const { a_set_login } = this.props;
         const check = window.confirm('Вы уверены, что хотите выйти?');
 
         if (!check) return;
 
-        history.push('/login');
         myCookieUser.remove();
         a_set_login(false);
     }
@@ -139,10 +139,12 @@ class MenuContainer extends Component {
         const { position } = this.props;
 
         const btnLogOut = (
-            <ButtonWithLogIn
-                title="Выйти"
-                onClick={this.logOut}
-            />
+            <Link to='/login'>
+                <ButtonWithLogIn
+                    title="Выйти"
+                    onClick={this.logOut}
+                />
+            </Link>
         )
 
         return (
