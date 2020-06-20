@@ -7,7 +7,7 @@ const Login = () => {
 Login.authorization = (body, result) => {
     const { login, password } = body;
 
-    db.query('SELECT * FROM users WHERE login=? AND password=?', [login, password], (err, user) => {
+    db.query('SELECT * FROM users WHERE login=? AND password=MD5(?)', [login, password], (err, user) => {
         if (err) {
             return result(err, null);
         }
